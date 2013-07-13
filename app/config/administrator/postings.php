@@ -13,13 +13,21 @@ return array(
 				),
 			'title' => array('title' => 'Title'),
 			'area' => array('title' => 'Area'),
-			//'category' => array('title' => 'Category'),
+			'category' => array(
+				'title' => 'Category',
+				'relationship' => 'category',
+				'select' => '(:table).name'
+				),
+			'content' => array('title' => 'Content'),
 			),
 		'edit_fields' 	=> array(
 			'id',
-			//'user',
 			'title',
 			'area',
-			//'category',
+			'category' => array(
+					'type' => 'relationship',
+					'name_field' => 'name'
+				),
+			'content' => array('type' => 'textarea'),
 			),
 	);

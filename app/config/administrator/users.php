@@ -18,6 +18,9 @@ return array(
 			'email',
 			'first_name',
 			'last_name',
-			'activated',
+			'activated' => array(
+				'title' => 'Activated',
+				'type' => 'bool',
+				),
 			),
 	);

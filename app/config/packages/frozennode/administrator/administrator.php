@@ -51,7 +51,7 @@ return array(
 	'menu' => array(
 		'users',
 		'postings',
-		//'categories',
+		'categories',
 		),
 
 	/**
