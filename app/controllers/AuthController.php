@@ -8,7 +8,8 @@ class AuthController extends BaseController {
 	{
 		$validator = Validator::make(Input::all(),
 			array('email' => 'required',
-				'password' => 'required')
+				'password' => 'required'
+				)
 		);
 
 		if ($validator->fails())
@@ -24,7 +25,7 @@ class AuthController extends BaseController {
 			);
 
 			$user = Sentry::authenticate($credentials, false);
-			return Redirect::to('/');
+			return Redirect::to(Session::get('redirect', '/'));
 		}
 		catch (LoginRequiredException $e)
 		{
@@ -36,21 +37,28 @@ class AuthController extends BaseController {
 		}
 		catch (WrongPasswordException $e)
 		{
-			echo 'Wrong password, try again.';
+			return Redirect::to('auth/login')->withErrors($e);
 		}
 		catch (UserNotFoundException $e)
 		{
-			echo 'User was not found.';
+			return Redirect::to('auth/login')->withErrors($e);
 		}
 		catch (UserNotActivatedException $e)
 		{
-			echo 'User is not activated.';
+			return Redirect::to('auth/login')->withErrors($e);
 		}
 	}
 
 	public function getLogin()
 	{
 		$data = array();
+		Session::keep('redirect');
 		return View::make('login')->with($data);
+	}
+
+	public function getLogout()
+	{
+		Sentry::logout();
+		return Redirect::to('/');
 	}
 }

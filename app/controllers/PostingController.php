@@ -11,7 +11,7 @@ class PostingController extends Controller {
 
 	public function newPost()
 	{
-		# code...
+		return View::make('newPost');
 	}
 
 }

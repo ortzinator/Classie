@@ -66,7 +66,7 @@ $is_admin = Sentry::check() && Sentry::getUser()->inGroup($admin);
 								@if($is_admin)
 									<li>{{ link_to('admin', 'admin') }}</li>
 								@endif
-								<li>{{ link_to('logout', 'log out') }}</li>
+								<li>{{ link_to('auth/logout', 'log out') }}</li>
 							</ul>
 						</li>
 					@else

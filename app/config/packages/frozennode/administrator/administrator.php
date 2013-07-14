@@ -62,8 +62,9 @@ return array(
 	 */
 	'permission'=> function()
 	{
-		//return Sentry::check();
-		return TRUE;
+		$admin_group = Sentry::getGroupProvider()->findByName('Admin');
+		return Sentry::check() && Sentry::getUser()->inGroup($admin_group);
+		//return TRUE;
 	},
 
 	/**
@@ -86,7 +87,7 @@ return array(
 	 *
 	 * @type string
 	 */
-	'home_page' => 'users',
+	'home_page' => 'postings',
 
 	/**
 	 * The login path is the path where Administrator will send the user if they fail a permission check
