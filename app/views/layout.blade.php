@@ -57,7 +57,7 @@ $is_admin = Sentry::check() && Sentry::getUser()->inGroup($admin);
 					@if(Sentry::check())
 						<li>
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<i class="icon-user icon-white"></i>
+								<i class="icon-user"></i>
 								{{{ Sentry::getUser()->username }}}
 								<b class="caret"></b>
 							</a>

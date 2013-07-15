@@ -33,9 +33,12 @@ App::after(function($request, $response)
 |
 */
 
-Route::filter('auth', function()
+Route::filter('auth', function($route, $request)
 {
-	if (Auth::guest()) return Redirect::guest('login');
+	if (!Sentry::check()){
+		Session::flash('redirect', $request->path());
+		return Redirect::to('auth/login');
+	}
 });
 
 

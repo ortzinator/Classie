@@ -4,10 +4,6 @@
 
 {{ Form::open(array('url' => 'auth/login')) }}
 
-@if($errors->any())
-<?php dd($errors->all()) ?>
-@endif
-
 <fieldset>
 	<legend>Log in</legend>
 	@if ($errors->any())
