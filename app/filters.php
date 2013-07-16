@@ -41,6 +41,14 @@ Route::filter('auth', function($route, $request)
 	}
 });
 
+Route::filter('admin', function($route, $request)
+{
+	$admin_group = Sentry::getGroupProvider()->findByName('Admin');
+	if(Sentry::check() && Sentry::getUser()->inGroup($admin_group)){
+		Session::flash('redirect', $request->path());
+		return Redirect::to('auth/login');
+	}
+});
 
 Route::filter('auth.basic', function()
 {
