@@ -1,0 +1,27 @@
+
+<?php $__env->startSection('content'); ?>
+
+<div id="welcome" class="hero-unit">
+	<h1><?php echo e(Config::get('classie.site_title')); ?></h1>
+	<?php if(Sentry::check()): ?>
+		<h4><?php echo e(Config::get('classie.site_description_short')); ?></h4>
+	<?php else: ?>
+		<p><?php echo e(Config::get('classie.site_description_long')); ?></p>
+		<p><?php echo link_to('about', 'Learn more »', array('class'=>'btn primary large')); ?></p>
+	<?php endif; ?>
+</div>
+<h3>Recent Listings:</h3>
+
+<table class="table result table-striped">
+	<tr><th>Title</th><th>Area</th><th>Category</th></tr>
+	<?php foreach ($recent as $row): ?>
+		<tr>
+			<td><?php echo link_to_route('posting', $row->title, array($row->id)); ?></td>
+			<td><?php echo e($row->area); ?></td>
+			<td><?php echo e($row->category->name); ?></td>
+		</tr>
+	<?php endforeach; ?>
+</table>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

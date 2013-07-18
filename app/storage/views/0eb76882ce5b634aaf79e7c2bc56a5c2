@@ -1,0 +1,100 @@
+<?php
+$admin = Sentry::getGroupProvider()->findByName('Admin');
+$is_admin = Sentry::check() && Sentry::getUser()->inGroup($admin);
+?>
+<!DOCTYPE html>
+<html>
+<head>
+<title>
+	<?php echo e(Config::get('classie.site_title')); ?> 
+	<?php if(isset($title)): ?>
+		<?php echo e(' - ' . $title); ?> 
+	<?php endif; ?>
+</title>
+<link rel="stylesheet/less" type="text/css" href="<?php echo asset('css/bootstrap/bootstrap.less'); ?>" />
+<link rel="stylesheet/less" type="text/css" href="<?php echo asset('css/main.less'); ?>" />
+<link rel="stylesheet/less" type="text/css" href="<?php echo asset('css/markitup.less'); ?>" />
+<script src="<?php echo asset('js/less-1.4.1.min.js'); ?>"></script>
+<style type="text/css">
+	div#welcome {
+		background-image: url(<?php echo asset('images/fay.jpg'); ?>);
+	}
+</style>
+</head>
+
+<body>
+	<div id="topper" class="navbar" data-dropdown="dropdown">
+		<div class="navbar-inner">
+			<div class="container">
+
+				<?php echo link_to_route('home', Config::get('classie.site_title'), 
+					NULL, array('class' => 'brand')); ?>
+
+				<ul class="nav">
+					<?php if(Sentry::check()): ?>
+						<li><?php echo link_to('post', 'post classified', 'class="highlight"');; ?></li>
+					<?php endif; ?>
+					<li><?php echo link_to('about', 'about');; ?></li>
+					<li class="dropdown">
+						<a class="dropdown-toggle" href="#" data-toggle="dropdown">
+							categories <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+							<?php foreach($categories as $row): ?>
+								<li><?php echo link_to_route('category', $row->name, 
+									array($row->id, rawurlencode($row->short_name))); ?></li>
+							<?php endforeach; ?>
+						</ul>
+					</li>
+				</ul>
+
+				<?php echo Form::open(array('url' => 'classifieds/search_form', 
+					'class' => 'navbar-search')); ?>
+				<input name="query" type="text" placeholder="search" class="search-query">
+				<?php echo Form::close(); ?>
+
+				<ul class="nav pull-right">
+					<?php if(Sentry::check()): ?>
+						<li>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<i class="icon-user"></i>
+								<?php echo e(Sentry::getUser()->username); ?>
+								<b class="caret"></b>
+							</a>
+							<ul class="dropdown-menu">
+								<li><?php echo link_to('settings', 'settings'); ?></li>
+								<?php if($is_admin): ?>
+									<li><?php echo link_to('admin', 'admin'); ?></li>
+								<?php endif; ?>
+								<li><?php echo link_to('auth/logout', 'log out'); ?></li>
+							</ul>
+						</li>
+					<?php else: ?>
+						<li><?php echo link_to('auth/login', 'log in'); ?></li>
+						<li><?php echo link_to('auth/register', 'register'); ?></li>
+					<?php endif; ?>
+				</ul>
+
+				</div>
+			</div>
+		</div>
+	<div id="wrapper" class="container">
+		<noscript>
+			<div class="alert alert-error">
+				Javascript is disabled. This site will not function correctly.
+			</div>
+		</noscript>
+		<div id="content">
+			<?php echo $__env->yieldContent('content'); ?>
+		</div>
+	</div>
+	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+	<script src="<?php echo asset('js/bootstrap-dropdown.js'); ?>"></script>
+	<script src="<?php echo asset('js/bootstrap-tooltip.js'); ?>"></script>
+	<script src="<?php echo asset('js/markitup/set.markitup.js'); ?>"></script>
+	<script src="<?php echo asset('js/markitup/jquery.markitup.js'); ?>"></script>
+	<script src="<?php echo asset('js/Markdown.Converter.js'); ?>"></script>
+	<script src="<?php echo asset('js/classie.js'); ?>"></script>
+</body>
+</html>
