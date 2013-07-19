@@ -32,7 +32,7 @@ $is_admin = Sentry::check() && Sentry::getUser()->inGroup($admin);
 
 				<ul class="nav">
 					@if(Sentry::check())
-						<li>{{ link_to('post', 'post classified', 'class="highlight"'); }}</li>
+						<li>{{ link_to('post', 'post classified', array('class' => 'highlight')) }}</li>
 					@endif
 					<li>{{ link_to('about', 'about'); }}</li>
 					<li class="dropdown">

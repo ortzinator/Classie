@@ -1,6 +1,8 @@
 <?php
 
 class Posting extends Eloquent {
+
+	protected $guarded = array('id');
 	
 	public function category()
 	{

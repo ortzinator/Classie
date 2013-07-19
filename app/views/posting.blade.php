@@ -2,14 +2,16 @@
 
 @section('content')
 
-<?php $user_is_poster = Sentry::check() && $fied->user->id == Sentry::getUser()->id; ?>
+<?php 
+$poster = $fied->user()->first();
+$user_is_poster = Sentry::check() && $poster->id == Sentry::getUser()->id; ?>
 <div class="page-header">
 	<h2>{{{ $fied->title }}}</h2>
 </div>
 <div class="row">
 	<div class="span8">
 		<div id="classified">
-			{{ strip_tags($fied->content) }}
+			{{{ strip_tags($fied->content) }}}
 		</div>
 		<hr>
 		<h3>Questions:</h3>
@@ -52,7 +54,7 @@
 	<div class="span4">
 		<h3>Seller info:</h3>
 
-		<p>{{ link_to_route('userProfile', $fied->user->name, array($fied->user->id)) }}</p>
+		<p>{{ link_to_route('userProfile', $poster->username, array($poster->id)) }}</p>
 		<p>Area: {{{ $fied->area }}}</p>
 		<p>Date posted: {{ $fied->created_at->format('m/d/y g:i A') }}</p>
 	</div>
