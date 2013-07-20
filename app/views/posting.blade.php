@@ -14,7 +14,7 @@ $user_is_poster = Sentry::check() && $poster->id == Sentry::getUser()->id; ?>
 			{{{ strip_tags($fied->content) }}}
 		</div>
 		<hr>
-		<h3>Questions:</h3>
+		<h4>Questions:</h4>
 		@if(!$fied->questions)
 		<div class="alert alert-info">No questions asked yet.</div>
 		@else
@@ -52,7 +52,7 @@ $user_is_poster = Sentry::check() && $poster->id == Sentry::getUser()->id; ?>
 		{{ Form::close() }}
 	</div>
 	<div class="span4">
-		<h3>Seller info:</h3>
+		<h4>Seller info:</h4>
 
 		<p>{{ link_to_route('userProfile', $poster->username, array($poster->id)) }}</p>
 		<p>Area: {{{ $fied->area }}}</p>
