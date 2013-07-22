@@ -306,21 +306,20 @@
 			//else we will try to parse the number using the user-supplied thousands and decimal separators
 			else
 			{
-				floatVal = value.toString().split(options.thousandsSeparator).join('').split(options.decimalSeparator).join('.');
+				floatVal = parseFloat(value.toString().trim().split(options.thousandsSeparator).join('').split(options.decimalSeparator).join('.'));
 			}
 
 			//if the value is not a number, set the value equal to ''
 			if (isNaN(floatVal))
 			{
-				if (value !== '')
-				{
-					//if this is an uneditable field, set the text
-					if ($element.hasClass('uneditable'))
-						$element.text('');
-					//otherwise we know it's an input
-					else
-						$element.val('');
-				}
+				allBindingsAccessor().value(null);
+
+				//if this is an uneditable field, set the text
+				if ($element.hasClass('uneditable'))
+					$element.text('');
+				//otherwise we know it's an input
+				else
+					$element.val('');
 			}
 			//else set up the value up using the accounting library with the user-supplied separators
 			else
@@ -521,28 +520,30 @@
 		}
 	};
 
+	var editors = {};
+
 	/**
 	 * The wysiwyg binding makes the field a ckeditor wysiwyg
 	 */
 	ko.bindingHandlers.wysiwyg = {
 		init: function (element, valueAccessor, allBindingsAccessor, context)
 		{
-			var value = ko.utils.unwrapObservable(valueAccessor()),
-				$element = $(element);
+			var options = valueAccessor(),
+				value = ko.utils.unwrapObservable(options.value),
+				$element = $(element),
+				editor;
 
 			value = value ? value : '';
 
 			$element.html(value);
-			$element.ckeditor({ language : language });
 
-			var editor = $element.ckeditorGet();
-
-			//wire up the blur event to ensure our observable is properly updated
-			editor.focusManager.blur = function()
+			if (options.id in editors)
+				editor = editors[options.id];
+			else
 			{
-				var observable = valueAccessor();
-
-				observable($element.val());
+				$element.ckeditor({ language : language });
+				editor = $element.ckeditorGet();
+				editors[options.id] = editor;
 			}
 
 			//when the editor is loaded, we want to resize our page
@@ -552,16 +553,34 @@
 				{
 					window.admin.resizePage();
 				}, 50)
-			})
+			});
 
-			editor.setData(value);
+			//wire up the blur event to ensure our observable is properly updated
+			editor.focusManager.blur = function()
+			{
+				var observable = valueAccessor().value;
+
+				observable($('#' + options.id).val());
+			}
+
+			//handle destroying an editor (based on what jQuery plugin does)
+	        ko.utils.domNodeDisposal.addDisposeCallback(element, function (test) {
+	            var editor = editors[options.id];
+
+	            if (editor)
+	        	{
+		        	editor.destroy();
+		        	delete editors[options.id];
+	        	}
+	        });
 		},
 		update: function (element, valueAccessor, allBindingsAccessor, context)
 		{
 			//handle programmatic updates to the observable
-			var value = ko.utils.unwrapObservable(valueAccessor()),
+			var options = valueAccessor(),
+				value = ko.utils.unwrapObservable(options.value),
 				$element = $(element),
-				editor = $element.ckeditorGet();
+				editor = editors[options.id];
 
 			value = value ? value : '';
 
@@ -580,7 +599,6 @@
 					editor.setData(value);
 				}, 50);
 			}
-
 		}
 	};
 
@@ -663,7 +681,7 @@
 					viewModel[options.field](data.filename);
 				} else {
 					//error
-					alert(data.errors.messages.file[0]);
+					alert(data.errors);
 				}
 
 				setTimeout(function()

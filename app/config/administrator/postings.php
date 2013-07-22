@@ -1,10 +1,11 @@
 <?php
 
 return array(
-		'title'			=>	'Postings',
-		'single'		=>	'posting',
-		'model'			=>	'Posting',
-		'columns' 		=> 	array(
+		'title'			=> 'Postings',
+		'single'		=> 'posting',
+		'model'			=> 'Posting',
+		'form_width'	=> '800',
+		'columns' 		=> array(
 			'id' => array('title' => 'Id'),
 			'user' => array(
 				'title' => 'User',
@@ -28,6 +29,6 @@ return array(
 					'type' => 'relationship',
 					'name_field' => 'name'
 				),
-			'content' => array('type' => 'textarea'),
+			'content' => array('type' => 'markdown', 'height' => '200'),
 			),
 	);

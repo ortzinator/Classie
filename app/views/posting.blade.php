@@ -11,7 +11,7 @@ $user_is_poster = Sentry::check() && $poster->id == Sentry::getUser()->id; ?>
 <div class="row">
 	<div class="span8">
 		<div id="classified">
-			{{{ strip_tags($fied->content) }}}
+			{{ Markdown::string($fied->content) }}
 		</div>
 		<hr>
 		<h4>Questions:</h4>

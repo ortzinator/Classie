@@ -94,7 +94,7 @@ $is_admin = Sentry::check() && Sentry::getUser()->inGroup($admin);
 	<script src="{{ asset('js/bootstrap-tooltip.js') }}"></script>
 	<script src="{{ asset('js/markitup/set.markitup.js') }}"></script>
 	<script src="{{ asset('js/markitup/jquery.markitup.js') }}"></script>
-	<script src="{{ asset('js/Markdown.Converter.js') }}"></script>
+	<script src="{{ asset('js/markdown.js') }}"></script>
 	<script src="{{ asset('js/classie.js') }}"></script>
 </body>
 </html>

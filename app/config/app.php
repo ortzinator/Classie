@@ -116,6 +116,7 @@ return array(
 		'Way\Generators\GeneratorsServiceProvider',
 		'Cartalyst\Sentry\SentryServiceProvider',
 		'Frozennode\Administrator\AdministratorServiceProvider',
+		'VTalbot\Markdown\MarkdownServiceProvider',
 	),
 
 	/*
@@ -181,6 +182,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Sentry' => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
+		'Markdown' => 'VTalbot\Markdown\Facades\Markdown',
 	),
 
 );
