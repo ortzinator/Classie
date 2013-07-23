@@ -52,6 +52,7 @@ return array(
 		'users',
 		'postings',
 		'categories',
+		'pages',
 		),
 
 	/**

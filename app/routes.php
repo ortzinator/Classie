@@ -24,6 +24,8 @@ Route::post('do_post', array('as' => 'doPost', 'uses' => 'PostingController@doPo
 
 Route::controller('auth', 'AuthController');
 
+Route::get('pages/{page}', 'PagesController@cms');
+
 Route::get('users', array('as' => 'users', function()
 {
 	$users = User::all();

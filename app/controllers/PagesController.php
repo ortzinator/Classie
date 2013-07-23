@@ -28,7 +28,13 @@ class PagesController extends BaseController {
 
 	public function category($id, $name = '')
 	{
-		return View::make('category')->with(array('category' => Category::find($id)));
+		return View::make('category')->with('category', Category::find($id));
+	}
+
+	public function cms($name)
+	{
+		$page = Page::where('name', $name)->first();
+		return View::make('page')->with('page', $page);
 	}
 
 }

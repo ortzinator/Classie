@@ -13,7 +13,6 @@ return array(
 			'activated' => array('title' => 'Activated'),
 			),
 		'edit_fields' 	=> array(
-			'id',
 			'username',
 			'email',
 			'first_name',

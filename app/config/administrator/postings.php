@@ -22,7 +22,6 @@ return array(
 			'content' => array('title' => 'Content'),
 			),
 		'edit_fields' 	=> array(
-			'id',
 			'title',
 			'area',
 			'category' => array(

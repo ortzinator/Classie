@@ -10,7 +10,6 @@ return array(
 			'short_name' => array('title' => 'Short Name'),
 			),
 		'edit_fields' 	=> array(
-			'id',
 			'name',
 			'short_name',
 			),
