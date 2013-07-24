@@ -4,4 +4,3 @@ composer.phar
 composer.lock
 .DS_Store
 classie.sublime-workspace
-/app/database/production.sqlite
