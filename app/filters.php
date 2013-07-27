@@ -93,5 +93,6 @@ Route::filter('csrf', function()
 View::composer(array('layout'), function($view)
 {
     $view->with('categories', Category::all());
+    $view->with('pages', Page::orderBy('order')->get());
 
 });

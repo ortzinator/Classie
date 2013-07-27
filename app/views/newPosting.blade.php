@@ -6,7 +6,7 @@
 	<h1>Post a classified</h1>
 </div>
 
-{{ ($errors->any()) ? '' : '' }}
+{{ ($errors->any()) ? '<div>error!</div>' : '' }}
 {{ Form::model(Input::old(), array('url' => 'do_post', 'class' => '')) }}
 	<div class="control-group{{ ($errors->has('title')) ? ' error' : '' }}">
 		{{ Form::label('title', 'Title:') }}

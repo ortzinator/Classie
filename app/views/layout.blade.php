@@ -34,7 +34,10 @@ $is_admin = Sentry::check() && Sentry::getUser()->inGroup($admin);
 					@if(Sentry::check())
 						<li>{{ link_to('post', 'post classified', array('class' => 'highlight')) }}</li>
 					@endif
-					<li>{{ link_to('pages/about', 'about'); }}</li>
+					
+					@foreach($pages as $page)
+						<li>{{ link_to('pages/' . $page->name, $page->name); }}</li>
+					@endforeach
 					<li class="dropdown">
 						<a class="dropdown-toggle" href="#" data-toggle="dropdown">
 							categories <b class="caret"></b>
