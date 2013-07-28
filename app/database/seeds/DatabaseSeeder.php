@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder {
 		$this->call('PostingsSeeder');
 		$this->call('ProfilesSeeder');
 		$this->call('PagesSeeder');
+		$this->call('QuestionsSeeder');
 	}
 
 }
@@ -86,6 +87,15 @@ class SentrySeeder extends Seeder {
 			'activated'   => 1,
 			'username'    => 'JClane',
 		));
+
+		Sentry::getUserProvider()->create(array(
+			'email'       => 'test1@test.com',
+			'password'    => 'test',
+			'first_name'  => 'Jerry',
+			'last_name'   => 'Seinfeld',
+			'activated'   => 1,
+			'username'    => 'JFeld',
+		));
  
 		Sentry::getGroupProvider()->create(array(
 			'name'        => 'Admin',
@@ -139,3 +149,28 @@ Classie is open-source software licensed under the [MIT license](http://opensour
 	}
 }
 
+class QuestionsSeeder extends Seeder
+{
+	
+	function run()
+	{
+		DB::table('questions')->delete();
+
+		$posting = Posting::first();
+		$asker = Sentry::getUserProvider()->findByLogin('test1@test.com');
+
+		$question = Question::create(array(
+			'user_id' => $asker->id,
+			'parent_id' => '0',
+			'posting_id' => $posting->id,
+			'content' => 'How big is it?'
+			));
+
+		$answer = Question::create(array(
+			'user_id' => $posting->user_id,
+			'parent_id' => $question->id,
+			'posting_id' => $posting->id,
+			'content' => 'It\'s REALLY BIG DUDE'
+			));
+	}
+}

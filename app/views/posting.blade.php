@@ -13,42 +13,52 @@ $user_is_poster = Sentry::check() && $poster->id == Sentry::getUser()->id; ?>
 		<div id="classified">
 			{{ Markdown::string($fied->content) }}
 		</div>
+
 		<hr>
+
 		<h4>Questions:</h4>
-		@if(!$fied->questions)
+		@if(sizeof($questions) < 1)
 		<div class="alert alert-info">No questions asked yet.</div>
 		@else
-			@foreach($fied->questions as $q)
+			@foreach($questions as $q)
 				<div class="comment">
-					<h4 class="author">{{ $q->user->username }}</h4>
-					<div class="comment-content">{{ nl2br(htmlspecialchars($q->content)) }}</div>
-					@if(count($q->children) < 1 && $user_is_poster)
-						<p>Post answer</p>
-					@else
-						@foreach($q->children as $a)
-							<div class="comment reply">
-								<h4 class="author">{{ $a->user->username }}</h4>
-								<div class="comment-content">{{ $a->content }}</div>
-							</div>
-						@endforeach
-					@endif
+					<div class="comment-content">
+						<h4 class="author">{{ $q->user()->first()->username }}</h4>
+						{{ Markdown::string($q->content) }}
+
+						@if(count($q->children()) < 1 && $user_is_poster)
+							<p>Post answer</p>
+						@else
+							@foreach($q->children()->get() as $a)
+								<div class="comment">
+									<div class="comment-content">
+										<h4 class="author">{{ $a->user()->first()->username }}
+											@if($poster->id == $a->user()->first()->id)
+												(poster)
+											@endif
+										</h4>
+										{{{ $a->content }}}
+									</div>
+								</div>
+							@endforeach
+						@endif
+					</div>
 				</div>
 			@endforeach
 		@endif
-
-		{{ Form::open(array('route' => 'newPost')) }}
+		{{ Form::open(array('route' => 'newPost', 'class' => 'question-form')) }}
 			@if($user_is_poster)
 				{{ Form::label('question', 'Add an addendum:') }}
 			@else
 				<label for="question">
-					{{ Auth::check() ? 'Ask the seller a question about this classified:' : 
-					'Please ' . link_to('auth/login', 'log in') . ' to ask questions' }}
+					{{ Sentry::check() ? 'Ask the seller a question about this classified:' : 
+					'Please ' . link_to('Sentry/login', 'log in') . ' to ask questions' }}
 				</label>
 			@endif
 			<div>{{ Form::textarea('question', '', array('style' => 'height: 50px;', 
-				'class' => 'autoexpand input-xlarge' . (Auth::check() ? '' : ' disabled'))) }}</div>
+				'class' => 'autoexpand input-xlarge' . (Sentry::check() ? '' : ' disabled'))) }}</div>
 			{{ Form::submit('Submit', 
-				array('class' => 'btn btn-small' . (Auth::check() ? '' : ' disabled'))) }}
+				array('class' => 'btn btn-small' . (Sentry::check() ? '' : ' disabled'))) }}
 		{{ Form::close() }}
 	</div>
 	<div class="span4">
