@@ -122,6 +122,7 @@ class PagesSeeder extends Seeder
 
 		Page::create(array(
 			'title' => 'About',
+			'name' => 'about',
 			'content' => '## Classie
 
 Open source classified ad software written in PHP.
