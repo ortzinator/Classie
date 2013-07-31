@@ -87,6 +87,20 @@ $is_admin = Sentry::check() && Sentry::getUser()->inGroup($admin);
 				Javascript is disabled. This site will not function correctly.
 			</div>
 		</noscript>
+		<div id="notifications">
+			@if(Session::has('alert-info'))
+				<div class="alert alert-info">{{{ Session::get('alert-info') }}}</div>
+			@endif
+			@if(Session::has('alert-warning'))
+				<div class="alert">{{{ Session::get('alert-warning') }}}</div>
+			@endif
+			@if(Session::has('alert-error'))
+				<div class="alert alert-error">{{{ Session::get('alert-error') }}}</div>
+			@endif
+			@if(Session::has('alert-success'))
+				<div class="alert alert-success">{{{ Session::get('alert-success') }}}</div>
+			@endif
+		</div>
 		<div id="content">
 			@yield('content')
 		</div>

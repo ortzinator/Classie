@@ -25,15 +25,16 @@ class AuthController extends BaseController {
 			);
 
 			$user = Sentry::authenticate($credentials, false);
+			Session::flash('alert-success', 'You were successfully logged in.');
 			return Redirect::to(Session::get('redirect', '/'));
 		}
 		catch (LoginRequiredException $e)
 		{
-			echo 'Login field is required.';
+			return Redirect::to('auth/login')->withErrors($e);
 		}
 		catch (PasswordRequiredException $e)
 		{
-			echo 'Password field is required.';
+			return Redirect::to('auth/login')->withErrors($e);
 		}
 		catch (WrongPasswordException $e)
 		{
@@ -59,6 +60,7 @@ class AuthController extends BaseController {
 	public function getLogout()
 	{
 		Sentry::logout();
+		Session::flash('alert-success', 'You were successfully logged out.');
 		return Redirect::to(Session::get('redirect', '/'));
 	}
 }
