@@ -13,7 +13,7 @@
 
 App::before(function($request)
 {
-	//
+	if(!starts_with($request->path(), 'auth')) Session::flash('redirect', $request->path());
 });
 
 
@@ -36,7 +36,6 @@ App::after(function($request, $response)
 Route::filter('auth', function($route, $request)
 {
 	if (!Sentry::check()){
-		Session::flash('redirect', $request->path());
 		return Redirect::to('auth/login');
 	}
 });
@@ -45,7 +44,6 @@ Route::filter('admin', function($route, $request)
 {
 	$admin_group = Sentry::getGroupProvider()->findByName('Admin');
 	if(Sentry::check() && Sentry::getUser()->inGroup($admin_group)){
-		Session::flash('redirect', $request->path());
 		return Redirect::to('auth/login');
 	}
 });
@@ -68,7 +66,7 @@ Route::filter('auth.basic', function()
 
 Route::filter('guest', function()
 {
-	if (Auth::check()) return Redirect::to('/');
+	if (Sentry::check()) return Redirect::to('/');
 });
 
 /*
@@ -92,7 +90,7 @@ Route::filter('csrf', function()
 
 View::composer(array('layout'), function($view)
 {
-    $view->with('categories', Category::all());
-    $view->with('pages', Page::orderBy('order')->get());
+	$view->with('categories', Category::all());
+	$view->with('pages', Page::orderBy('order')->get());
 
 });

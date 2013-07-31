@@ -59,6 +59,6 @@ class AuthController extends BaseController {
 	public function getLogout()
 	{
 		Sentry::logout();
-		return Redirect::to('/');
+		return Redirect::to(Session::get('redirect', '/'));
 	}
 }

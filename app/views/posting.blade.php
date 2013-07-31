@@ -52,7 +52,7 @@ $user_is_poster = Sentry::check() && $poster->id == Sentry::getUser()->id; ?>
 			@else
 				<label for="question">
 					{{ Sentry::check() ? 'Ask the seller a question about this classified:' : 
-					'Please ' . link_to('Sentry/login', 'log in') . ' to ask questions' }}
+					'Please ' . link_to('auth/login', 'log in') . ' to ask questions' }}
 				</label>
 			@endif
 			<div>{{ Form::textarea('question', '', array('style' => 'height: 50px;', 
