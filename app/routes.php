@@ -21,6 +21,8 @@ Route::get('post', array('as' => 'newPost', 'uses' => 'PostingController@newPost
 	'before' => 'auth'));
 Route::post('do_post', array('as' => 'doPost', 'uses' => 'PostingController@doPost',
 	'before' => 'auth'));
+Route::post('do_question', array('as' => 'doQuestion', 'uses' => 'PostingController@doQuestion',
+	'before' => 'auth'));
 
 Route::controller('auth', 'AuthController');
 

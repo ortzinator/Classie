@@ -1,6 +1,12 @@
 <?php
 
-class Question extends Eloquent {
+class Question extends \LaravelBook\Ardent\Ardent {
+
+	public static $rules = array(
+		'content' 		=> 'required|between:5,500',
+		'posting_id' 	=> 'required|exists:postings,id',
+		);
+
 	public function parent()
 	{
 		return $this->belongsTo('Question', 'parent_id');

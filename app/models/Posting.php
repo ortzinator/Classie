@@ -1,8 +1,23 @@
 <?php
 
-class Posting extends Eloquent {
+class Posting extends \LaravelBook\Ardent\Ardent {
 
 	protected $guarded = array('id');
+
+	public static $rules = array(
+		'title' 		=> 'required',
+		'category_id' 	=> 'required',
+		'area' 			=> 'max:30',
+		'content' 		=> 'required|min:10|max:3000',
+		'days' 			=> 'required|integer|between:1,60'
+		);
+
+	public $days;
+
+	public function getDates()
+	{
+		return array('created_at', 'expires_at');
+	}
 	
 	public function category()
 	{
@@ -17,5 +32,25 @@ class Posting extends Eloquent {
 	public function questions()
 	{
 		return $this->hasMany('Question');
+	}
+
+	public function setDaysAttribute($value)
+	{
+		$expires = new DateTime('now');
+		$expires = $expires->add(DateInterval::createFromDateString($value . ' days'));
+
+		$this->attributes['expires_at'] = $expires;
+		//$this->attributes['days'] = $value;
+		$this->days = $value;
+	}
+
+	public function beforeSave()
+	{
+		if($this->attributes['expires_at'] == NULL)
+		{
+			$expires = new DateTime('now');
+			dd($expires);
+			$this->attributes['expires_at'] = $expires->add(new DateInterval('P2W'));
+		}
 	}
 }

@@ -7,7 +7,8 @@
 		"way/generators": "dev-master",
 		"cartalyst/sentry": "2.0.*",
 		"frozennode/administrator": "dev-master",
-		"vtalbot/markdown": "1.*"
+		"vtalbot/markdown": "1.*",
+		"laravelbook/ardent": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

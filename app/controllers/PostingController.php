@@ -5,7 +5,8 @@ class PostingController extends Controller {
 	public function posting($id)
 	{
 		$posting = Posting::findOrFail($id);
-		$questions = Question::where('posting_id', '=', $id)->where('parent_id', '=', 0)->get();
+		$questions = Question::where('posting_id', '=', $id)
+			->where('parent_id', '=', 0)->get();
 		return View::make('posting')->with(array('fied' => $posting, 'questions' => $questions));
 	}
 
@@ -16,44 +17,52 @@ class PostingController extends Controller {
 
 	public function doPost()
 	{
-		$validator = Validator::make(Input::all(),
-			array(
-				'title' 	=> 'required',
-				'category' 	=> 'required',
-				'area' 		=> 'max:30',
-				'detail' 	=> 'required|min:10|max:3000',
-				'days' 		=> 'integer|between:1,60'
-				)
-		);
+		// $validator = Validator::make(Input::all(),
+		// 	array(
+		// 		'title' 	=> 'required',
+		// 		'category' 	=> 'required',
+		// 		'area' 		=> 'max:30',
+		// 		'detail' 	=> 'required|min:10|max:3000',
+		// 		'days' 		=> 'integer|between:1,60'
+		// 		)
+		// );
 
-		if ($validator->fails())
+		$posting = new Posting;
+		$posting->title			= Input::get('title');
+		$posting->category_id	= Input::get('category');
+		$posting->area			= Input::get('area');
+		$posting->content		= Input::get('detail');
+		$posting->days			= Input::get('days');
+		$posting->closed		= false;
+		$posting->user_id		= Sentry::getUser()->id;
+
+		if ($posting->save())
 		{
-			return Redirect::route('newPost')->withErrors($validator)->withInput(Input::all());
+			return Redirect::route('posting', array($posting->id));
 		}
 		else
 		{
-			if(Input::has('days'))
-			{
-				$expires = new DateTime('now');
-				$expires = $expires->add(DateInterval::createFromDateString(Item::get('days') . ' days'));
-			}
-			else
-			{
-				$expires = new DateTime('now');
-				$expires = $expires->add(new DateInterval('P2W'));
-			}
+			return Redirect::route('newPost')->withErrors($posting->errors())
+				->withInput(Input::all());
+		}
+	}
 
-			$posting = Posting::create(array(
-				'title' 		=> Input::get('title'),
-				'category_id' 	=> Input::get('category'),
-				'area' 			=> Input::get('area'),
-				'content' 		=> Input::get('detail'),
-				'expires_at'	=> $expires,
-				'closed'		=> false,
-				'user_id'		=> Sentry::getUser()->id,
-			));
+	public function doQuestion()
+	{
+		$question = new Question;
+		$question->content = Input::get('content');
+		$question->posting_id = Input::get('posting');
+		$question->user_id = Sentry::getUser()->id;
+		$question->parent_id = 0;
 
-			return Redirect::route('posting', array($posting->id));
+		if ($question->save())
+		{
+			return Redirect::route('posting', array(Input::get('posting')));
+		}
+		else
+		{
+			return Redirect::route('posting', array(Input::get('posting')))
+				->withErrors($question->errors())->withInput(Input::all());
 		}
 	}
 

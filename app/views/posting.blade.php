@@ -46,17 +46,23 @@ $user_is_poster = Sentry::check() && $poster->id == Sentry::getUser()->id; ?>
 				</div>
 			@endforeach
 		@endif
-		{{ Form::open(array('route' => 'newPost', 'class' => 'question-form')) }}
+		{{ Form::open(array('route' => 'doQuestion', 'class' => 'question-form')) }}
+			{{ ($errors->any() && !$errors->has('content')) ? 
+				'<div class="alert alert-error">An error occurred</div>' : '' }}
+			<div class="control-group{{ ($errors->has('content')) ? ' error' : '' }}">
 			@if($user_is_poster)
-				{{ Form::label('question', 'Add an addendum:') }}
+				{{ Form::label('content', 'Add an addendum:') }}
 			@else
-				<label for="question">
+				<label for="content">
 					{{ Sentry::check() ? 'Ask the seller a question about this classified:' : 
 					'Please ' . link_to('auth/login', 'log in') . ' to ask questions' }}
 				</label>
 			@endif
-			<div>{{ Form::textarea('question', '', array('style' => 'height: 50px;', 
-				'class' => 'autoexpand input-xlarge' . (Sentry::check() ? '' : ' disabled'))) }}</div>
+			{{ $errors->first('content', '<span class="help-inline">:message</span>') }}
+			{{ Form::textarea('content', '', array('style' => 'height: 50px;', 
+			'class' => 'autoexpand input-xlarge' . (Sentry::check() ? '' : ' disabled'))) }}
+			{{ Form::hidden('posting', $fied->id) }}
+			</div>
 			{{ Form::submit('Submit', 
 				array('class' => 'btn btn-small' . (Sentry::check() ? '' : ' disabled'))) }}
 		{{ Form::close() }}
@@ -67,6 +73,7 @@ $user_is_poster = Sentry::check() && $poster->id == Sentry::getUser()->id; ?>
 		<p>{{ link_to_route('userProfile', $poster->username, array($poster->id)) }}</p>
 		<p>Area: {{{ $fied->area }}}</p>
 		<p>Date posted: {{ $fied->created_at->format('m/d/y g:i A') }}</p>
+		<p>Expires: {{ $fied->expires_at->format('m/d/y g:i A') }}</p>
 	</div>
 </div>
 
