@@ -5,10 +5,10 @@ class Posting extends \LaravelBook\Ardent\Ardent {
 	protected $guarded = array('id');
 
 	public static $rules = array(
-		'title' 		=> 'required',
-		'category_id' 	=> 'required',
-		'area' 			=> 'max:30',
-		'content' 		=> 'required|min:10|max:3000',
+		'title' 		=> 'required|between:5,100',
+		'category_id' 	=> 'required|exists:categories,id',
+		'area' 			=> 'between:3,30',
+		'content' 		=> 'required|between:10,3000',
 		'days' 			=> 'integer|between:1,60'
 		);
 
@@ -17,8 +17,7 @@ class Posting extends \LaravelBook\Ardent\Ardent {
 	function __construct() {
 		parent::__construct();
 		$this->purgeFilters[] = function ($attributeKey) {
-			if ($attributeKey == 'days')
-			{
+			if ($attributeKey == 'days') {
 				return false;
 			}
 
