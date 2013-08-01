@@ -17,16 +17,6 @@ class PostingController extends Controller {
 
 	public function doPost()
 	{
-		// $validator = Validator::make(Input::all(),
-		// 	array(
-		// 		'title' 	=> 'required',
-		// 		'category' 	=> 'required',
-		// 		'area' 		=> 'max:30',
-		// 		'detail' 	=> 'required|min:10|max:3000',
-		// 		'days' 		=> 'integer|between:1,60'
-		// 		)
-		// );
-
 		$posting = new Posting;
 		$posting->title			= Input::get('title');
 		$posting->category_id	= Input::get('category');
@@ -36,12 +26,10 @@ class PostingController extends Controller {
 		$posting->closed		= false;
 		$posting->user_id		= Sentry::getUser()->id;
 
-		if ($posting->save())
-		{
+		if ($posting->save()) {
 			return Redirect::route('posting', array($posting->id));
 		}
-		else
-		{
+		else {
 			return Redirect::route('newPost')->withErrors($posting->errors())
 				->withInput(Input::all());
 		}
@@ -55,12 +43,10 @@ class PostingController extends Controller {
 		$question->user_id = Sentry::getUser()->id;
 		$question->parent_id = 0;
 
-		if ($question->save())
-		{
+		if ($question->save()) {
 			return Redirect::route('posting', array(Input::get('posting')));
 		}
-		else
-		{
+		else {
 			return Redirect::route('posting', array(Input::get('posting')))
 				->withErrors($question->errors())->withInput(Input::all());
 		}
