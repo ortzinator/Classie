@@ -12,7 +12,19 @@ class Posting extends \LaravelBook\Ardent\Ardent {
 		'days' 			=> 'required|integer|between:1,60'
 		);
 
-	public $days;
+	public $autoPurgeRedundantAttributes = true;
+
+	function __construct() {
+		parent::__construct();
+		$this->purgeFilters[] = function ($attributeKey) {
+			if ($attributeKey == 'days')
+			{
+				return false;
+			}
+
+			return true;
+		};
+	}
 
 	public function getDates()
 	{
@@ -40,8 +52,7 @@ class Posting extends \LaravelBook\Ardent\Ardent {
 		$expires = $expires->add(DateInterval::createFromDateString($value . ' days'));
 
 		$this->attributes['expires_at'] = $expires;
-		//$this->attributes['days'] = $value;
-		$this->days = $value;
+		$this->attributes['days'] = $value;
 	}
 
 	public function beforeSave()
