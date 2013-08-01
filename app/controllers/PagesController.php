@@ -17,7 +17,7 @@ class PagesController extends BaseController {
 
 	public function latest()
 	{
-		return View::make('latest')->with('recent', Posting::all());
+		return View::make('latest')->with('recent', Posting::orderBy('created_at', 'desc')->get());
 	}
 
 	public function profile($id)
