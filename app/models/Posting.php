@@ -9,7 +9,7 @@ class Posting extends \LaravelBook\Ardent\Ardent {
 		'category_id' 	=> 'required',
 		'area' 			=> 'max:30',
 		'content' 		=> 'required|min:10|max:3000',
-		'days' 			=> 'required|integer|between:1,60'
+		'days' 			=> 'integer|between:1,60'
 		);
 
 	public $autoPurgeRedundantAttributes = true;
@@ -48,6 +48,7 @@ class Posting extends \LaravelBook\Ardent\Ardent {
 
 	public function setDaysAttribute($value)
 	{
+		if(!is_int($value)) return;
 		$expires = new DateTime('now');
 		$expires = $expires->add(DateInterval::createFromDateString($value . ' days'));
 
@@ -57,10 +58,9 @@ class Posting extends \LaravelBook\Ardent\Ardent {
 
 	public function beforeSave()
 	{
-		if($this->attributes['expires_at'] == NULL)
+		if(!isset($this->attributes['expires_at']))
 		{
 			$expires = new DateTime('now');
-			dd($expires);
 			$this->attributes['expires_at'] = $expires->add(new DateInterval('P2W'));
 		}
 	}
