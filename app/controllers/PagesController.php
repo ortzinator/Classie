@@ -2,19 +2,6 @@
 
 class PagesController extends BaseController {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Default Home Controller
-	|--------------------------------------------------------------------------
-	|
-	| You may wish to use controllers instead of, or in addition to, Closure
-	| based routes. That's great! Here is an example controller method to
-	| get you started. To route to this controller, just add the route:
-	|
-	|	Route::get('/', 'HomeController@showWelcome');
-	|
-	*/
-
 	public function latest()
 	{
 		return View::make('latest')->with('recent', Posting::orderBy('created_at', 'desc')->get());
@@ -29,6 +16,13 @@ class PagesController extends BaseController {
 	public function category($id, $name = '')
 	{
 		return View::make('category')->with('category', Category::find($id));
+	}
+
+	public function categories()
+	{
+		$query = Category::where('parent_id', '=', 0)->orWhere('parent_id');
+		return View::make('categories')->with('categories', 
+			$query->get());
 	}
 
 	public function cms($name)

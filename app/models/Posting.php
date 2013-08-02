@@ -17,11 +17,7 @@ class Posting extends \LaravelBook\Ardent\Ardent {
 	function __construct() {
 		parent::__construct();
 		$this->purgeFilters[] = function ($attributeKey) {
-			if ($attributeKey == 'days') {
-				return false;
-			}
-
-			return true;
+			return $attributeKey != 'days';
 		};
 	}
 

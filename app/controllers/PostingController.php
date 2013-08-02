@@ -6,7 +6,7 @@ class PostingController extends Controller {
 	{
 		$posting = Posting::findOrFail($id);
 		$questions = Question::where('posting_id', '=', $id)
-			->where('parent_id', '=', 0)->get();
+			->where('parent_id', '=', 0)->orWhere('parent_id')->get();
 		return View::make('posting')->with(array('fied' => $posting, 'questions' => $questions));
 	}
 

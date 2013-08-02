@@ -14,8 +14,10 @@
 Route::get('/', array('as' => 'home', 'uses' => 'PagesController@latest'));
 Route::get('c/{id}', array('as' => 'posting', 'uses' => 'PostingController@posting'));
 Route::get('u/{id}', array('as' => 'userProfile', 'uses' => 'PagesController@profile'));
+
 Route::get('category/{id}/{name?}', 
 	array('as' => 'category', 'uses' => 'PagesController@category'))->where('id', '[0-9]+');
+Route::get('categories', array('as' => 'categoryListing', 'uses' => 'PagesController@categories'));
 
 Route::get('post', array('as' => 'newPost', 'uses' => 'PostingController@newPosting',
 	'before' => 'auth'));

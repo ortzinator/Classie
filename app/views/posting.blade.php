@@ -18,7 +18,7 @@ $user_is_poster = Sentry::check() && $poster->id == Sentry::getUser()->id; ?>
 
 		<h4>Questions:</h4>
 		@if(sizeof($questions) < 1)
-		<div class="alert alert-info">No questions asked yet.</div>
+		<p class="text-info">No questions asked yet.</p>
 		@else
 			@foreach($questions as $q)
 				<div class="comment">
