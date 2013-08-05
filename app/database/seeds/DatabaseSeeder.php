@@ -27,9 +27,9 @@ class CategoriesSeeder extends Seeder {
 	{
 		DB::table('categories')->delete();
 
-		Category::create(array('name' => 'Services', 'short_name' => 'services'));
-		Category::create(array('name' => 'For Sale', 'short_name' => 'for-sale'));
-		Category::create(array('name' => 'Jobs', 'short_name' => 'jobs'));
+		Category::create(array('name' => 'Services'));
+		Category::create(array('name' => 'For Sale'));
+		Category::create(array('name' => 'Jobs'));
 	}
 
 }

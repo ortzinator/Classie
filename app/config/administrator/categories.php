@@ -11,7 +11,6 @@ return array(
 			),
 		'edit_fields' 	=> array(
 			'name',
-			'short_name',
 			'parent' => array(
 					'type' => 'relationship',
 					'name_field' => 'name'
