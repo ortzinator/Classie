@@ -105,7 +105,7 @@ $is_admin = Sentry::check() && Sentry::getUser()->inGroup($admin);
 			@yield('content')
 		</div>
 	</div>
-	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+	<script src="{{ asset('js/jquery-1.8.2.min.js') }}"></script>
 	<script src="{{ asset('js/bootstrap-dropdown.js') }}"></script>
 	<script src="{{ asset('js/markdown.js') }}"></script>
 	<script src="{{ asset('js/classie.js') }}"></script>
