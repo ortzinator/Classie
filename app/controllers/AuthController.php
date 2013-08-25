@@ -1,15 +1,13 @@
 <?php
 
-use Cartalyst\Sentry\Users;
-
 class AuthController extends BaseController {
 
 	public function postLogin()
 	{
 		$validator = Validator::make(Input::all(),
-			array('email' => 'required',
+			array('email' => 'required|email',
 				'password' => 'required'
-				)
+			)
 		);
 
 		if ($validator->fails())
@@ -28,25 +26,10 @@ class AuthController extends BaseController {
 			Session::flash('alert-success', 'You were successfully logged in.');
 			return Redirect::to(Session::get('redirect', '/'));
 		}
-		catch (LoginRequiredException $e)
+		catch (Exception $e)
 		{
-			return Redirect::to('auth/login')->withErrors($e);
-		}
-		catch (PasswordRequiredException $e)
-		{
-			return Redirect::to('auth/login')->withErrors($e);
-		}
-		catch (WrongPasswordException $e)
-		{
-			return Redirect::to('auth/login')->withErrors($e);
-		}
-		catch (UserNotFoundException $e)
-		{
-			return Redirect::to('auth/login')->withErrors($e);
-		}
-		catch (UserNotActivatedException $e)
-		{
-			return Redirect::to('auth/login')->withErrors($e);
+			Session::flash('alert-error', 'An error occured');
+			return Redirect::to('auth/login');
 		}
 	}
 
@@ -62,5 +45,58 @@ class AuthController extends BaseController {
 		Sentry::logout();
 		Session::flash('alert-success', 'You were successfully logged out.');
 		return Redirect::to(Session::get('redirect', '/'));
+	}
+
+	public function getRegister()
+	{
+		return View::make('auth.register');
+	}
+
+	public function postRegister()
+	{
+		try
+		{
+			$rules = array(
+				'email'				=> 'required|email',
+				'username'			=> 'required|regex:/^\D.+/|between:2,20',
+				'password'			=> 'required|confirmed|min:5',
+			);
+
+			$validator = Validator::make(Input::all(), $rules);
+			
+			if($validator->passes())
+			{
+				$user = Sentry::register(array(
+					'email'		=> Input::get('email'),
+					'password'	=> Input::get('password'),
+					'username'	=> Input::get('username')
+				), true);
+
+				//$activationCode = $user->getActivationCode();
+
+				//TODO: Email activation code
+				Sentry::login($user, false);
+				return Redirect::to('auth/done')->with(['email' => Input::get('email')]);
+			}
+			else
+			{
+				return Redirect::to('auth/register')->withErrors($validator)->withInput(Input::all());
+			}
+		}
+		catch (Exception $e)
+		{
+			Session::flash('alert-error', 'An error occured');
+			return Redirect::to('auth/register');
+		}
+	}
+
+	public function getActivate($value)
+	{
+		return "code: " . $value;
+	}
+
+	public function getDone()
+	{
+		return View::make('auth.activationInstructions', ['email' => Session::get('email')]);
 	}
 }

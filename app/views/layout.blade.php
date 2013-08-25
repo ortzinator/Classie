@@ -106,11 +106,7 @@ $is_admin = Sentry::check() && Sentry::getUser()->inGroup($admin);
 		</div>
 	</div>
 	<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 	<script src="{{ asset('js/bootstrap-dropdown.js') }}"></script>
-	<script src="{{ asset('js/bootstrap-tooltip.js') }}"></script>
-	<script src="{{ asset('js/markitup/set.markitup.js') }}"></script>
-	<script src="{{ asset('js/markitup/jquery.markitup.js') }}"></script>
 	<script src="{{ asset('js/markdown.js') }}"></script>
 	<script src="{{ asset('js/classie.js') }}"></script>
 </body>
