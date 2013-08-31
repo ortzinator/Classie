@@ -9,16 +9,18 @@
 <h2>Classifieds</h2>
 
 @if(isset($posts) && count($posts) > 0)
-<table class="table result table-striped">
-	<tr><th>Title</th><th>Area</th><th>Category</th></tr>
-	@foreach ($posts as $row)
-		<tr>
-			<td>{{ link_to_route('posting', $row->title, array($row->id)) }}</td>
-			<td>{{{ $row->area }}}</td>
-			<td>{{{ $row->category->name }}}</td>
-		</tr>
-	@endforeach
-</table>
+<?php
+$table = new TableGenerator;
+$table->tableOpen = '<table class="table result table-striped">';
+$table->headings = array('Title', 'Area', 'Category');
+foreach ($recent as $row)
+{
+	$table->addRow([link_to_route('posting', $row->title, array($row->id)),
+		$row->area,
+		$row->category->name]);
+}
+print $table->generate();
+?>
 @else
 <div class="alert alert-info">This user has no active classifieds.</div>
 @endif
