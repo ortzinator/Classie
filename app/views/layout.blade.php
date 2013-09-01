@@ -51,9 +51,9 @@ $is_admin = Sentry::check() && Sentry::getUser()->inGroup($admin);
 					</li>
 				</ul>
 
-				{{ Form::open(['url' => 'classifieds/search_form', 
-					'class' => 'navbar-search']) }}
-				<input name="query" type="text" placeholder="search" class="search-query">
+				{{ Form::open(['url' => 'search', 'class' => 'navbar-search']) }}
+				<input name="query" type="text" placeholder="search" class="search-query"
+					value="{{ (isset($query)) ? $query : '' }}">
 				{{ Form::close() }}
 
 				<ul class="nav pull-right">

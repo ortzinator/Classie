@@ -31,4 +31,15 @@ class PagesController extends BaseController {
 		return View::make('page')->with('page', $page);
 	}
 
+	public function search($input = '')
+	{
+		$query = Posting::where('title', 'LIKE', $input);
+		return View::make('searchResults', ['results' => $query->get(), 'query' => $input]);;
+	}
+
+	public function searchForm()
+	{
+		return Redirect::route('search', [Input::get('query')]);
+	}
+
 }

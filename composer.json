@@ -19,7 +19,8 @@
 			"app/database/seeds",
 			"app/tests/TestCase.php",
 			"app/classie"
-		]
+		],
+		"files": ["app/classie/helpers.php"]
 	},
 	"scripts": {
 		"post-install-cmd": [
