@@ -11,10 +11,9 @@ $is_admin = Sentry::check() && Sentry::getUser()->inGroup($admin);
 		{{{ ' - ' . $title }}} 
 	@endif
 </title>
-<link rel="stylesheet/less" type="text/css" href="{{ asset('css/bootstrap/bootstrap.less') }}" />
-<link rel="stylesheet/less" type="text/css" href="{{ asset('css/main.less') }}" />
-<link rel="stylesheet/less" type="text/css" href="{{ asset('css/markitup.less') }}" />
-<script src="{{ asset('js/less-1.4.1.min.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap/bootstrap.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset('css/markitup.css') }}" />
 <style type="text/css">
 	div#welcome {
 		background-image: url({{ asset('images/fay.jpg') }});
