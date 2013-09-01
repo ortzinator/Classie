@@ -11,7 +11,7 @@ $table->tableOpen = '<table class="table result table-striped">';
 $table->headings = array('Title', 'Area');
 foreach ($category->postings as $post)
 {
-	$table->addRow([link_to_route('posting', $post->title, array($post->id)),
+	$table->addRow([link_to_route('posting', $post->title, [$post->id]),
 		$post->area]);
 }
 print $table->generate();

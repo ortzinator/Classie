@@ -15,7 +15,7 @@ $table->tableOpen = '<table class="table result table-striped">';
 $table->headings = array('Title', 'Area', 'Category');
 foreach ($recent as $row)
 {
-	$table->addRow([link_to_route('posting', $row->title, array($row->id)),
+	$table->addRow([link_to_route('posting', $row->title, [$row->id]),
 		$row->area,
 		$row->category->name]);
 }

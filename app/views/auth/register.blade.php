@@ -2,7 +2,7 @@
 
 @section('content')
 
-{{ Form::open(array('url' => 'auth/register', 'autocomplete' => 'off')) }}
+{{ Form::open(['url' => 'auth/register', 'autocomplete' => 'off']) }}
 
 <fieldset>
 	<legend>Register</legend>
@@ -33,7 +33,7 @@
 		{{ $errors->first('password_confirmation', '<span class="help-inline">:message</span>') }}
 	</div>
 	<div>
-		{{ Form::button('Register', array('class' => 'btn primary', 'type' => 'submit')) }}
+		{{ Form::button('Register', ['class' => 'btn primary', 'type' => 'submit']) }}
 	</div>
 </fieldset>
 

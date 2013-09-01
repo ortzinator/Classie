@@ -28,11 +28,11 @@ $is_admin = Sentry::check() && Sentry::getUser()->inGroup($admin);
 			<div class="container">
 
 				{{ link_to_route('home', Config::get('classie.site_title'), 
-					NULL, array('class' => 'brand')) }}
+					NULL, ['class' => 'brand']) }}
 
 				<ul class="nav">
 					@if(Sentry::check())
-						<li>{{ link_to('post', 'post classified', array('class' => 'highlight')) }}</li>
+						<li>{{ link_to('post', 'post classified', ['class' => 'highlight']) }}</li>
 					@endif
 					
 					@foreach($pages as $page)
@@ -45,14 +45,14 @@ $is_admin = Sentry::check() && Sentry::getUser()->inGroup($admin);
 						<ul class="dropdown-menu">
 							@foreach($categories as $row)
 								<li>{{ link_to_route('category', $row->name, 
-									array($row->id, rawurlencode($row->short_name))) }}</li>
+									[$row->id, rawurlencode($row->short_name)]) }}</li>
 							@endforeach
 						</ul>
 					</li>
 				</ul>
 
-				{{ Form::open(array('url' => 'classifieds/search_form', 
-					'class' => 'navbar-search')) }}
+				{{ Form::open(['url' => 'classifieds/search_form', 
+					'class' => 'navbar-search']) }}
 				<input name="query" type="text" placeholder="search" class="search-query">
 				{{ Form::close() }}
 

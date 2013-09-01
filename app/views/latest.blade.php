@@ -9,7 +9,7 @@
 <div id="welcome" class="hero-unit">
 	<h1>{{{ Config::get('classie.site_title') }}}</h1>
 	<p>{{{ Config::get('classie.site_description_long') }}}</p>
-	<p>{{ link_to('pages/about', 'Learn more »', array('class'=>'btn primary large')) }}</p>
+	<p>{{ link_to('pages/about', 'Learn more »', ['class'=>'btn primary large']) }}</p>
 </div>
 @endif
 <h3>Recent Listings:</h3>
@@ -20,7 +20,7 @@ $table->tableOpen = '<table class="table result table-striped">';
 $table->headings = array('Title', 'Area', 'Category');
 foreach ($recent as $row)
 {
-	$table->addRow([link_to_route('posting', $row->title, array($row->id)),
+	$table->addRow([link_to_route('posting', $row->title, [$row->id]),
 		$row->area,
 		$row->category->name]);
 }

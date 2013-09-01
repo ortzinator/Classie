@@ -4,10 +4,10 @@ class AuthController extends BaseController {
 
 	public function postLogin()
 	{
-		$validator = Validator::make(Input::all(),
-			array('email' => 'required|email',
-				'password' => 'required'
-			)
+		$validator = Validator::make(Input::all(), [
+			'email' => 'required|email',
+			'password' => 'required'
+			]
 		);
 
 		if ($validator->fails())
@@ -66,11 +66,11 @@ class AuthController extends BaseController {
 			
 			if($validator->passes())
 			{
-				$user = Sentry::register(array(
+				$user = Sentry::register([
 					'email'		=> Input::get('email'),
 					'password'	=> Input::get('password'),
 					'username'	=> Input::get('username')
-				), true);
+				], true);
 
 				//$activationCode = $user->getActivationCode();
 

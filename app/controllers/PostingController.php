@@ -7,7 +7,7 @@ class PostingController extends Controller {
 		$posting = Posting::findOrFail($id);
 		$questions = Question::where('posting_id', '=', $id)
 			->where('parent_id', '=', 0)->orWhere('parent_id')->get();
-		return View::make('posting')->with(array('fied' => $posting, 'questions' => $questions));
+		return View::make('posting')->with(['fied' => $posting, 'questions' => $questions]);
 	}
 
 	public function newPosting()
@@ -27,7 +27,7 @@ class PostingController extends Controller {
 		$posting->user_id		= Sentry::getUser()->id;
 
 		if ($posting->save()) {
-			return Redirect::route('posting', array($posting->id));
+			return Redirect::route('posting', [$posting->id]);
 		}
 		else {
 			return Redirect::route('newPost')->withErrors($posting->errors())
@@ -44,10 +44,10 @@ class PostingController extends Controller {
 		$question->parent_id = 0;
 
 		if ($question->save()) {
-			return Redirect::route('posting', array(Input::get('posting')));
+			return Redirect::route('posting', [Input::get('posting')]);
 		}
 		else {
-			return Redirect::route('posting', array(Input::get('posting')))
+			return Redirect::route('posting', [Input::get('posting')])
 				->withErrors($question->errors())->withInput(Input::all());
 		}
 	}
