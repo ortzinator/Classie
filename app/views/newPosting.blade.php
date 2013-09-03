@@ -11,7 +11,7 @@
 
 <div class="control-group{{ ($errors->has('title')) ? ' error' : '' }}">
 	{{ Form::label('title', 'Title:') }}
-	{{ Form::text('title', '', ['class' => 'span4']); }}
+	{{ Form::text('title', NULL, ['class' => 'span4']); }}
 	{{ $errors->first('title', '<span class="help-inline">:message</span>') }}
 </div>
 
@@ -23,20 +23,20 @@
 
 <div class="control-group{{ ($errors->has('area')) ? ' error' : '' }}">
 	{{ Form::label('area', 'Area:') }}
-	{{ Form::text('area', '', ['class' => 'span2']) }}
+	{{ Form::text('area', NULL, ['class' => 'span2']) }}
 	<span class="help-inline">(optional)</span>
 	{{ $errors->first('area', '<span class="help-inline">:message</span>') }}
 </div>
 
 <div class="control-group{{ ($errors->has('detail')) ? ' error' : '' }}">
 	{{ Form::label('detail', 'Detail:')}}
-	{{ Form::textarea('detail', '', ['class' => 'span7']) }}
+	{{ Form::textarea('detail', NULL, ['class' => 'span7']) }}
 	{{ $errors->first('detail', '<span class="help-inline">:message</span>') }}
 </div>
 
 <div class="control-group{{ ($errors->has('days')) ? ' error' : '' }}">
 	{{ Form::label('days', 'Days to keep:') }}
-	{{ Form::text('days', '', ['class' => 'span4']) }}
+	{{ Form::text('days', NULL, ['class' => 'span4']) }}
 	<span class="help-inline">1 - 60 days (optional)</span>
 	{{ $errors->first('days', '<span class="help-inline">:message</span>') }}
 </div>

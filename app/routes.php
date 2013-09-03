@@ -27,6 +27,10 @@ Route::post('do_post', ['as' => 'doPost', 'uses' => 'PostingController@doPost',
 	'before' => 'auth']);
 Route::post('do_question', ['as' => 'doQuestion', 'uses' => 'PostingController@doQuestion',
 	'before' => 'auth']);
+Route::get('settings', ['as' => 'settings', 'uses' => 'PagesController@userSettings',
+	'before' => 'auth']);
+Route::post('saveSettings', ['as' => 'saveSettings', 'uses' => 'PagesController@saveSettings',
+	'before' => 'auth']);
 
 Route::controller('auth', 'AuthController');
 
