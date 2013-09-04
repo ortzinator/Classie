@@ -15,7 +15,7 @@
 <h3>Recent Listings:</h3>
 
 <?php
-$table = new TableGenerator;
+$table = new Ortzinator\Classie\TableGenerator;
 $table->tableOpen = '<table class="table result table-striped">';
 $table->headings = array('Title', 'Area', 'Category');
 foreach ($recent as $row)

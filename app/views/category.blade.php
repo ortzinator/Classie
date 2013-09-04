@@ -6,7 +6,7 @@
 
 @if(count($category->postings) > 0)
 <?php
-$table = new TableGenerator;
+$table = new Ortzinator\Classie\TableGenerator;
 $table->tableOpen = '<table class="table result table-striped">';
 $table->headings = array('Title', 'Area');
 foreach ($category->postings as $post)

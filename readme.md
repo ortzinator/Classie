@@ -13,6 +13,7 @@ Open source classified ad software written in PHP.
 These instructions are for a **development** install only. The project is **not** ready for a production environment.
 
     >composer install
+    >php artisan classie:install
     >php artisan migrate --package=cartalyst/sentry
     >php artisan migrate
     >php artisan db:seed

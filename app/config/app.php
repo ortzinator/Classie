@@ -117,6 +117,7 @@ return array(
 		'Cartalyst\Sentry\SentryServiceProvider',
 		'Frozennode\Administrator\AdministratorServiceProvider',
 		'VTalbot\Markdown\MarkdownServiceProvider',
+		'Ortzinator\Classie\ClassieServiceProvider'
 	),
 
 	/*
