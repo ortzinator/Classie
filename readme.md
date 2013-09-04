@@ -17,6 +17,9 @@ These instructions are for a **development** install only. The project is **not*
     >php artisan migrate --package=cartalyst/sentry
     >php artisan migrate
     >php artisan db:seed
+
+For a quick development server:
+
     >php artisan serve
 
 ### License
