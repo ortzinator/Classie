@@ -4,7 +4,7 @@
 
 @if(Sentry::check())
 	<h1>{{{ Config::get('classie.site_title') }}}</h1>
-	<h4>{{{ Config::get('classie.site_description_short') }}}</h4>
+	<p>{{{ Config::get('classie.site_description_short') }}}</p>
 @else
 <div id="welcome" class="hero-unit">
 	<h1>{{{ Config::get('classie.site_title') }}}</h1>
@@ -12,6 +12,7 @@
 	<p>{{ link_to('pages/about', 'Learn more »', ['class'=>'btn primary large']) }}</p>
 </div>
 @endif
+
 <h3>Recent Listings:</h3>
 
 <?php

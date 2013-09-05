@@ -2,9 +2,6 @@
 
 @section('content')
 
-<?php 
-$poster = $fied->user()->first();
-$user_is_poster = Sentry::check() && $poster->id == Sentry::getUser()->id; ?>
 <div class="page-header">
 	<h2>{{{ $fied->title }}}</h2>
 </div>
@@ -46,18 +43,15 @@ $user_is_poster = Sentry::check() && $poster->id == Sentry::getUser()->id; ?>
 				</div>
 			@endforeach
 		@endif
+		@if(!$user_is_poster)
 		{{ Form::open(['route' => 'doQuestion', 'class' => 'question-form']) }}
 			{{ ($errors->any() && !$errors->has('content')) ? 
-				'<div class="alert alert-error">An error occurred</div>' : '' }}
+			'<div class="alert alert-error">An error occurred</div>' : '' }}
 			<div class="control-group{{ ($errors->has('content')) ? ' error' : '' }}">
-			@if($user_is_poster)
-				{{ Form::label('content', 'Add an addendum:') }}
-			@else
-				<label for="content">
-					{{ Sentry::check() ? 'Ask the seller a question about this classified:' : 
-					'Please ' . link_to('auth/login', 'log in') . ' to ask questions' }}
-				</label>
-			@endif
+			<label for="content">
+				{{ Sentry::check() ? 'Ask the seller a question about this classified:' : 
+				'Please ' . link_to('auth/login', 'log in') . ' to ask questions' }}
+			</label>
 			{{ $errors->first('content', '<span class="help-inline">:message</span>') }}
 			{{ Form::textarea('content', '', ['style' => 'height: 50px;', 
 				'class' => 'autoexpand input-xlarge' . (Sentry::check() ? '' : ' disabled')]) }}
@@ -66,6 +60,7 @@ $user_is_poster = Sentry::check() && $poster->id == Sentry::getUser()->id; ?>
 			{{ Form::submit('Submit', 
 				['class' => 'btn btn-small' . (Sentry::check() ? '' : ' disabled')]) }}
 		{{ Form::close() }}
+		@endif
 	</div>
 	<div class="span4">
 		<h4>Seller info:</h4>

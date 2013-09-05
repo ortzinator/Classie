@@ -90,6 +90,8 @@ Route::filter('csrf', function()
 
 View::composer(array('layout'), function($view)
 {
+	$admin = Sentry::getGroupProvider()->findByName('Admin');
+	$view->with('is_admin', Sentry::check() && Sentry::getUser()->inGroup($admin));
 	$view->with('categories', Category::all());
 	$view->with('pages', Page::orderBy('order')->get());
 

@@ -1,7 +1,3 @@
-<?php
-$admin = Sentry::getGroupProvider()->findByName('Admin');
-$is_admin = Sentry::check() && Sentry::getUser()->inGroup($admin);
-?>
 <!DOCTYPE html>
 <html>
 <head>

@@ -4,10 +4,14 @@ class PostingController extends Controller {
 
 	public function posting($id)
 	{
-		$posting = Posting::findOrFail($id);
-		$questions = Question::where('posting_id', '=', $id)
+		$data = array();
+		$data['fied'] = Posting::findOrFail($id);
+		$data['poster'] = $data['fied']->user()->first();
+		$data['user_is_poster'] = Sentry::check() && $data['poster']->id == Sentry::getUser()->id;
+		$data['$questions'] = Question::where('posting_id', '=', $id)
 			->where('parent_id', '=', 0)->orWhere('parent_id')->get();
-		return View::make('posting')->with(['fied' => $posting, 'questions' => $questions]);
+
+		return View::make('posting')->with($data);
 	}
 
 	public function newPosting()
@@ -37,6 +41,14 @@ class PostingController extends Controller {
 
 	public function doQuestion()
 	{
+		$posting = Posting::findOrFail(Input::get('posting'));
+		$poster = $posting->user()->first();
+		$user_is_poster = Sentry::check() && $data['poster']->id == Sentry::getUser()->id;
+
+		if ($user_is_poster) {
+			return Redirect::route('posting', Input::get('posting'));
+		}
+
 		$question = new Question;
 		$question->content = Input::get('content');
 		$question->posting_id = Input::get('posting');
