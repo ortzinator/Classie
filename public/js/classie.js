@@ -12,7 +12,7 @@ $(document).ready(function(){
 		textAuto.css(textExpandSize);
 	};
 
-	$('.markitup').markItUp(myMarkdownSettings);
+	// $('.markitup').markItUp(myMarkdownSettings);
 
 	$('input[type="submit"].disabled').attr('disabled', 'disabled');
 	$('textarea.disabled').attr('disabled','disabled');
