@@ -39,7 +39,9 @@
 						</a>
 						<ul class="dropdown-menu">
 							@foreach($categories as $row)
-								<li>{{ link_to_route('category', $row->name, 
+							<?php //dd($row->parent_id); ?>
+								<li class="{{ ($row->parent_id != NULL) ? 'subcategory' : 'category' }}">
+									{{ link_to_route('category', $row->name, 
 									[$row->id, rawurlencode($row->short_name)]) }}</li>
 							@endforeach
 						</ul>

@@ -1,9 +1,10 @@
 @blue: #0064CD;
+@light-grey: #eee;
 
 DIV.comment {
     min-height: 15px;
     padding: 10px 0;
-    border-bottom: 1px solid #eeeeee;
+    border-bottom: 1px solid @light-grey;
 
     .author { margin-top: 0; }
     .comment {
@@ -11,6 +12,15 @@ DIV.comment {
         padding-left: 15px;
         background-color: #F5F5F5;
         border-bottom: none;
+    }
+}
+
+LI.subcategory {
+    margin-left: 20px;
+    border-left: 1px solid @light-grey;
+
+    A {
+        margin-left: -12px;
     }
 }
 
