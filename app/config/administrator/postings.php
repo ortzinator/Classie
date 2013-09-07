@@ -3,7 +3,7 @@
 return array(
 		'title'			=> 'Postings',
 		'single'		=> 'posting',
-		'model'			=> 'Posting',
+		'model'			=> 'Ortzinator\Classie\Models\Posting',
 		'form_width'	=> '800',
 		'columns' 		=> array(
 			'id' => array('title' => 'Id'),
