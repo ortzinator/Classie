@@ -14,6 +14,8 @@ class ClassieServiceProvider extends ServiceProvider {
 		{
 			return new Console\InstallCommand($app['files'], $app['config']);
 		});
-	}
 
+		$this->app->bind('Ortzinator\Classie\Repositories\PostingRepository',
+			'Ortzinator\Classie\Repositories\PostingRepositoryEloquent');
+	}
 }

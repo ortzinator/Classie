@@ -13,7 +13,7 @@
 $table = new Ortzinator\Classie\TableGenerator;
 $table->tableOpen = '<table class="table result table-striped">';
 $table->headings = array('Title', 'Area', 'Category');
-foreach ($recent as $row)
+foreach ($posts as $row)
 {
 	$table->addRow([link_to_route('posting', $row->title, [$row->id]),
 		$row->area,

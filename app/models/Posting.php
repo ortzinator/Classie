@@ -1,4 +1,4 @@
-<?php
+<?php namespace Ortzinator\Classie\Models;
 
 class Posting extends \LaravelBook\Ardent\Ardent {
 
@@ -44,8 +44,8 @@ class Posting extends \LaravelBook\Ardent\Ardent {
 	public function setDaysAttribute($value)
 	{
 		if(!is_int($value)) return;
-		$expires = new DateTime('now');
-		$expires = $expires->add(DateInterval::createFromDateString($value . ' days'));
+		$expires = new \DateTime('now');
+		$expires = $expires->add(\DateInterval::createFromDateString($value . ' days'));
 
 		$this->attributes['expires_at'] = $expires;
 		$this->attributes['days'] = $value;
@@ -55,8 +55,13 @@ class Posting extends \LaravelBook\Ardent\Ardent {
 	{
 		if(!isset($this->attributes['expires_at']))
 		{
-			$expires = new DateTime('now');
-			$this->attributes['expires_at'] = $expires->add(new DateInterval('P2W'));
+			$expires = new \DateTime('now');
+			$this->attributes['expires_at'] = $expires->add(new \DateInterval('P2W'));
 		}
+	}
+
+	public function hasExpired()
+	{
+		return \Carbon\Carbon::createFromTimeStamp(strtotime($this->expires_at))->isPast();
 	}
 }

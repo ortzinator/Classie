@@ -1,15 +1,24 @@
 <?php
 
+use Ortzinator\Classie\Repositories\PostingRepository;
+
 class PagesController extends BaseController {
+
+	protected $posting;
+
+	function __construct(PostingRepository $posting) {
+		$this->posting = $posting;
+	}
 
 	public function latest()
 	{
-		return View::make('latest')->with('recent', Posting::orderBy('created_at', 'desc')->get());
+		return View::make('latest')->with('recent', $this->posting->getLatest());
 	}
 
 	public function profile($id)
 	{
-		$data = array('posts' => Posting::where('user_id', $id)->get(), 'user' => User::find($id));
+		$posts = $this->posting->postsByUser($id);
+		$data = array('posts' => $posts, 'user' => User::findOrFail($id));
 		return View::make('profile')->with($data);
 	}
 
@@ -31,10 +40,10 @@ class PagesController extends BaseController {
 		return View::make('page')->with('page', $page);
 	}
 
-	public function search($input = '')
+	public function search($query = '')
 	{
-		$query = Posting::where('title', 'LIKE', $input);
-		return View::make('searchResults', ['results' => $query->get(), 'query' => $input]);;
+		$result = $this->posting->search($query);
+		return View::make('searchResults', ['results' => $result, 'query' => $query]);;
 	}
 
 	public function searchForm()
