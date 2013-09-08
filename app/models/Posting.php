@@ -28,7 +28,7 @@ class Posting extends \LaravelBook\Ardent\Ardent {
 	
 	public function category()
 	{
-		return $this->belongsTo('Category');
+		return $this->belongsTo('Ortzinator\Classie\Models\Category');
 	}
 
 	public function user()

@@ -3,7 +3,7 @@
 return array(
 		'title'			=>	'Categories',
 		'single'		=>	'category',
-		'model'			=>	'Category',
+		'model'			=>	'Ortzinator\Classie\Models\Category',
 		'columns' 		=> 	array(
 			'id' => array('title' => 'Id'),
 			'name' => array('title' => 'Name'),

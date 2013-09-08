@@ -2,15 +2,19 @@
 
 use Ortzinator\Classie\Repositories\PostingRepository;
 use Ortzinator\Classie\Repositories\PagesRepository;
+use Ortzinator\Classie\Repositories\CategoryRepository;
 
 class PagesController extends BaseController {
 
 	protected $posting;
 	protected $pages;
+	protected $category;
 
-	function __construct(PostingRepository $posting, PagesRepository $pages) {
+	function __construct(PostingRepository $posting, PagesRepository $pages, 
+			CategoryRepository $category) {
 		$this->posting = $posting;
 		$this->pages = $pages;
+		$this->category = $category;
 	}
 
 	public function latest()
@@ -21,20 +25,20 @@ class PagesController extends BaseController {
 	public function profile($id)
 	{
 		$posts = $this->posting->postsByUser($id);
-		$data = array('posts' => $posts, 'user' => User::findOrFail($id));
+		$data = array('posts' => $posts, 'user' => Sentry::findUserById($id));
 		return View::make('profile')->with($data);
 	}
 
 	public function category($id, $name = '')
 	{
-		return View::make('category')->with('category', Category::find($id));
+		return View::make('category')->with('category', $this->category->find($id));
 	}
 
 	public function categories()
 	{
-		$query = Category::where('parent_id', '=', 0)->orWhere('parent_id');
+		$query = $this->category->allTopLevel();
 		return View::make('categories')->with('categories', 
-			$query->get());
+			$query);
 	}
 
 	public function cms($name)

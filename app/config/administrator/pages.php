@@ -3,7 +3,7 @@
 return array(
 		'title'			=> 'Pages',
 		'single'		=> 'page',
-		'model'			=> 'Page',
+		'model'			=> 'Ortzinator\Classie\Models\Page',
 		'form_width'	=> '800',
 		'columns' 		=> array(
 			'id' => array('title' => 'Id'),

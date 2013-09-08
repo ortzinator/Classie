@@ -1,13 +1,16 @@
 <?php
 
 use Ortzinator\Classie\Repositories\PostingRepository;
+use Ortzinator\Classie\Repositories\CategoryRepository;
 
 class PostingController extends Controller {
 
 	protected $posting;
+	protected $category;
 
-	function __construct(PostingRepository $posting) {
+	function __construct(PostingRepository $posting, CategoryRepository $category) {
 		$this->posting = $posting;
+		$this->category = $category;
 	}
 
 	public function posting($id)
@@ -30,7 +33,8 @@ class PostingController extends Controller {
 
 	public function newPosting()
 	{
-		return View::make('newPosting');
+		return View::make('newPosting')
+			->with(['categoryList' => $this->category->lists('name', 'id')]);
 	}
 
 	public function doPost()

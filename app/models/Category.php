@@ -1,4 +1,4 @@
-<?php
+<?php namespace Ortzinator\Classie\Models;
 
 class Category extends \LaravelBook\Ardent\Ardent {
 	
@@ -12,17 +12,17 @@ class Category extends \LaravelBook\Ardent\Ardent {
 
 	public function postings()
 	{
-		return $this->hasMany('Posting');
+		return $this->hasMany('Ortzinator\Classie\Models\Posting');
 	}
 
 	public function parent()
 	{
-		return $this->belongsTo('Category', 'parent_id');
+		return $this->belongsTo('Ortzinator\Classie\Models\Category', 'parent_id');
 	}
 
 	public function children()
 	{
-		return $this->hasMany('Category', 'parent_id');
+		return $this->hasMany('Ortzinator\Classie\Models\Category', 'parent_id');
 	}
 
 	public function setNameAttribute($value)

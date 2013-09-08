@@ -17,7 +17,7 @@
 
 <div class="control-group{{ ($errors->has('category')) ? ' error' : '' }}">
 	{{ Form::label('category', 'Category:') }}
-	{{ Form::select('category', Category::lists('name', 'id'), '', ['class' => 'span2']) }}
+	{{ Form::select('category', $categoryList, '', ['class' => 'span2']) }}
 	{{ $errors->first('category', '<span class="help-inline">:message</span>') }}
 </div>
 
