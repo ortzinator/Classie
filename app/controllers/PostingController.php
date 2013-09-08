@@ -8,7 +8,8 @@ class PostingController extends Controller {
 	protected $posting;
 	protected $category;
 
-	function __construct(PostingRepository $posting, CategoryRepository $category) {
+	function __construct(PostingRepository $posting, CategoryRepository $category)
+	{
 		$this->posting = $posting;
 		$this->category = $category;
 	}

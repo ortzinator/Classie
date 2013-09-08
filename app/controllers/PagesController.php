@@ -11,7 +11,8 @@ class PagesController extends BaseController {
 	protected $category;
 
 	function __construct(PostingRepository $posting, PagesRepository $pages, 
-			CategoryRepository $category) {
+			CategoryRepository $category)
+	{
 		$this->posting = $posting;
 		$this->pages = $pages;
 		$this->category = $category;
