@@ -17,5 +17,8 @@ class ClassieServiceProvider extends ServiceProvider {
 
 		$this->app->bind('Ortzinator\Classie\Repositories\PostingRepository',
 			'Ortzinator\Classie\Repositories\PostingRepositoryEloquent');
+
+		$this->app->bind('Ortzinator\Classie\Repositories\PagesRepository',
+			'Ortzinator\Classie\Repositories\PagesRepositoryEloquent');
 	}
 }

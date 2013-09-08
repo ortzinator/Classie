@@ -1,6 +1,6 @@
-<?php
+<?php namespace Ortzinator\Classie\Models;
 
-class Page extends Eloquent {
+class Page extends \Illuminate\Database\Eloquent\Model {
 
 	public static $rules = array(
 		'title'			=> 'required|unique:pages',
@@ -11,7 +11,7 @@ class Page extends Eloquent {
 	public function setTitleAttribute($value)
 	{
 		$this->attributes['title'] = $value;
-		$this->attributes['name'] = Str::slug($value);
+		$this->attributes['name'] = \Str::slug($value);
 	}
 
 }

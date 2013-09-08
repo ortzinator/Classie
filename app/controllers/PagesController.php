@@ -1,13 +1,16 @@
 <?php
 
 use Ortzinator\Classie\Repositories\PostingRepository;
+use Ortzinator\Classie\Repositories\PagesRepository;
 
 class PagesController extends BaseController {
 
 	protected $posting;
+	protected $pages;
 
-	function __construct(PostingRepository $posting) {
+	function __construct(PostingRepository $posting, PagesRepository $pages) {
 		$this->posting = $posting;
+		$this->pages = $pages;
 	}
 
 	public function latest()
@@ -36,7 +39,7 @@ class PagesController extends BaseController {
 
 	public function cms($name)
 	{
-		$page = Page::where('name', $name)->first();
+		$page = $this->pages->findByName($name);
 		return View::make('page')->with('page', $page);
 	}
 

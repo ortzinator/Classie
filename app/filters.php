@@ -90,9 +90,10 @@ Route::filter('csrf', function()
 
 View::composer(array('layout'), function($view)
 {
+	$pages = App::make('Ortzinator\Classie\Repositories\PagesRepository');
 	$admin = Sentry::getGroupProvider()->findByName('Admin');
 	$view->with('is_admin', Sentry::check() && Sentry::getUser()->inGroup($admin));
 	$view->with('categories', Category::all());
-	$view->with('pages', Page::orderBy('order')->get());
+	$view->with('pages', $pages->all());
 
 });
