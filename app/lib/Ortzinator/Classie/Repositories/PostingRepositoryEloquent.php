@@ -31,7 +31,7 @@ class PostingRepositoryEloquent implements PostingRepository
 		$posting->closed		= $data['closed'];
 		$posting->user_id		= $data['user_id'];
 
-		return $this->postingModel->newInstance($data);
+		return $posting;
 	}
 
 	public function search($query)

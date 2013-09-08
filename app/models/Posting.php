@@ -38,7 +38,7 @@ class Posting extends \LaravelBook\Ardent\Ardent {
 
 	public function questions()
 	{
-		return $this->hasMany('Question');
+		return $this->hasMany('Ortzinator\Classie\Models\Question');
 	}
 
 	public function setDaysAttribute($value)

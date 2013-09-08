@@ -1,4 +1,4 @@
-<?php
+<?php namespace Ortzinator\Classie\Models;
 
 class Question extends \LaravelBook\Ardent\Ardent {
 
@@ -9,12 +9,12 @@ class Question extends \LaravelBook\Ardent\Ardent {
 
 	public function parent()
 	{
-		return $this->belongsTo('Question', 'parent_id');
+		return $this->belongsTo('Ortzinator\Classie\Models\Question', 'parent_id');
 	}
 
 	public function children()
 	{
-		return $this->hasMany('Question', 'parent_id');
+		return $this->hasMany('Ortzinator\Classie\Models\Question', 'parent_id');
 	}
 
 	public function user()
