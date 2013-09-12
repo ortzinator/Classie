@@ -9,7 +9,8 @@
 		"frozennode/administrator": "dev-master",
 		"vtalbot/markdown": "1.*",
 		"laravelbook/ardent": "dev-master",
-		"juy/profiler" : "dev-master"
+		"juy/profiler" : "dev-master",
+		"philf/setting": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

@@ -26,31 +26,10 @@
 					NULL, ['class' => 'brand']) }}
 
 				<ul class="nav">
-					@if(Sentry::check())
-						<li>{{ link_to('post', 'post classified', ['class' => 'highlight']) }}</li>
-					@endif
-					
-					@foreach($pages as $page)
-						<li>{{ link_to('pages/' . $page->name, $page->name); }}</li>
-					@endforeach
-					<li class="dropdown">
-						<a class="dropdown-toggle" href="#" data-toggle="dropdown">
-							categories <b class="caret"></b>
-						</a>
-						<ul class="dropdown-menu">
-							@foreach($categories as $row)
-								<li class="{{ ($row->parent_id != NULL) ? 'subcategory' : 'category' }}">
-									{{ link_to_route('category', $row->name, 
-									[$row->id, rawurlencode($row->short_name)]) }}</li>
-							@endforeach
-						</ul>
-					</li>
+					<li>{{ link_to_action('AdminSettingsController@getIndex', 'Settings') }}</li>
+					<li>{{ link_to_action('AdminUserController@getIndex', 'Users') }}</li>
+					<li>{{ link_to_action('AdminPostingController@getIndex', 'Postings') }}</li>
 				</ul>
-
-				{{ Form::open(['url' => 'search', 'class' => 'navbar-search']) }}
-				<input name="query" type="text" placeholder="search" class="search-query"
-					value="{{ (isset($query)) ? $query : '' }}">
-				{{ Form::close() }}
 
 				<ul class="nav pull-right">
 					@if(Sentry::check())

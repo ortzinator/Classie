@@ -118,7 +118,8 @@ return array(
 		'Frozennode\Administrator\AdministratorServiceProvider',
 		'VTalbot\Markdown\MarkdownServiceProvider',
 		'Ortzinator\Classie\ClassieServiceProvider',
-		'Juy\Profiler\Providers\ProfilerServiceProvider'
+		'Juy\Profiler\Providers\ProfilerServiceProvider',
+		'Philf\Setting\SettingServiceProvider'
 	),
 
 	/*

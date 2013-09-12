@@ -21,18 +21,28 @@ Route::get('category/{id}/{name?}',
 	['as' => 'category', 'uses' => 'PagesController@category'])->where('id', '[0-9]+');
 Route::get('categories', ['as' => 'categoryListing', 'uses' => 'PagesController@categories']);
 
-Route::get('post', ['as' => 'newPost', 'uses' => 'PostingController@newPosting',
-	'before' => 'auth']);
-Route::post('do_post', ['as' => 'doPost', 'uses' => 'PostingController@doPost',
-	'before' => 'auth']);
-Route::post('do_question', ['as' => 'doQuestion', 'uses' => 'PostingController@doQuestion',
-	'before' => 'auth']);
-Route::get('settings', ['as' => 'settings', 'uses' => 'PagesController@userSettings',
-	'before' => 'auth']);
-Route::post('saveSettings', ['as' => 'saveSettings', 'uses' => 'PagesController@saveSettings',
-	'before' => 'auth']);
+Route::group(array('before' => 'auth'), function()
+{
+	Route::get('post', ['as' => 'newPost', 'uses' => 'PostingController@newPosting',
+		'before' => 'auth']);
+	Route::post('do_post', ['as' => 'doPost', 'uses' => 'PostingController@doPost',
+		'before' => 'auth']);
+	Route::post('do_question', ['as' => 'doQuestion', 'uses' => 'PostingController@doQuestion',
+		'before' => 'auth']);
+	Route::get('settings', ['as' => 'settings', 'uses' => 'PagesController@userSettings',
+		'before' => 'auth']);
+	Route::post('saveSettings', ['as' => 'saveSettings', 'uses' => 'PagesController@saveSettings',
+		'before' => 'auth']);
+});
 
 Route::controller('auth', 'AuthController');
+
+Route::group(array('before' => 'admin'), function()
+{
+	Route::controller('admint/settings', 'AdminSettingsController');
+	Route::controller('admint/users', 'AdminUserController');
+	Route::controller('admint/postings', 'AdminPostingController');
+});
 
 Route::get('pages/{page}', 'PagesController@cms');
 
