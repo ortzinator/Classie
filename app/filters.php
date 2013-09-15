@@ -43,7 +43,7 @@ Route::filter('auth', function($route, $request)
 Route::filter('admin', function($route, $request)
 {
 	$admin_group = Sentry::getGroupProvider()->findByName('Admin');
-	if(Sentry::check() && Sentry::getUser()->inGroup($admin_group)){
+	if(!Sentry::check() || !Sentry::getUser()->inGroup($admin_group)) {
 		return Redirect::to('auth/login');
 	}
 });
@@ -88,7 +88,7 @@ Route::filter('csrf', function()
 	}
 });
 
-View::composer(array('layout'), function($view)
+View::composer(array('layout', 'admin.layout'), function($view)
 {
 	$pages = App::make('Ortzinator\Classie\Repositories\PagesRepository');
 	$category = App::make('Ortzinator\Classie\Repositories\CategoryRepository');
