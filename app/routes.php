@@ -39,9 +39,8 @@ Route::controller('auth', 'AuthController');
 
 Route::group(array('before' => 'admin'), function()
 {
-	Route::controller('admint/settings', 'AdminSettingsController');
-	Route::controller('admint/users', 'AdminUserController');
-	Route::controller('admint/postings', 'AdminPostingController');
+	Route::resource('api/users', 'AdminUserController');
+	Route::get('admint{slug}', 'AdminController@index')->where('slug', '([A-z\d-\/_.]+)?');
 });
 
 Route::get('pages/{page}', 'PagesController@cms');

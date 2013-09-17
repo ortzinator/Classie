@@ -25,10 +25,7 @@
 				{{ link_to_route('home', Setting::get('classie.site_title'), 
 					NULL, ['class' => 'brand']) }}
 
-				<ul class="nav">
-					<li>{{ link_to_action('AdminSettingsController@getIndex', 'Settings') }}</li>
-					<li>{{ link_to_action('AdminUserController@getIndex', 'Users') }}</li>
-					<li>{{ link_to_action('AdminPostingController@getIndex', 'Postings') }}</li>
+				<ul class="nav" id="admin-nav">
 				</ul>
 
 				<ul class="nav pull-right">
@@ -80,9 +77,17 @@
 			@yield('content')
 		</div>
 	</div>
+
+	@yield('templates')
+
 	<script src="{{ asset('js/jquery-1.8.2.min.js') }}"></script>
-	<script src="{{ asset('js/bootstrap-dropdown.js') }}"></script>
+	<script src="{{ asset('js/bootstrap/bootstrap-dropdown.js') }}"></script>
 	<script src="{{ asset('js/markdown.js') }}"></script>
+	<script src="{{ asset('js/underscore-min.js') }}"></script>
+	<script src="{{ asset('js/backbone-min.js') }}"></script>
 	<script src="{{ asset('js/classie.js') }}"></script>
+	<script src="{{ asset('js/classie-admin.js') }}"></script>
+
+	@yield('scripts')
 </body>
 </html>
