@@ -102,7 +102,7 @@
 		</div>
 	</div>
 	<script src="{{ asset('js/jquery-1.8.2.min.js') }}"></script>
-	<script src="{{ asset('js/bootstrap-dropdown.js') }}"></script>
+	<script src="{{ asset('js/bootstrap/bootstrap-dropdown.js') }}"></script>
 	<script src="{{ asset('js/markdown.js') }}"></script>
 	<script src="{{ asset('js/classie.js') }}"></script>
 </body>
