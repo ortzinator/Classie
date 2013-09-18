@@ -1,26 +1,44 @@
 @extends('admin.layout')
 
 @section('content')
+<div id="content">
 
-<h3 id="page-title">Latest 100 users</h3>
 
-<input id="filter" type="text" placeholder="User filter">
-
-<table id="userList" class="table table-striped">
-	<thead>
-		<tr>
-			<th>Id</th>
-			<th>Username</th>
-			<th>Email</th>
-			<th>Activated</th>
-			<th>Join Date</th>
-		</tr>
-	</thead>
-</table>
+</div>
 
 @stop
 
 @section('templates')
+<script type="text/template" id="users-template">
+	<h3 id="page-title">Latest 100 users</h3>
+
+	<div class="form-inline">
+		<select name="filter-type" id="filter-type">
+			<option value="Username">Username</option>
+			<option value="Email">Email</option>
+		</select>
+
+		<input id="filter-query" class="filter" type="text" placeholder="Filter">
+	</div>
+	<div class="form-inline">
+		<label for="only-banned" class="checkbox">
+			<input id="only-banned" class="filter" type="checkbox"> Banned
+		</label>
+	</div>
+
+	<table id="userList" class="table table-striped">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Username</th>
+				<th>Email</th>
+				<th>Activated</th>
+				<th>Join Date</th>
+			</tr>
+		</thead>
+	</table>
+</script>
+
 <script type="text/template" id="user-template">
 	<td><%= id %></td>
 	<td><%- username %></td>
@@ -34,11 +52,8 @@
 
 <script type="text/javascript">
 
-var usersCollection = new Classie.Collections.Users;
-usersCollection.fetch().then(function() {
-	var usersView = new Classie.Views.UsersView({ collection: usersCollection });
-	$('#userList').append(usersView.render().el);
-});
+new Classie.Router;
+Backbone.history.start();
 
 </script>
 

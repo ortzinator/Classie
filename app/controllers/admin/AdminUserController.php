@@ -16,10 +16,18 @@ class AdminUserController extends BaseController {
 	 */
 	public function index()
 	{
-		if (Input::has('page')) {
-			return User::forPage(Input::get('page'), 3)->get();
+		$limit = 100;
+		$user = User::select('*');
+
+		if (Input::has('username')) {
+			$user = $user->where('username', 'LIKE', Input::get('username'));
 		}
-		return User::limit(3)->get();
+
+		if (Input::has('email')) {
+			$user = $user->orWhere('email', 'LIKE', Input::get('email'));
+		}
+
+		return $user->limit($limit)->orderBy('created_at', 'desc')->get();
 	}
 
 	/**

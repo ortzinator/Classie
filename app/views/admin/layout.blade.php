@@ -26,6 +26,10 @@
 					NULL, ['class' => 'brand']) }}
 
 				<ul class="nav" id="admin-nav">
+					<li><a href="#settings">Settings</a></li>
+					<li><a href="#users">Users</a></li>
+					<li><a href="#postings">Postings</a></li>
+					<li><a href="#categories">Categories</a></li>
 				</ul>
 
 				<ul class="nav pull-right">
