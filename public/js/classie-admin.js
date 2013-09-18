@@ -30,9 +30,7 @@ Classie.Router = Backbone.Router.extend({
 
 	settings: function() {
 		console.log('settings');
-	},
-
-
+	}
 });
 
 
@@ -57,8 +55,11 @@ Classie.Views.UserView = Backbone.View.extend({
 Classie.Views.UsersView = Backbone.View.extend({
 	template: template('users-template'),
 
+	filterParams: {},
+
 	events: {
 		'keyup .filter': 'search',
+		'click #only-banned.filter': 'onlyBanned'
 	},
 
 	render: function() {
@@ -71,10 +72,20 @@ Classie.Views.UsersView = Backbone.View.extend({
 	search: function () {
 		var key = $('#filter-query').val();
 		if (event.keyCode == 13 || !key) {
-			this.collection.fetch({ data: $.param({ 'username': key}), reset: true });
+			this.filterParams.username = key;
+			this.refreshFilter();
 			console.log('search ' + key);
 		}
 	},
+
+	onlyBanned: function () {
+		this.filterParams.onlyBanned = $('#only-banned').is(':checked');
+		this.refreshFilter();
+	},
+
+	refreshFilter: function () {
+		this.collection.fetch({ data: $.param(this.filterParams), reset: true });
+	}
 });
 
 Classie.Views.UserListView = Backbone.View.extend({

@@ -18,6 +18,10 @@ class AdminUserController extends BaseController {
 	{
 		$limit = 100;
 		$user = User::select('*');
+		if (Input::get('onlyBanned') == 'true') {
+			$user = $user->join('throttle', 'users.id', '=', 'throttle.user_id');
+			$user = $user->where('throttle.banned', '=', Input::get('onlyBanned'));
+		}
 
 		if (Input::has('username')) {
 			$user = $user->where('username', 'LIKE', Input::get('username'));
@@ -26,6 +30,7 @@ class AdminUserController extends BaseController {
 		if (Input::has('email')) {
 			$user = $user->orWhere('email', 'LIKE', Input::get('email'));
 		}
+
 
 		return $user->limit($limit)->orderBy('created_at', 'desc')->get();
 	}
