@@ -20,7 +20,7 @@ class PagesController extends BaseController {
 
 	public function latest()
 	{
-		return View::make('latest')->with('recent', $this->posting->getLatest());
+		return View::make('latest')->with('recent', $this->posting->paginate());
 	}
 
 	public function profile($id)

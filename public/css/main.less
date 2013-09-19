@@ -2,36 +2,56 @@
 @light-grey: #eee;
 
 DIV.comment {
-    min-height: 15px;
-    padding: 10px 0;
-    border-bottom: 1px solid @light-grey;
+	min-height: 15px;
+	padding: 10px 0;
+	border-bottom: 1px solid @light-grey;
 
-    .author { margin-top: 0; }
-    .comment {
-        border-left: 1px solid rgba(0, 0, 0, 0.05);
-        padding-left: 15px;
-        background-color: #F5F5F5;
-        border-bottom: none;
-    }
+	.author { margin-top: 0; }
+	.comment {
+		border-left: 1px solid rgba(0, 0, 0, 0.05);
+		padding-left: 15px;
+		background-color: #F5F5F5;
+		border-bottom: none;
+	}
 }
 
 LI.subcategory {
-    margin-left: 20px;
-    border-left: 1px solid @light-grey;
+	margin-left: 20px;
+	border-left: 1px solid @light-grey;
 
-    A {
-        margin-left: -12px;
-    }
+	A {
+		margin-left: -12px;
+	}
 }
 
 FORM.question-form {
 
-    margin-top: 15px;
+	margin-top: 15px;
 }
 
 UL.nav {
-    A.highlight {
-        color: lighten(@blue, 40%);
-        font-weight: bold;
-    }
+	A.highlight {
+		color: lighten(@blue, 40%);
+		font-weight: bold;
+	}
+}
+
+tr button {
+	display: none !important;
+}
+
+tr:hover button {
+	display: inline !important;
+}
+
+.buttons {
+	width: 80px;
+}
+
+table#userList tr {
+	height: 40px;
+}
+
+.posting.closed {
+	color: #bbb;
 }

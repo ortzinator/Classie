@@ -22,12 +22,7 @@ class PostingController extends Controller {
 	{
 		$data = array();
 		$data['fied'] = $this->posting->find($id);
-		if ($data['fied']->hasExpired())
-		{
-			$data['fied']->closed = true;
-			$data['fied']->save();
-			//return Redirect::home();
-		}
+		
 		$data['poster'] = $data['fied']->user()->first();
 		$data['user_is_poster'] = Sentry::check() && $data['poster']->id == Sentry::getUser()->id;
 		$data['questions'] = $this->question->findByPosting($id);

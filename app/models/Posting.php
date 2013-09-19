@@ -64,4 +64,9 @@ class Posting extends \LaravelBook\Ardent\Ardent {
 	{
 		return \Carbon\Carbon::createFromTimeStamp(strtotime($this->expires_at))->isPast();
 	}
+
+	public function getClosedAttribute($value)
+	{
+		return $this->hasExpired() || $value;
+	}
 }

@@ -17,7 +17,13 @@ class PostingRepositoryEloquent implements PostingRepository
 
 	public function find($id)
 	{
-		return $this->postingModel->findOrFail($id);
+		$posting = $this->postingModel->findOrFail($id);
+		if ($posting->hasExpired())
+		{
+			$posting->closed = true;
+			$posting->save();
+		}
+		return $posting;
 	}
 
 	public function newInstance($data)
@@ -42,5 +48,14 @@ class PostingRepositoryEloquent implements PostingRepository
 	public function postsByUser($id, $limit = 50)
 	{
 		return $this->postingModel->where('user_id', $id)->get();
+	}
+
+	public function paginate($category = 0)
+	{
+		$return = $this->postingModel->orderBy('created_at', 'desc');
+		if ($category != 0) {
+			$return = $return->where('category_id', $category);
+		}
+		return $return->paginate(50);
 	}
 }

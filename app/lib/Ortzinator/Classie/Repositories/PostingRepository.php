@@ -11,4 +11,6 @@ interface PostingRepository
 	public function search($query);
 
 	public function postsByUser($id, $limit = 50);
+
+	public function paginate($category = 0);
 }
