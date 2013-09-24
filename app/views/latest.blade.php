@@ -21,11 +21,11 @@ $table->tableOpen = '<table class="table result table-striped">';
 $table->headings = array('Title', 'Area', 'Category');
 foreach ($recent as $row)
 {
-	$title = link_to_route('posting', $row->title, [$row->id]);
+	$postTitle = link_to_route('posting', $row->title, [$row->id]);
 	if ($row->closed) {
-		$title = '<span class="label">Closed</span> ' . $title;
+		$postTitle = '<span class="label">Closed</span> ' . $postTitle;
 	}
-	$table->addRow([$title,	$row->area,	$row->category->name]);
+	$table->addRow([$postTitle, $row->area, $row->category->name]);
 }
 print $table->generate();
 ?>

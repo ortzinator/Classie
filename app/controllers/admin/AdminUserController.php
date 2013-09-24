@@ -1,14 +1,7 @@
 <?php
 
 class AdminUserController extends BaseController {
-
-	public function getPagination()
-	{
-		$pagination = User::paginate(3);
-		$pagination->setBaseUrl('/admint/users');
-		return $pagination->links();
-	}
-
+	
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -23,14 +16,10 @@ class AdminUserController extends BaseController {
 			$user = $user->where('throttle.banned', '=', Input::get('onlyBanned'));
 		}
 
-		if (Input::has('username')) {
-			$user = $user->where('username', 'LIKE', Input::get('username'));
+		if (Input::has('search')) {
+			$user = $user->where('username', 'LIKE', Input::get('search'));
+			$user = $user->orWhere('email', 'LIKE', Input::get('search'));
 		}
-
-		if (Input::has('email')) {
-			$user = $user->orWhere('email', 'LIKE', Input::get('email'));
-		}
-
 
 		return $user->limit($limit)->orderBy('created_at', 'desc')->get();
 	}

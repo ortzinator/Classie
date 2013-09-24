@@ -88,7 +88,7 @@ Route::filter('csrf', function()
 	}
 });
 
-View::composer(array('layout', 'admin.layout'), function($view)
+View::composer(array('layout', 'admin.layout', 'admin.index'), function($view)
 {
 	$pages = App::make('Ortzinator\Classie\Repositories\PagesRepository');
 	$category = App::make('Ortzinator\Classie\Repositories\CategoryRepository');
