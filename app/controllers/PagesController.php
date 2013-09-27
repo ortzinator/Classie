@@ -32,7 +32,11 @@ class PagesController extends BaseController {
 
 	public function category($id, $name = '')
 	{
-		return View::make('category')->with('category', $this->category->find($id));
+		$data = array(
+			'category' => $this->category->find($id),
+			'postings' => $this->posting->paginate($id)
+			);
+		return View::make('category')->with($data);
 	}
 
 	public function categories()
