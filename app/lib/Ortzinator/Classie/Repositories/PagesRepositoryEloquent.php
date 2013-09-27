@@ -20,8 +20,8 @@ class PagesRepositoryEloquent implements PagesRepository
 		return $this->pagesModel->where('name', $name)->first();
 	}
 
-	public function all()
+	public function all(array $columns = ['*'])
 	{
-		return $this->pagesModel->orderBy('order')->get();
+		return $this->pagesModel->orderBy('order')->remember(100)->get($columns);
 	}
 }

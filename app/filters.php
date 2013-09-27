@@ -97,6 +97,6 @@ View::composer(array('layout', 'admin.layout', 'admin.index'), function($view)
 
 	$view->with('is_admin', Sentry::check() && Sentry::getUser()->inGroup($admin));
 	$view->with('categories', $category->all());
-	$view->with('pages', $pages->all());
+	$view->with('pages', $pages->all(['id', 'name']));
 
 });
