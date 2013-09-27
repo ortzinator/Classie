@@ -3,8 +3,8 @@
 <head>
 <title>
 	{{{ Setting::get('classie.site_title') }}} 
-	@if(isset($title))
-		{{{ ' - ' . $title }}} 
+	@if(isset($pageTitle))
+		{{{ ' - ' . $pageTitle }}} 
 	@endif
 </title>
 <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap/bootstrap.css') }}" />
