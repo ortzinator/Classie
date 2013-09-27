@@ -30,22 +30,6 @@ class PagesController extends BaseController {
 		return View::make('profile')->with($data);
 	}
 
-	public function category($id, $name = '')
-	{
-		$data = array(
-			'category' => $this->category->find($id),
-			'postings' => $this->posting->paginate($id)
-			);
-		return View::make('category')->with($data);
-	}
-
-	public function categories()
-	{
-		$query = $this->category->allTopLevel();
-		return View::make('categories')->with('categories', 
-			$query);
-	}
-
 	public function cms($name)
 	{
 		$page = $this->pages->findByName($name);

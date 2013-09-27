@@ -17,9 +17,9 @@ Route::get('u/{id}', ['as' => 'userProfile', 'uses' => 'PagesController@profile'
 Route::get('search/{input?}', ['as' => 'search', 'uses' => 'PagesController@search']);
 Route::post('search', ['as' => 'searchForm', 'uses' => 'PagesController@searchForm']);
 
-Route::get('category/{id}/{name?}', 
-	['as' => 'category', 'uses' => 'PagesController@category'])->where('id', '[0-9]+');
-Route::get('categories', ['as' => 'categoryListing', 'uses' => 'PagesController@categories']);
+Route::get('categories/{id}/{name?}', 
+	['as' => 'category', 'uses' => 'CategoriesController@show'])->where('id', '[0-9]+');
+Route::get('categories', ['as' => 'categoryListing', 'uses' => 'CategoriesController@index']);
 
 Route::group(array('before' => 'auth'), function()
 {
