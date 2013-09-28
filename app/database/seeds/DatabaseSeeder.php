@@ -18,10 +18,9 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call('CategoriesSeeder');
 		$this->call('SentrySeeder');
-		$this->call('PostingsSeeder');
 		$this->call('ProfilesSeeder');
+		$this->call('PostingsSeeder');
 		$this->call('PagesSeeder');
-		$this->call('QuestionsSeeder');
 	}
 
 }
@@ -35,28 +34,6 @@ class CategoriesSeeder extends Seeder {
 		Category::create(array('name' => 'Services'));
 		Category::create(array('name' => 'For Sale'));
 		Category::create(array('name' => 'Jobs'));
-	}
-
-}
-
-class PostingsSeeder extends Seeder {
-
-	public function run()
-	{
-		DB::table('postings')->delete();
-
-		$in_two_weeks = new DateTime('now');
-		$in_two_weeks = $in_two_weeks->add(new DateInterval('P2W'));
-
-		Posting::create(array(
-			'user_id' => User::first()->id,
-			'content' => 'HDTV for sale 32"',
-			'expires_at' => $in_two_weeks,
-			'closed' => false,
-			'title' => 'HDTV',
-			'category_id' => Category::where('name', '=', 'For Sale')->first()->id,
-			'area' => 'Springfield',
-			));
 	}
 
 }
@@ -115,6 +92,46 @@ class SentrySeeder extends Seeder {
  
 }
 
+class PostingsSeeder extends Seeder {
+
+	public function run()
+	{
+		DB::table('postings')->delete();
+
+		$in_two_weeks = new DateTime('now');
+		$in_two_weeks = $in_two_weeks->add(new DateInterval('P2W'));
+
+		$posting = new Posting;
+		$posting->user_id = User::first()->id;
+		$posting->content = 'HDTV for sale 32"';
+		$posting->expires_at = $in_two_weeks;
+		$posting->closed = false;
+		$posting->title = 'HDTV 32"';
+		$posting->category_id = Category::where('name', '=', 'For Sale')->first()->id;
+		$posting->area = 'Springfield';
+		$posting->save();
+
+		DB::table('questions')->delete();
+
+		$asker = Sentry::getUserProvider()->findByLogin('test1@test.com');
+
+		$question = Question::create(array(
+			'user_id' => $asker->id,
+			'parent_id' => '0',
+			'posting_id' => $posting->id,
+			'content' => 'How big is it?'
+			));
+
+		$answer = Question::create(array(
+			'user_id' => $posting->user_id,
+			'parent_id' => $question->id,
+			'posting_id' => $posting->id,
+			'content' => 'It\'s REALLY BIG DUDE'
+			));
+	}
+
+}
+
 /**
 * 
 */
@@ -151,32 +168,6 @@ These instructions are for a **development** install only. The project is **not*
 ### License
 
 Classie is open-source software licensed under the [MIT license](http://opensource.org/licenses/MIT)'
-			));
-	}
-}
-
-class QuestionsSeeder extends Seeder
-{
-	
-	function run()
-	{
-		DB::table('questions')->delete();
-
-		$posting = Posting::first();
-		$asker = Sentry::getUserProvider()->findByLogin('test1@test.com');
-
-		$question = Question::create(array(
-			'user_id' => $asker->id,
-			'parent_id' => '0',
-			'posting_id' => $posting->id,
-			'content' => 'How big is it?'
-			));
-
-		$answer = Question::create(array(
-			'user_id' => $posting->user_id,
-			'parent_id' => $question->id,
-			'posting_id' => $posting->id,
-			'content' => 'It\'s REALLY BIG DUDE'
 			));
 	}
 }

@@ -22,7 +22,7 @@ class CategoryRepositoryEloquent implements CategoryRepository
 
 	public function all()
 	{
-		return $this->categoryModel->orderBy('order')->remember(100)->get();
+		return $this->categoryModel->orderBy('order')->get();
 	}
 
 	public function allTopLevel()

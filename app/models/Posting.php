@@ -2,8 +2,6 @@
 
 class Posting extends \LaravelBook\Ardent\Ardent {
 
-	protected $guarded = array('id');
-
 	public static $rules = array(
 		'title' 		=> 'required|between:5,100',
 		'category_id' 	=> 'required|exists:categories,id',
