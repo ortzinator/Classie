@@ -28,6 +28,7 @@
 
 				<ul class="nav" id="admin-nav">
 					<li>{{#link-to 'users'}}Users{{/link-to}}</li>
+					<li>{{#link-to 'settings'}}Settings{{/link-to}}</li>
 				</ul>
 
 				<ul class="nav pull-right">
@@ -133,6 +134,41 @@
 
 <script type="text/x-handlebars" id="user">
 	
+</script>
+
+<script type="text/x-handlebars" id="settings">
+	<form class="form-horizontal" {{action "save" on="submit"}}>
+	{{#if saveFailed}}
+		<div class="alert">Settings failed to save</div>
+	{{/if}}
+	<fieldset>
+		<legend>Settings</legend>
+		<div class="control-group">
+			<label for="site_title" class="control-label">Title</label>
+			<div class="controls">
+				{{input name="site_title" value=site_title class="span5"}}
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label for="site_description_long" class="control-label">Description</label>
+			<div class="controls">
+				{{textarea name="site_description_long" value=site_description_long class="span5"}}
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label for="site_description_short" class="control-label">Short description</label>
+			<div class="controls">
+				{{input name="site_description_short" value=site_description_short class="span5"}}
+			</div>
+		</div>
+
+		<div class="controls">
+			<button type="submit" class="btn btn-primary" {{bindAttr disabled="isSaving"}}>Save</button>
+		</div>
+	</fieldset>
+	</form>
 </script>
 
 	<script src="<?php print asset('js/jquery-1.8.2.min.js'); ?>"></script>

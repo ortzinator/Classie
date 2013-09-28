@@ -4,5 +4,5 @@ interface PagesRepository
 {
 	public function find($id);
 
-	public function all();
+	public function all(array $columns = ['*']);
 }
