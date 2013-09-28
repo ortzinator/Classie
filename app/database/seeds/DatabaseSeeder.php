@@ -46,7 +46,7 @@ class ProfilesSeeder extends Seeder {
 
 		Profile::create(array(
 			'user_id' => '1',
-			'country' => 'USA',
+			'location' => 'USA',
 			'bio' => 'blaaahhh',
 			));
 	}

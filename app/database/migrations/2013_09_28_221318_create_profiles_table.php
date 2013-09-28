@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateProfilesTable extends Migration {
 
@@ -11,14 +12,14 @@ class CreateProfilesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('profiles', function($table)
-		{
+		Schema::create('profiles', function(Blueprint $table) {
 			$table->increments('id');
 			$table->integer('user_id');
-			$table->string('country');
-			$table->text('bio');
+			$table->string('location')->nullable();
+			$table->text('bio')->nullable();
 		});
 	}
+
 
 	/**
 	 * Reverse the migrations.

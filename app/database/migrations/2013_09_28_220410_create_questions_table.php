@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateQuestionsTable extends Migration {
 
@@ -11,16 +12,16 @@ class CreateQuestionsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('questions', function($table)
-		{
+		Schema::create('questions', function(Blueprint $table) {
 			$table->increments('id');
 			$table->integer('user_id');
-			$table->integer('parent_id');
-			$table->dateTime('expires_at');
+			$table->integer('parent_id')->nullable();
 			$table->integer('posting_id');
+			$table->text('content');
 			$table->timestamps();
 		});
 	}
+
 
 	/**
 	 * Reverse the migrations.
