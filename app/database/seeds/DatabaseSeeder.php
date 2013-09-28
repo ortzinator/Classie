@@ -1,5 +1,10 @@
 <?php
 
+use Ortzinator\Classie\Models\Category;
+use Ortzinator\Classie\Models\Page;
+use Ortzinator\Classie\Models\Posting;
+use Ortzinator\Classie\Models\Question;
+
 class DatabaseSeeder extends Seeder {
 
 	/**

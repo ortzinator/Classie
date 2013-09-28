@@ -28,6 +28,6 @@ class Category extends \LaravelBook\Ardent\Ardent {
 	public function setNameAttribute($value)
 	{
 		$this->attributes['name'] = $value;
-		$this->attributes['short_name'] = Str::slug($value);
+		$this->attributes['short_name'] = \Str::slug($value);
 	}
 }
