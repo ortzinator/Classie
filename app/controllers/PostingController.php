@@ -23,9 +23,8 @@ class PostingController extends Controller {
 		$data = array();
 		$data['fied'] = $this->posting->find($id);
 		
-		$data['poster'] = $data['fied']->user()->first();
+		$data['poster'] = $data['fied']->user;
 		$data['user_is_poster'] = Sentry::check() && $data['poster']->id == Sentry::getUser()->id;
-		$data['questions'] = $this->question->findByPosting($id);
 
 		return View::make('posting')->with($data);
 	}

@@ -17,7 +17,7 @@ class PostingRepositoryEloquent implements PostingRepository
 
 	public function find($id)
 	{
-		$posting = $this->postingModel->findOrFail($id);
+		$posting = $this->postingModel->with('questions')->findOrFail($id);
 		if ($posting->hasExpired())
 		{
 			$posting->closed = true;

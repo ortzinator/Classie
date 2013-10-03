@@ -117,7 +117,6 @@ class PostingsSeeder extends Seeder {
 
 		$question = Question::create(array(
 			'user_id' => $asker->id,
-			'parent_id' => '0',
 			'posting_id' => $posting->id,
 			'content' => 'How big is it?'
 			));

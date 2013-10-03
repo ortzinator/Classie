@@ -119,7 +119,8 @@ return array(
 		'VTalbot\Markdown\MarkdownServiceProvider',
 		'Ortzinator\Classie\ClassieServiceProvider',
 		'Juy\Profiler\Providers\ProfilerServiceProvider',
-		'Philf\Setting\SettingServiceProvider'
+		'Philf\Setting\SettingServiceProvider',
+		'McCool\LaravelAutoPresenter\LaravelAutoPresenterServiceProvider'
 	),
 
 	/*

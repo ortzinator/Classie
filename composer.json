@@ -10,7 +10,11 @@
 		"vtalbot/markdown": "1.*",
 		"laravelbook/ardent": "dev-master",
 		"juy/profiler" : "dev-master",
-		"philf/setting": "dev-master"
+		"philf/setting": "dev-master",
+		"mccool/laravel-auto-presenter": "*"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "3.7.*"
 	},
 	"autoload": {
 		"classmap": [

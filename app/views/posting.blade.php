@@ -15,33 +15,35 @@
 				</div>
 			@endif
 			<div id="classified">
-				{{ Markdown::string($fied->content) }}
+				{{ $fied->content }}
 			</div>
-
+			<div class="thing">{{ $fied->foobar }}</div>
 			<hr>
 
 			<h4>Questions:</h4>
-			@if(sizeof($questions) < 1)
+			<?php //print '<pre>'; dd(count($fied->questions())); ?>
+			@if(count($fied->questions) < 1)
 			<p class="text-info">No questions asked yet.</p>
 			@else
-				@foreach($questions as $q)
+				@foreach($fied->questions as $question)
+					<?php if(!$question->isTopLevel()) { continue; } ?>
 					<div class="comment">
 						<div class="comment-content">
-							<h4 class="author">{{ $q->user()->first()->username }}</h4>
-							{{ Markdown::string($q->content) }}
+							<h4 class="author">{{ $question->user->username }}</h4>
+							<p>{{{ $question->content }}}</p>
 
-							@if(count($q->children()) < 1 && $user_is_poster)
+							@if(!$question->children && $user_is_poster)
 								<p>Post answer</p>
 							@else
-								@foreach($q->children()->get() as $a)
+								@foreach($question->children as $answer)
 									<div class="comment">
 										<div class="comment-content">
-											<h4 class="author">{{ $a->user()->first()->username }}
-												@if($poster->id == $a->user()->first()->id)
+											<h4 class="author">{{ $answer->user->username }}
+												@if($poster->id == $answer->user->id)
 													(poster)
 												@endif
 											</h4>
-											{{{ $a->content }}}
+											{{{ $answer->content }}}
 										</div>
 									</div>
 								@endforeach
@@ -74,8 +76,8 @@
 
 			<p>{{ link_to_route('userProfile', $poster->username, [$poster->id]) }}</p>
 			<p>Area: {{{ $fied->area }}}</p>
-			<p>Date posted: {{ $fied->created_at->format('m/d/y g:i A') }}</p>
-			<p>Expires: {{ $fied->expires_at->format('m/d/y g:i A') }}</p>
+			<p>Date posted: {{ $fied->created_at }}</p>
+			<p>Expires: {{ $fied->expires_at }}</p>
 		</div>
 	</div>
 </div>

@@ -5,6 +5,7 @@ class Question extends \LaravelBook\Ardent\Ardent {
 	public static $rules = array(
 		'content' 		=> 'required|between:5,500',
 		'posting_id' 	=> 'required|exists:postings,id',
+		'parent_id'		=> 'exists:questions,id'
 		);
 
 	public function parent()
@@ -20,5 +21,10 @@ class Question extends \LaravelBook\Ardent\Ardent {
 	public function user()
 	{
 		return $this->belongsTo('User');
+	}
+
+	public function isTopLevel()
+	{
+		return $this->attributes['parent_id'] == NULL;
 	}
 }

@@ -12,6 +12,8 @@ class Posting extends \LaravelBook\Ardent\Ardent {
 
 	public $autoPurgeRedundantAttributes = true;
 
+	public $presenter = 'Ortzinator\Classie\Presenters\PostingPresenter';
+
 	function __construct() {
 		parent::__construct();
 		$this->purgeFilters[] = function ($attributeKey) {
