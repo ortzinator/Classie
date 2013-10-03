@@ -8,6 +8,10 @@ class Question extends \LaravelBook\Ardent\Ardent {
 		'parent_id'		=> 'exists:questions,id'
 		);
 
+	public $presenter = 'Ortzinator\Classie\Presenters\QuestionPresenter';
+
+	protected $with = array('children');
+
 	public function parent()
 	{
 		return $this->belongsTo('Ortzinator\Classie\Models\Question', 'parent_id');

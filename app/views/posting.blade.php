@@ -21,7 +21,7 @@
 			<hr>
 
 			<h4>Questions:</h4>
-			<?php //print '<pre>'; dd(count($fied->questions())); ?>
+			
 			@if(count($fied->questions) < 1)
 			<p class="text-info">No questions asked yet.</p>
 			@else
@@ -30,7 +30,7 @@
 					<div class="comment">
 						<div class="comment-content">
 							<h4 class="author">{{ $question->user->username }}</h4>
-							<p>{{{ $question->content }}}</p>
+							<p>{{ $question->content }}</p>
 
 							@if(!$question->children && $user_is_poster)
 								<p>Post answer</p>
@@ -43,7 +43,7 @@
 													(poster)
 												@endif
 											</h4>
-											{{{ $answer->content }}}
+											{{ $answer->content }}
 										</div>
 									</div>
 								@endforeach
