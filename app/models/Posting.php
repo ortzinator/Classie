@@ -7,7 +7,8 @@ class Posting extends \LaravelBook\Ardent\Ardent {
 		'category_id' 	=> 'required|exists:categories,id',
 		'area' 			=> 'between:3,30',
 		'content' 		=> 'required|between:10,3000',
-		'days' 			=> 'integer|between:1,60'
+		'days' 			=> 'integer|between:1,60',
+		'user_id'		=> 'required|exists:users,id'
 		);
 
 	public $autoPurgeRedundantAttributes = true;
