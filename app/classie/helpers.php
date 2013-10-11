@@ -5,7 +5,7 @@ function nullOrEmpty($question)
     return (is_null($question) || trim($question) === '');
 }
 
-function fallback($value, $default)
+function addDays(\DateTime &$now, $days)
 {
-	return (nullOrEmpty($value)) ? $default : $value;
+	return $now->add(\DateInterval::createFromDateString($days . ' days'));
 }

@@ -46,9 +46,9 @@ class Posting extends \LaravelBook\Ardent\Ardent {
 	{
 		if(!is_int($value)) return;
 		$expires = new \DateTime('now');
-		$expires = $expires->add(\DateInterval::createFromDateString($value . ' days'));
+		$expires = addDays($expires, $value);
 
-		$this->attributes['expires_at'] = $expires;
+		$this->attributes['expires_at'] = $expires->getTimestamp();
 		$this->attributes['days'] = $value;
 	}
 
