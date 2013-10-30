@@ -7,20 +7,17 @@ Open source classified ad software written in PHP.
 * PHP >= 5.3.7
 * MCrypt PHP Extension
 * [Composer](http://getcomposer.org/)
+* [Vagrant](http://www.vagrantup.com/) (for a development environment)
 
 ### Installing
 
 These instructions are for a **development** install only. The project is **not** ready for a production environment.
 
-    >composer install --dev
-    >php artisan classie:install
-    >php artisan migrate --package=cartalyst/sentry
-    >php artisan migrate
-    >php artisan db:seed
+    >vagrant up
+    >vagrant ssh
 
-For a quick development server:
-
-    >php artisan serve
+    $ composer install --dev
+    $ php artisan classie:install
 
 ### License
 
