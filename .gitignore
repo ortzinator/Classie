@@ -6,3 +6,4 @@ composer.lock
 classie.sublime-workspace
 /app/database/production.sqlite
 /.vagrant/*
+/.tags*

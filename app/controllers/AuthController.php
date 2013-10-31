@@ -24,7 +24,7 @@ class AuthController extends BaseController {
 
 			$user = Sentry::authenticate($credentials, false);
 			Session::flash('alert-success', 'You were successfully logged in.');
-			return Redirect::to(Session::get('redirect', '/'));
+			return Redirect::intended('/');
 		}
 		catch (Exception $e)
 		{
@@ -36,7 +36,6 @@ class AuthController extends BaseController {
 	public function getLogin()
 	{
 		$data = array();
-		Session::keep('redirect');
 		return View::make('login')->with($data);
 	}
 
@@ -44,7 +43,7 @@ class AuthController extends BaseController {
 	{
 		Sentry::logout();
 		Session::flash('alert-success', 'You were successfully logged out.');
-		return Redirect::to(Session::get('redirect', '/'));
+		return Redirect::to('/');
 	}
 
 	public function getRegister()
