@@ -61,11 +61,23 @@
 								<b class="caret"></b>
 							</a>
 							<ul class="dropdown-menu">
-								<li>{{ link_to('settings', 'settings') }}</li>
+								<li>
+									<a href="{{ url('settings') }}">
+										<i class="icon-wrench"></i> settings
+									</a>
+								</li>
 								@if($is_admin)
-									<li>{{ link_to('admin', 'admin') }}</li>
+									<li>
+										<a href="{{ url('admin') }}">
+											<i class="icon-cog"></i> admin
+										</a>
+									</li>
 								@endif
-								<li>{{ link_to('auth/logout', 'log out') }}</li>
+								<li>
+									<a href="{{ url('auth/logout') }}">
+										<i class="icon-off"></i> logout
+									</a>
+								</li>
 							</ul>
 						</li>
 					@else
