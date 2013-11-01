@@ -13,6 +13,9 @@
 	{{ Form::email('email', '', ['required' => '']) }}
 	{{ Form::label('password', 'Password') }}
 	{{ Form::password('password', ['required' => '']) }}
+	<label class="checkbox" for="remember">
+		{{ Form::checkbox('remember', 'remember') }} Remember
+	</label>
 	<div></div>
 	{{ Form::button('Submit', ['class' => 'btn primary', 'type' => 'submit']) }}
 </fieldset>
