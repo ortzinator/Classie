@@ -98,8 +98,7 @@ class PostingsSeeder extends Seeder {
 	{
 		DB::table('postings')->delete();
 
-		$in_two_weeks = new DateTime('now');
-		$in_two_weeks = $in_two_weeks->add(new DateInterval('P2W'));
+		$in_two_weeks = addDays(new DateTime('now'), 14);
 
 		$posting = new Posting;
 		$posting->user_id = User::first()->id;
@@ -127,6 +126,16 @@ class PostingsSeeder extends Seeder {
 			'posting_id' => $posting->id,
 			'content' => 'It\'s REALLY BIG DUDE'
 			));
+
+		$posting2 = new Posting;
+		$posting2->user_id = User::first()->id + 1;
+		$posting2->content = 'Yard Sale over yonder';
+		$posting2->expires_at = $in_two_weeks;
+		$posting2->closed = false;
+		$posting2->title = 'Yard Sale';
+		$posting2->category_id = Category::where('name', '=', 'For Sale')->first()->id;
+		$posting2->area = 'Sunnydale';
+		$posting2->save();
 	}
 
 }

@@ -55,16 +55,16 @@
 			@if(!$user_is_poster && !$fied->closed)
 			{{ Form::open(['route' => 'doQuestion', 'class' => 'question-form']) }}
 				{{ ($errors->any() && !$errors->has('content')) ? 
-				'<div class="alert alert-error">An error occurred</div>' : '' }}
+					'<div class="alert alert-error">An error occurred</div>' : '' }}
 				<div class="control-group{{ ($errors->has('content')) ? ' error' : '' }}">
-				<label for="content">
-					{{ Sentry::check() ? 'Ask the seller a question about this classified:' : 
-					'Please ' . link_to('auth/login', 'log in') . ' to ask questions' }}
-				</label>
-				{{ $errors->first('content', '<span class="help-inline">:message</span>') }}
-				{{ Form::textarea('content', '', ['style' => 'height: 50px;', 
-					'class' => 'autoexpand input-xlarge' . (Sentry::check() ? '' : ' disabled')]) }}
-				{{ Form::hidden('posting', $fied->id) }}
+					<label for="content">
+						{{ Sentry::check() ? 'Ask the seller a question about this classified:' : 
+						'Please ' . link_to('auth/login', 'log in') . ' to ask questions' }}
+					</label>
+					{{ $errors->first('content', '<span class="help-inline">:message</span>') }}
+					{{ Form::textarea('content', '', ['style' => 'height: 50px;', 
+						'class' => 'autoexpand input-xlarge' . (Sentry::check() ? '' : ' disabled')]) }}
+					{{ Form::hidden('posting', $fied->id) }}
 				</div>
 				{{ Form::submit('Submit', 
 					['class' => 'btn btn-small' . (Sentry::check() ? '' : ' disabled')]) }}

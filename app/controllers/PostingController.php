@@ -64,7 +64,7 @@ class PostingController extends Controller {
 
 		$data = Input::all();
 		$data['user_id'] = Sentry::getUser()->id;
-		$data['parent_id'] = 0;
+		$data['parent_id'] = NULL;
 		$question = $this->question->newInstance($data);
 
 		if ($question->save()) {
