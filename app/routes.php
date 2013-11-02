@@ -12,10 +12,12 @@
 */
 
 Route::get('/', ['as' => 'home', 'uses' => 'PagesController@latest']);
-Route::get('c/{id}', ['as' => 'posting', 'uses' => 'PostingController@posting']);
+//Route::get('c/{id}', ['as' => 'posting', 'uses' => 'PostingController@posting']);
 Route::get('u/{id}', ['as' => 'userProfile', 'uses' => 'PagesController@profile']);
 Route::get('search/{input?}', ['as' => 'search', 'uses' => 'PagesController@search']);
 Route::post('search', ['as' => 'searchForm', 'uses' => 'PagesController@searchForm']);
+
+Route::resource('posting', 'PostingController');
 
 Route::get('categories/{id}/{name?}', 
 	['as' => 'category', 'uses' => 'CategoriesController@show'])->where('id', '[0-9]+');
@@ -23,10 +25,6 @@ Route::get('categories', ['as' => 'categoryListing', 'uses' => 'CategoriesContro
 
 Route::group(array('before' => 'auth'), function()
 {
-	Route::get('post', ['as' => 'newPost', 'uses' => 'PostingController@newPosting',
-		'before' => 'auth']);
-	Route::post('do_post', ['as' => 'doPost', 'uses' => 'PostingController@doPost',
-		'before' => 'auth']);
 	Route::post('do_question', ['as' => 'doQuestion', 'uses' => 'PostingController@doQuestion',
 		'before' => 'auth']);
 	Route::get('settings', ['as' => 'settings', 'uses' => 'PagesController@userSettings',

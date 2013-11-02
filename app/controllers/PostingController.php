@@ -16,9 +16,16 @@ class PostingController extends Controller {
 		$this->posting = $posting;
 		$this->category = $category;
 		$this->question = $question;
+
+		$this->beforeFilter('auth', ['only' => ['create', 'store']]);
 	}
 
-	public function posting($id)
+	public function index()
+	{
+		return View::make('postings')->with('recent', $this->posting->paginate());
+	}
+
+	public function show($id)
 	{
 		$data = array();
 		$data['fied'] = $this->posting->find($id);
@@ -29,13 +36,13 @@ class PostingController extends Controller {
 		return View::make('posting')->with($data);
 	}
 
-	public function newPosting()
+	public function create()
 	{
 		return View::make('newPosting')
 			->with(['categoryList' => $this->category->lists('name', 'id')]);
 	}
 
-	public function doPost()
+	public function store()
 	{
 		$data = Input::all();
 		$data['closed']			= false;
@@ -44,10 +51,10 @@ class PostingController extends Controller {
 		$posting = $this->posting->newInstance($data);
 
 		if ($posting->save()) {
-			return Redirect::route('posting', [$posting->id]);
+			return Redirect::route('posting.show', [$posting->id]);
 		}
 		else {
-			return Redirect::route('newPost')->withErrors($posting->errors())
+			return Redirect::route('posting.create')->withErrors($posting->errors())
 				->withInput(Input::all());
 		}
 	}

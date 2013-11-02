@@ -27,7 +27,7 @@
 
 				<ul class="nav">
 					@if(Sentry::check())
-						<li>{{ link_to('post', 'post classified', ['class' => 'highlight']) }}</li>
+						<li>{{ link_to_route('posting.create', 'post classified', NULL, ['class' => 'highlight']) }}</li>
 					@endif
 					
 					@foreach($pages as $page)

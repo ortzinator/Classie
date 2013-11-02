@@ -5,7 +5,7 @@
 	$table->headings = array('Title', 'Area', 'Category');
 	foreach ($postings as $row)
 	{
-		$table->addRow([link_to_route('posting', $row->title, [$row->id]),
+		$table->addRow([link_to_route('posting.show', $row->title, [$row->id]),
 			$row->area,
 			$row->category->name]);
 	}
