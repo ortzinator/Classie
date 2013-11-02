@@ -100,13 +100,15 @@ class PostingsSeeder extends Seeder {
 
 		$in_two_weeks = addDays(new DateTime('now'), 14);
 
+		$for_sale = Category::where('name', '=', 'For Sale')->first()->id;
+
 		$posting = new Posting;
 		$posting->user_id = User::first()->id;
 		$posting->content = 'HDTV for sale 32"';
 		$posting->expires_at = $in_two_weeks;
 		$posting->closed = false;
 		$posting->title = 'HDTV 32"';
-		$posting->category_id = Category::where('name', '=', 'For Sale')->first()->id;
+		$posting->category_id = $for_sale;
 		$posting->area = 'Springfield';
 		$posting->save();
 
@@ -127,15 +129,18 @@ class PostingsSeeder extends Seeder {
 			'content' => 'It\'s REALLY BIG DUDE'
 			));
 
-		$posting2 = new Posting;
-		$posting2->user_id = User::first()->id + 1;
-		$posting2->content = 'Yard Sale over yonder';
-		$posting2->expires_at = $in_two_weeks;
-		$posting2->closed = false;
-		$posting2->title = 'Yard Sale';
-		$posting2->category_id = Category::where('name', '=', 'For Sale')->first()->id;
-		$posting2->area = 'Sunnydale';
-		$posting2->save();
+		$faker = \Faker\Factory::create();
+		for ($i=0; $i < 200; $i++) {
+			$posting = new Posting;
+			$posting->user_id = User::first()->id + 1;
+			$posting->content = $faker->text;
+			$posting->expires_at = $in_two_weeks;
+			$posting->closed = false;
+			$posting->title = $faker->sentence(5);
+			$posting->category_id = $for_sale;
+			$posting->area = $faker->city;
+			$posting->save();
+		}
 	}
 
 }

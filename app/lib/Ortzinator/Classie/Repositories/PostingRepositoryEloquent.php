@@ -42,7 +42,7 @@ class PostingRepositoryEloquent implements PostingRepository
 
 	public function search($query)
 	{
-		return $this->postingModel->where('title', 'LIKE', $query)->get();
+		return $this->postingModel->where('title', 'LIKE', "%$query%")->paginate(50);
 	}
 
 	public function postsByUser($id, $limit = 50)
