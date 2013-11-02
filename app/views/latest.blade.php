@@ -15,20 +15,7 @@
 
 <h3>Recent Listings:</h3>
 
-<?php
-$table = new Ortzinator\Classie\TableGenerator;
-$table->tableOpen = '<table class="table result table-striped">';
-$table->headings = array('Title', 'Area', 'Category');
-foreach ($recent as $row)
-{
-	$postTitle = link_to_route('posting', $row->title, [$row->id]);
-	if ($row->closed) {
-		$postTitle = '<span class="label">Closed</span> ' . $postTitle;
-	}
-	$table->addRow([$postTitle, $row->area, $row->category->name]);
-}
-print $table->generate();
-?>
+@include('partials.postinglist', ['postings' => $recent])
 
 {{ $recent->links() }}
 
