@@ -113,6 +113,15 @@
 			@yield('content')
 		</div>
 	</div>
+	<footer>
+		<div class="container">
+			<span class="copyright">Copyright Brian Ortiz</span> <span class="separator">|</span>
+			<span>License: MIT</span> <span class="separator">|</span>
+			@if(App::environment() == "dev")
+				<span>Development</span>
+			@endif
+		</div>
+	</footer>
 	<script src="{{ asset('js/jquery-1.8.2.min.js') }}"></script>
 	<script src="{{ asset('js/bootstrap/bootstrap-dropdown.js') }}"></script>
 	<script src="{{ asset('js/markdown.js') }}"></script>
