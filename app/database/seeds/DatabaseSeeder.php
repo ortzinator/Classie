@@ -62,26 +62,27 @@ class SentrySeeder extends Seeder {
 		DB::table('users_groups')->delete();
  
 		Sentry::getUserProvider()->create(array(
-			'email'       => 'admin@admin.com',
-			'password'    => 'admin',
-			'first_name'  => 'John',
-			'last_name'   => 'McClane',
-			'activated'   => 1,
-			'username'    => 'JClane',
+			'email'			=> 'admin@admin.com',
+			'password'		=> 'admin',
+			'first_name'	=> 'John',
+			'last_name'		=> 'McClane',
+			'activated'		=> 1,
+			'username'		=> 'JClane',
+			'permissions'	=> ['superuser' => 1]
 		));
 
 		Sentry::getUserProvider()->create(array(
-			'email'       => 'test1@test.com',
-			'password'    => 'test',
-			'first_name'  => 'Jerry',
-			'last_name'   => 'Seinfeld',
-			'activated'   => 1,
-			'username'    => 'JFeld',
+			'email'			=> 'test1@test.com',
+			'password'		=> 'test',
+			'first_name'	=> 'Jerry',
+			'last_name'		=> 'Seinfeld',
+			'activated'		=> 1,
+			'username'		=> 'JFeld',
 		));
  
 		Sentry::getGroupProvider()->create(array(
-			'name'        => 'Admin',
-			'permissions' => array('admin' => 1),
+			'name'			=> 'Admin',
+			'permissions'	=> array('admin' => 1),
 		));
  
 		// Assign user permissions
@@ -172,11 +173,11 @@ Open source classified ad software written in PHP.
 
 These instructions are for a **development** install only. The project is **not** ready for a production environment.
 
-    >composer install
-    >php artisan migrate --package=cartalyst/sentry
-    >php artisan migrate
-    >php artisan db:seed
-    >php artisan serve
+	>composer install
+	>php artisan migrate --package=cartalyst/sentry
+	>php artisan migrate
+	>php artisan db:seed
+	>php artisan serve
 
 ### License
 

@@ -28,7 +28,7 @@ class AuthController extends BaseController {
 		}
 		catch (Exception $e)
 		{
-			Session::flash('alert-error', 'An error occured');
+			Session::flash('alert-error', 'The provided email and/or password was incorrect.');
 			return Redirect::to('auth/login');
 		}
 	}

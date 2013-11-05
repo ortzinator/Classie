@@ -42,9 +42,13 @@ Route::filter('auth', function($route, $request)
 
 Route::filter('admin', function($route, $request)
 {
-	$admin_group = Sentry::getGroupProvider()->findByName('Admin');
-	if(!Sentry::check() || !Sentry::getUser()->inGroup($admin_group)) {
+	$current_user = Sentry::getUser();
+
+	if(!Sentry::check()) {
 		return Redirect::guest('auth/login');
+	}
+	elseif(!$current_user->isAdmin()) {
+		App::abort(401, 'You are not authorized.');
 	}
 });
 
@@ -93,9 +97,10 @@ View::composer(array('layout', 'admin.layout', 'admin.index'), function($view)
 	$pages = App::make('Ortzinator\Classie\Repositories\PagesRepository');
 	$category = App::make('Ortzinator\Classie\Repositories\CategoryRepository');
 
-	$admin = Sentry::getGroupProvider()->findByName('Admin');
+	$current_user = Sentry::getUser();
+	$is_admin = !!$current_user && $current_user->isAdmin();
 
-	$view->with('is_admin', Sentry::check() && Sentry::getUser()->inGroup($admin));
+	$view->with('is_admin', $is_admin);
 	$view->with('categories', $category->all());
 	$view->with('pages', $pages->all(['id', 'name']));
 

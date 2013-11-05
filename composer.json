@@ -5,11 +5,11 @@
 	"require": {
 		"laravel/framework": "4.0.*",
 		"cartalyst/sentry": "2.0.*",
-		"frozennode/administrator": "dev-master",
 		"vtalbot/markdown": "1.*",
 		"laravelbook/ardent": "dev-master",
 		"philf/setting": "dev-master",
-		"mccool/laravel-auto-presenter": "*"
+		"mccool/laravel-auto-presenter": "*",
+		"stevemo/cpanel": "dev-develop"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "3.7.*",
@@ -35,14 +35,10 @@
 	},
 	"scripts": {
 		"post-install-cmd": [
-			"php artisan optimize",
-			"php artisan asset:publish frozennode/administrator"
+			"php artisan optimize"
 		],
 		"pre-update-cmd": [
 			"php artisan clear-compiled"
-		],
-		"post-update-cmd": [
-			"php artisan asset:publish frozennode/administrator"
 		],
 		"post-create-project-cmd": [
 			"php artisan key:generate"

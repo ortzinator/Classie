@@ -115,12 +115,13 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
 		'Cartalyst\Sentry\SentryServiceProvider',
-		'Frozennode\Administrator\AdministratorServiceProvider',
 		'VTalbot\Markdown\MarkdownServiceProvider',
 		'Ortzinator\Classie\ClassieServiceProvider',
 		'Juy\Profiler\Providers\ProfilerServiceProvider',
 		'Philf\Setting\SettingServiceProvider',
-		'McCool\LaravelAutoPresenter\LaravelAutoPresenterServiceProvider'
+		'McCool\LaravelAutoPresenter\LaravelAutoPresenterServiceProvider',
+		'Former\FormerServiceProvider',
+		'Stevemo\Cpanel\CpanelServiceProvider'
 	),
 
 	/*
@@ -187,7 +188,9 @@ return array(
 		'View'			=> 'Illuminate\Support\Facades\View',
 		'Sentry'		=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 		'Markdown'		=> 'VTalbot\Markdown\Facades\Markdown',
-		'Profiler'		=> 'Juy\Profiler\Facades\Profiler'
+		'Profiler'		=> 'Juy\Profiler\Facades\Profiler',
+		'Former'		=> 'Former\Facades\Former',
+		'Sentry'		=> 'Cartalyst\Sentry\Facades\Laravel\Sentry'
 	),
 
 );
