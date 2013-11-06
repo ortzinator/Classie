@@ -51,18 +51,16 @@ class InstallCommand extends Command {
 			!$this->file->exists($dbPath))
 		{
 			$this->file->put($dbPath, '');
-			$this->comment('Classie successfully installed');
 		}
-		else
-		{
-			if ($this->confirm('Have you configured your database yet?')) {
-				$this->call('migrate', ['--package' => 'cartalyst/sentry']);
-				$this->call('migrate');
-				$this->call('db:seed');
-				$this->comment('Classie successfully installed');
-			} else {
-				$this->comment('Please configure your database and run classie:install again');
-			}
+
+		if ($this->confirm('Have you configured your database yet?')) {
+			$this->call('migrate', ['--package' => 'cartalyst/sentry']);
+			$this->call('migrate');
+			$this->call('db:seed');
+			$this->call('cpanel:install');
+			$this->comment('Classie successfully installed');
+		} else {
+			$this->comment('Please configure your database and run classie:install again');
 		}
 	}
 }
