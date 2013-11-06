@@ -11,13 +11,16 @@ Open source classified ad software written in PHP.
 
 ### Installing
 
-These instructions are for a **development** install only. The project is **not** ready for a production environment.
+These instructions are for a **development** install only. The project is **not** ready for a 
+production environment.
 
     >vagrant up
     >vagrant ssh
 
     $ composer install --dev
     $ php artisan classie:install
+
+An admin user is seeded at the moment so there is no need to create one unless you want to.
 
 ### License
 
