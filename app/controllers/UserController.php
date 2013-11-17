@@ -1,6 +1,15 @@
 <?php
 
+use Ortzinator\Classie\Repositories\PostingRepository;
+
 class UserController extends BaseController {
+
+	protected $posting;
+
+	function __construct(PostingRepository $posting)
+	{
+		$this->posting = $posting;
+	}
 
 	/**
 	 * Show the form for creating a new resource.
@@ -66,7 +75,9 @@ class UserController extends BaseController {
 	 */
 	public function show($id)
 	{
-		return View::make('profile');
+		$posts = $this->posting->postsByUser($id);
+		$data = array('posts' => $posts, 'user' => Sentry::findUserById($id));
+		return View::make('profile')->with($data);
 	}
 
 	/**

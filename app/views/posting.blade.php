@@ -74,7 +74,7 @@
 		<div class="span4">
 			<h4>Seller info:</h4>
 
-			<p>{{ link_to_route('userProfile', $poster->username, [$poster->id]) }}</p>
+			<p>{{ HTML::linkRoute('users.show', $poster->username, [$poster->id]) }}</p>
 			<p>Area: {{{ $fied->area }}}</p>
 			<p>Date posted: {{ $fied->created_at }}</p>
 			<p>Expires: {{ $fied->expires_at }}</p>

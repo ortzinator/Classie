@@ -2,32 +2,20 @@
 
 use Ortzinator\Classie\Repositories\PostingRepository;
 use Ortzinator\Classie\Repositories\PagesRepository;
-use Ortzinator\Classie\Repositories\CategoryRepository;
 
 class PagesController extends BaseController {
 
 	protected $posting;
 	protected $pages;
-	protected $category;
 
-	function __construct(PostingRepository $posting, PagesRepository $pages, 
-			CategoryRepository $category)
-	{
+	function __construct(PostingRepository $posting, PagesRepository $pages)
 		$this->posting = $posting;
 		$this->pages = $pages;
-		$this->category = $category;
 	}
 
 	public function latest()
 	{
 		return View::make('latest')->withPostings($this->posting->paginate());
-	}
-
-	public function profile($id)
-	{
-		$posts = $this->posting->postsByUser($id);
-		$data = array('posts' => $posts, 'user' => Sentry::findUserById($id));
-		return View::make('profile')->with($data);
 	}
 
 	public function cms($name)

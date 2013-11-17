@@ -11,13 +11,12 @@
 |
 */
 
+Route::get('/', ['as' => 'home', 'uses' => 'PagesController@latest']);
+
 // Aliases
 Route::get('login', 'AuthController@create');
 Route::get('logout', 'AuthController@destroy');
 Route::get('register', 'UserController@create');
-
-Route::get('/', ['as' => 'home', 'uses' => 'PagesController@latest']);
-Route::get('u/{id}', ['as' => 'userProfile', 'uses' => 'PagesController@profile']);
 
 // Resources
 Route::resource('postings', 'PostingController');
