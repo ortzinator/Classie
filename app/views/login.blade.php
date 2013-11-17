@@ -4,7 +4,7 @@
 
 <div class="row">
 	<div class="span12">
-		{{ Form::open(['url' => 'auth/login', 'class' => 'form-horizontal']) }}
+		{{ Form::open(['route' => 'auth.store', 'class' => 'form-horizontal']) }}
 		<fieldset>
 			<div id="legend">
 				<legend class="">Login</legend>

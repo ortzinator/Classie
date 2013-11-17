@@ -18,6 +18,7 @@ Route::get('search/{input?}', ['as' => 'search', 'uses' => 'PagesController@sear
 Route::post('search', ['as' => 'searchForm', 'uses' => 'PagesController@searchForm']);
 
 Route::resource('posting', 'PostingController');
+Route::resource('auth', 'AuthController', ['only' => ['create', 'destroy', 'store']]);
 
 Route::get('categories/{id}/{name?}', 
 	['as' => 'category', 'uses' => 'CategoriesController@show'])->where('id', '[0-9]+');
@@ -33,7 +34,8 @@ Route::group(array('before' => 'auth'), function()
 		'before' => 'auth']);
 });
 
-Route::controller('auth', 'AuthController');
+Route::get('login', 'AuthController@create');
+Route::get('logout', 'AuthController@destroy');
 
 Route::group(array('before' => 'admin'), function()
 {

@@ -22,16 +22,16 @@
 		<div class="navbar-inner">
 			<div class="container">
 
-				{{ link_to_route('home', Setting::get('classie.site_title'), 
+				{{ HTML::linkRoute('home', Setting::get('classie.site_title'), 
 					NULL, ['class' => 'brand']) }}
 
 				<ul class="nav">
 					@if(Sentry::check())
-						<li>{{ link_to_route('posting.create', 'post classified', NULL, ['class' => 'highlight']) }}</li>
+						<li>{{ HTML::linkRoute('posting.create', 'post classified', NULL, ['class' => 'highlight']) }}</li>
 					@endif
 					
 					@foreach($pages as $page)
-						<li>{{ link_to('pages/' . $page->name, $page->name); }}</li>
+						<li>{{ HTML::link('pages/' . $page->name, $page->name); }}</li>
 					@endforeach
 					<li class="dropdown">
 						<a class="dropdown-toggle" href="#" data-toggle="dropdown">
@@ -40,7 +40,7 @@
 						<ul class="dropdown-menu">
 							@foreach($categories as $row)
 								<li class="{{ ($row->parent_id != NULL) ? 'subcategory' : 'category' }}">
-									{{ link_to_route('category', $row->name, 
+									{{ HTML::linkRoute('category', $row->name, 
 									[$row->id, rawurlencode($row->short_name)]) }}</li>
 							@endforeach
 						</ul>
@@ -62,27 +62,27 @@
 							</a>
 							<ul class="dropdown-menu">
 								<li>
-									<a href="{{ url('settings') }}">
+									<a href="{{ URL::to('settings') }}">
 										<i class="icon-wrench"></i> settings
 									</a>
 								</li>
 								@if($is_admin)
 									<li>
-										<a href="{{ url('admin') }}">
+										<a href="{{ URL::to('admin') }}">
 											<i class="icon-cog"></i> admin
 										</a>
 									</li>
 								@endif
 								<li>
-									<a href="{{ url('auth/logout') }}">
+									<a href="{{ URL::to('logout') }}">
 										<i class="icon-off"></i> logout
 									</a>
 								</li>
 							</ul>
 						</li>
 					@else
-						<li>{{ link_to('auth/login', 'log in') }}</li>
-						<li>{{ link_to('auth/register', 'register') }}</li>
+						<li>{{ HTML::link('login', 'log in') }}</li>
+						<li>{{ HTML::link('register', 'register') }}</li>
 					@endif
 				</ul>
 

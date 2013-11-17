@@ -2,7 +2,7 @@
 
 class AuthController extends BaseController {
 
-	public function postLogin()
+	public function store()
 	{
 		$validator = Validator::make(Input::all(), [
 			'email' => 'required|email',
@@ -33,13 +33,13 @@ class AuthController extends BaseController {
 		}
 	}
 
-	public function getLogin()
+	public function create()
 	{
 		$data = array();
 		return View::make('login')->with($data);
 	}
 
-	public function getLogout()
+	public function destroy()
 	{
 		Sentry::logout();
 		Session::flash('alert-success', 'You were successfully logged out.');
