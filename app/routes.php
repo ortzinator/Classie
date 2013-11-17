@@ -11,14 +11,21 @@
 |
 */
 
+// Aliases
+Route::get('login', 'AuthController@create');
+Route::get('logout', 'AuthController@destroy');
+Route::get('register', 'UserController@create');
+
 Route::get('/', ['as' => 'home', 'uses' => 'PagesController@latest']);
 //Route::get('c/{id}', ['as' => 'posting', 'uses' => 'PostingController@posting']);
 Route::get('u/{id}', ['as' => 'userProfile', 'uses' => 'PagesController@profile']);
 Route::get('search/{input?}', ['as' => 'search', 'uses' => 'PagesController@search']);
 Route::post('search', ['as' => 'searchForm', 'uses' => 'PagesController@searchForm']);
 
-Route::resource('posting', 'PostingController');
+// Resources
+Route::resource('postings', 'PostingController');
 Route::resource('auth', 'AuthController', ['only' => ['create', 'destroy', 'store']]);
+Route::resource('users', 'UserController', ['except' => ['index']]);
 
 Route::get('categories/{id}/{name?}', 
 	['as' => 'category', 'uses' => 'CategoriesController@show'])->where('id', '[0-9]+');
@@ -34,8 +41,6 @@ Route::group(array('before' => 'auth'), function()
 		'before' => 'auth']);
 });
 
-Route::get('login', 'AuthController@create');
-Route::get('logout', 'AuthController@destroy');
 
 Route::group(array('before' => 'admin'), function()
 {
@@ -44,10 +49,4 @@ Route::group(array('before' => 'admin'), function()
 });
 
 Route::get('pages/{page}', 'PagesController@cms');
-
-Route::get('users', ['as' => 'users', function()
-{
-	$users = User::all();
-	return View::make('users')->with('users', $users);
-}]);
 

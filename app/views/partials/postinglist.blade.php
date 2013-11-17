@@ -5,7 +5,7 @@
 	$table->headings = array('Title', 'Area', 'Category');
 	foreach ($postings as $row)
 	{
-		$title = HTML::linkRoute('posting.show', $row->title, [$row->id]);
+		$title = HTML::linkRoute('postings.show', $row->title, [$row->id]);
 		if ($row->closed) {
 			$title = '<span class="label">Closed</span> ' . $title;
 		}

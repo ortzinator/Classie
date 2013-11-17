@@ -2,7 +2,7 @@
 
 @section('content')
 
-{{ Form::open(['url' => 'auth/register', 'autocomplete' => 'off']) }}
+{{ Form::open(['route' => 'users.store', 'autocomplete' => 'off']) }}
 
 <fieldset>
 	<legend>Register</legend>
