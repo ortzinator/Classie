@@ -9,6 +9,7 @@ class PagesController extends BaseController {
 	protected $pages;
 
 	function __construct(PostingRepository $posting, PagesRepository $pages)
+	{
 		$this->posting = $posting;
 		$this->pages = $pages;
 	}
