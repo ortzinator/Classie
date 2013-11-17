@@ -10,9 +10,7 @@
 			$title = '<span class="label">Closed</span> ' . $title;
 		}
 
-		$table->addRow([$title,
-			$row->area,
-			$row->category->name]);
+		$table->addRow([$title, $row->area, $row->category->name]);
 	}
 	print $table->generate();
 	?>
