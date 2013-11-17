@@ -47,7 +47,7 @@
 					</li>
 				</ul>
 
-				{{ Form::open(['url' => 'search', 'class' => 'navbar-search']) }}
+				{{ Form::open(['route' => 'postings.index', 'method' => 'GET', 'class' => 'navbar-search']) }}
 				<input name="query" type="text" placeholder="search" class="search-query"
 					value="{{ (isset($query)) ? $query : '' }}">
 				{{ Form::close() }}

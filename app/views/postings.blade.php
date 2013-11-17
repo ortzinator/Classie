@@ -2,10 +2,8 @@
 
 @section('content')
 
-<h3>Recent Listings:</h3>
+@include('partials.postinglist', ['postings' => $postings])
 
-@include('partials.postinglist', ['postings' => $recent])
-
-{{ $recent->links() }}
+{{ $postings->links() }}
 
 @stop

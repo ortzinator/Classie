@@ -22,7 +22,10 @@ class PostingController extends Controller {
 
 	public function index()
 	{
-		return View::make('postings')->with('recent', $this->posting->paginate());
+		if (Input::has('query')) {
+			return View::make('searchResults')->withResults($this->posting->search(Input::get('query')));
+		}
+		return View::make('postings')->withPostings($this->posting->paginate());
 	}
 
 	public function show($id)

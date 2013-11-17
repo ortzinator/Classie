@@ -20,7 +20,7 @@ class PagesController extends BaseController {
 
 	public function latest()
 	{
-		return View::make('latest')->with('recent', $this->posting->paginate());
+		return View::make('latest')->withPostings($this->posting->paginate());
 	}
 
 	public function profile($id)
@@ -34,17 +34,6 @@ class PagesController extends BaseController {
 	{
 		$page = $this->pages->findByName($name);
 		return View::make('page')->with('page', $page);
-	}
-
-	public function search($query = '')
-	{
-		$result = $this->posting->search($query);
-		return View::make('searchResults', ['results' => $result, 'query' => $query]);;
-	}
-
-	public function searchForm()
-	{
-		return Redirect::route('search', [Input::get('query')]);
 	}
 
 	public function userSettings()

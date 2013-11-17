@@ -15,8 +15,8 @@
 
 <h3>Recent Listings:</h3>
 
-@include('partials.postinglist', ['postings' => $recent])
+@include('partials.postinglist', ['postings' => $postings])
 
-{{ $recent->links() }}
+{{ $postings->links() }}
 
 @stop

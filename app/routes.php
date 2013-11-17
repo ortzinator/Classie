@@ -17,10 +17,7 @@ Route::get('logout', 'AuthController@destroy');
 Route::get('register', 'UserController@create');
 
 Route::get('/', ['as' => 'home', 'uses' => 'PagesController@latest']);
-//Route::get('c/{id}', ['as' => 'posting', 'uses' => 'PostingController@posting']);
 Route::get('u/{id}', ['as' => 'userProfile', 'uses' => 'PagesController@profile']);
-Route::get('search/{input?}', ['as' => 'search', 'uses' => 'PagesController@search']);
-Route::post('search', ['as' => 'searchForm', 'uses' => 'PagesController@searchForm']);
 
 // Resources
 Route::resource('postings', 'PostingController');
