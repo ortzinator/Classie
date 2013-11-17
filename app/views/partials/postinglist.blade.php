@@ -5,7 +5,12 @@
 	$table->headings = array('Title', 'Area', 'Category');
 	foreach ($postings as $row)
 	{
-		$table->addRow([link_to_route('posting.show', $row->title, [$row->id]),
+		$title = HTML::linkRoute('posting.show', $row->title, [$row->id]);
+		if ($row->closed) {
+			$title = '<span class="label">Closed</span> ' . $title;
+		}
+
+		$table->addRow([$title,
 			$row->area,
 			$row->category->name]);
 	}

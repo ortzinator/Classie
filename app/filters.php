@@ -105,3 +105,8 @@ View::composer(array('layout', 'admin.layout', 'admin.index'), function($view)
 	$view->with('pages', $pages->all(['id', 'name']));
 
 });
+
+Event::listen('illuminate.query', function($query, $foo, $bar)
+{
+	//var_dump($bar);
+});
