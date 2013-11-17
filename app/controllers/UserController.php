@@ -19,7 +19,6 @@ class UserController extends BaseController {
 	public function create()
 	{
 		return View::make('auth.register');
-		//TODO: If admin, show user creation form
 	}
 
 	/**
@@ -79,38 +78,4 @@ class UserController extends BaseController {
 		$data = array('posts' => $posts, 'user' => Sentry::findUserById($id));
 		return View::make('profile')->with($data);
 	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//return View::make('users.edit');
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
-
 }
