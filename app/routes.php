@@ -29,8 +29,6 @@ Route::get('categories', ['as' => 'categoryListing', 'uses' => 'CategoriesContro
 
 Route::group(array('before' => 'auth'), function()
 {
-	Route::post('do_question', ['as' => 'doQuestion', 'uses' => 'PostingController@doQuestion',
-		'before' => 'auth']);
 	Route::get('settings', ['as' => 'settings', 'uses' => 'PagesController@userSettings',
 		'before' => 'auth']);
 	Route::post('saveSettings', ['as' => 'saveSettings', 'uses' => 'PagesController@saveSettings',
