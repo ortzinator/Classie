@@ -10,11 +10,6 @@ class PostingRepositoryEloquent implements PostingRepository
 		$this->postingModel = $model;
 	}
 
-	public function getLatest($limit = 50)
-	{
-		return $this->postingModel->orderBy('created_at', 'desc')->get();
-	}
-
 	public function find($id)
 	{
 		$posting = $this->postingModel->with('questions')->findOrFail($id);
@@ -42,10 +37,12 @@ class PostingRepositoryEloquent implements PostingRepository
 
 	public function search($query)
 	{
-		return $this->postingModel->where('title', 'LIKE', "%$query%")
+		return $this->postingModel->leftJoin('throttle', 'postings.user_id', '=', 'throttle.user_id')
+			->whereNull('throttle.banned')
+			->where('title', 'LIKE', "%$query%")
 			->orWhere('content', 'LIKE', "%$query%")
 			->orderBy('created_at', 'desc')
-			->paginate(50);
+			->paginate(50, ['postings.id', 'title', 'category_id', 'area']);
 	}
 
 	public function postsByUser($id, $limit = 50)
@@ -55,10 +52,12 @@ class PostingRepositoryEloquent implements PostingRepository
 
 	public function paginate($category = 0)
 	{
-		$return = $this->postingModel->orderBy('created_at', 'desc');
+		$return = $this->postingModel->leftJoin('throttle', 'postings.user_id', '=', 'throttle.user_id')
+			->whereNull('throttle.banned')
+			->orderBy('created_at', 'desc');
 		if ($category != 0) {
 			$return = $return->where('category_id', $category);
 		}
-		return $return->paginate(50);
+		return $return->paginate(50, ['postings.id', 'title', 'category_id', 'area']);
 	}
 }

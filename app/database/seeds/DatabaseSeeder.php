@@ -60,8 +60,9 @@ class SentrySeeder extends Seeder {
 		DB::table('users')->delete();
 		DB::table('groups')->delete();
 		DB::table('users_groups')->delete();
+		DB::table('throttle')->delete();
  
-		Sentry::getUserProvider()->create(array(
+		$adminUser = Sentry::getUserProvider()->create(array(
 			'email'			=> 'admin@admin.com',
 			'password'		=> 'admin',
 			'first_name'	=> 'John',
@@ -86,9 +87,21 @@ class SentrySeeder extends Seeder {
 		));
  
 		// Assign user permissions
-		$adminUser  = Sentry::getUserProvider()->findByLogin('admin@admin.com');
 		$adminGroup = Sentry::getGroupProvider()->findByName('Admin');
 		$adminUser->addGroup($adminGroup);
+
+		//Create a banned user
+		$troll = Sentry::getUserProvider()->create(array(
+			'email'			=> 'ban@ban.com',
+			'password'		=> 'test',
+			'first_name'	=> 'Troll',
+			'last_name'		=> 'McTroller',
+			'activated'		=> 1,
+			'username'		=> 'Bann',
+		));
+
+		$throttle = Sentry::findThrottlerByUserId($troll->id);
+		$throttle->ban();
 	}
  
 }
@@ -131,7 +144,20 @@ class PostingsSeeder extends Seeder {
 			));
 
 		$faker = \Faker\Factory::create();
-		for ($i=0; $i < 200; $i++) {
+
+		// Create posting by banned user
+		$troll = Sentry::getUserProvider()->findByLogin('ban@ban.com');
+		$posting = new Posting;
+		$posting->user_id = $troll->id;
+		$posting->content = $faker->text;
+		$posting->expires_at = $in_two_weeks;
+		$posting->closed = false;
+		$posting->title = 'Banned user post';
+		$posting->category_id = $for_sale;
+		$posting->area = $faker->city;
+		$posting->save();
+
+		for ($i=0; $i < 100; $i++) {
 			$posting = new Posting;
 			$posting->user_id = User::first()->id + 1;
 			$posting->content = $faker->text;

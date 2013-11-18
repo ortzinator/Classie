@@ -2,8 +2,6 @@
 
 interface PostingRepository
 {
-	public function getLatest($limit = 50);
-
 	public function find($id);
 
 	public function newInstance($values);
