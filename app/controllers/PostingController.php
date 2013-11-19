@@ -4,7 +4,7 @@ use Ortzinator\Classie\Repositories\PostingRepository;
 use Ortzinator\Classie\Repositories\CategoryRepository;
 use Ortzinator\Classie\Repositories\QuestionRepository;
 
-class PostingController extends Controller {
+class PostingController extends BaseController {
 
 	protected $posting;
 	protected $category;
@@ -59,30 +59,6 @@ class PostingController extends Controller {
 		else {
 			return Redirect::route('posting.create')->withErrors($posting->errors())
 				->withInput(Input::all());
-		}
-	}
-
-	public function doQuestion()
-	{
-		$posting = $this->posting->find(Input::get('posting'));
-		$poster = $posting->user()->first();
-		$user_is_poster = Sentry::check() && $poster->id == Sentry::getUser()->id;
-
-		if ($user_is_poster) {
-			return Redirect::route('posting', Input::get('posting'));
-		}
-
-		$data = Input::all();
-		$data['user_id'] = Sentry::getUser()->id;
-		$data['parent_id'] = NULL;
-		$question = $this->question->newInstance($data);
-
-		if ($question->save()) {
-			return Redirect::route('posting', [Input::get('posting')]);
-		}
-		else {
-			return Redirect::route('posting', [Input::get('posting')])
-				->withErrors($question->errors())->withInput(Input::all());
 		}
 	}
 

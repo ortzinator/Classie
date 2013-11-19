@@ -53,13 +53,13 @@
 				@endforeach
 			@endif
 			@if(!$user_is_poster && !$fied->closed)
-			{{ Form::open(['route' => 'doQuestion', 'class' => 'question-form']) }}
+			{{ Form::open(['route' => 'questions.store', 'class' => 'question-form']) }}
 				{{ ($errors->any() && !$errors->has('content')) ? 
 					'<div class="alert alert-error">An error occurred</div>' : '' }}
 				<div class="control-group{{ ($errors->has('content')) ? ' error' : '' }}">
 					<label for="content">
 						{{ Sentry::check() ? 'Ask the seller a question about this classified:' : 
-						'Please ' . link_to('auth/login', 'log in') . ' to ask questions' }}
+						'Please ' . HTML::link('login', 'log in') . ' to ask questions' }}
 					</label>
 					{{ $errors->first('content', '<span class="help-inline">:message</span>') }}
 					{{ Form::textarea('content', '', ['style' => 'height: 50px;', 

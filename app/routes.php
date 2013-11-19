@@ -22,6 +22,7 @@ Route::get('register', 'UserController@create');
 Route::resource('postings', 'PostingController');
 Route::resource('auth', 'AuthController', ['only' => ['create', 'destroy', 'store']]);
 Route::resource('users', 'UserController', ['only' => ['create', 'store', 'show']]);
+Route::resource('questions', 'QuestionsController', ['only' => ['store', 'show', 'destroy']]);
 
 Route::get('categories/{id}/{name?}', 
 	['as' => 'category', 'uses' => 'CategoriesController@show'])->where('id', '[0-9]+');
