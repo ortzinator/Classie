@@ -70,7 +70,13 @@ echo ">>> Installing Composer"
 curl -sS https://getcomposer.org/installer | php
 sudo mv composer.phar /usr/local/bin/composer
 
+echo "PATH=/vagrant/vendor/bin:\$PATH" >> ~/.bash_profile
+echo "alias art='php artisan'" >> ~/.bash_profile
+
 echo ">>> Creating Classie database"
 mysql -u root -proot -e "create database if not exists classie;"
 
 chmod -R o+w /vagrant/app/storage
+
+sudo sed -i "s/;date.timezone =/date.timezone = Europe\/London/" /etc/php5/apache2/php.ini
+sudo sed -i "s/;date.timezone =/date.timezone = Europe\/London/" /etc/php5/cli/php.ini

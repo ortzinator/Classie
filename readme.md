@@ -20,7 +20,9 @@ production environment.
     $ composer install --dev
     $ php artisan classie:install
 
-An admin user is seeded at the moment so there is no need to create one unless you want to.
+An admin user is seeded so there is no need to create one unless you want to. `admin@admin.com:admin`
+
+An alias is created that allows you to use `art` in place of `php artisan`
 
 ### License
 
