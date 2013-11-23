@@ -39,51 +39,65 @@ class PostingTest extends TestCase {
 		$this->assertNotValid($posting);
 	}
 
-	public function testIsValidWithValidData()
+	// public function testIsValidWithValidData()
+	// {
+	// 	$posting = Factory::make('Ortzinator\Classie\Models\Posting');
+
+	// 	$mock = m::mock('Illuminate\Validation\PresenceVerifierInterface');
+	// 	$mock->shouldReceive('getCount')->once()->with('users', 'id', $posting->user_id, 
+	// 		null, null, array())->andReturn(true);
+	// 	$mock->shouldReceive('getCount')->once()->with('categories', 'id', $posting->category_id, 
+	// 		null, null, array())->andReturn(true);
+
+	// 	$v = Validator::make($posting->getAttributes(), $posting::$rules);
+	// 	$v->setPresenceVerifier($mock);
+
+	// 	$this->assertTrue($v->passes());
+	// }
+
+	// public function testIsInvalidWithInvalidCategoryId()
+	// {
+	// 	$posting = Factory::make('Ortzinator\Classie\Models\Posting');
+
+	// 	$mock = m::mock('Illuminate\Validation\PresenceVerifierInterface');
+	// 	$mock->shouldReceive('getCount')->once()->with('users', 'id', $posting->user_id, 
+	// 		null, null, array())->andReturn(true);
+	// 	$mock->shouldReceive('getCount')->once()->with('categories', 'id', $posting->category_id, 
+	// 		null, null, array())->andReturn(false);
+
+	// 	$v = Validator::make($posting->getAttributes(), $posting::$rules);
+	// 	$v->setPresenceVerifier($mock);
+
+	// 	$this->assertFalse($v->passes());
+	// }
+
+	// public function testIsInvalidWithInvalidUserId()
+	// {
+	// 	$posting = Factory::make('Ortzinator\Classie\Models\Posting');
+
+	// 	$mock = m::mock('Illuminate\Validation\PresenceVerifierInterface');
+	// 	$mock->shouldReceive('getCount')->once()->with('users', 'id', $posting->user_id, 
+	// 		null, null, array())->andReturn(false);
+	// 	$mock->shouldReceive('getCount')->once()->with('categories', 'id', $posting->category_id, 
+	// 		null, null, array())->andReturn(true);
+
+	// 	$v = Validator::make($posting->getAttributes(), $posting::$rules);
+	// 	$v->setPresenceVerifier($mock);
+
+	// 	$this->assertFalse($v->passes());
+	// }
+
+	public function testIsClosedWhenExpiresAtIsPast()
 	{
-		$posting = Factory::make('Ortzinator\Classie\Models\Posting');
+		$posting = Factory::make('Ortzinator\Classie\Models\Posting', ['expires_at' => \Carbon\Carbon::yesterday()]);
 
-		$mock = m::mock('Illuminate\Validation\PresenceVerifierInterface');
-		$mock->shouldReceive('getCount')->once()->with('users', 'id', $posting->user_id, 
-			null, null, array())->andReturn(true);
-		$mock->shouldReceive('getCount')->once()->with('categories', 'id', $posting->category_id, 
-			null, null, array())->andReturn(true);
-
-		$v = Validator::make($posting->getAttributes(), $posting::$rules);
-		$v->setPresenceVerifier($mock);
-
-		$this->assertTrue($v->passes());
+		$this->assertTrue($posting->closed);
 	}
 
-	public function testIsInvalidWithInvalidCategoryId()
+	public function testIsNoClosedWhenExpiresAtIsFuture()
 	{
-		$posting = Factory::make('Ortzinator\Classie\Models\Posting');
+		$posting = Factory::make('Ortzinator\Classie\Models\Posting', ['expires_at' => \Carbon\Carbon::tomorrow()]);
 
-		$mock = m::mock('Illuminate\Validation\PresenceVerifierInterface');
-		$mock->shouldReceive('getCount')->once()->with('users', 'id', $posting->user_id, 
-			null, null, array())->andReturn(true);
-		$mock->shouldReceive('getCount')->once()->with('categories', 'id', $posting->category_id, 
-			null, null, array())->andReturn(false);
-
-		$v = Validator::make($posting->getAttributes(), $posting::$rules);
-		$v->setPresenceVerifier($mock);
-
-		$this->assertFalse($v->passes());
-	}
-
-	public function testIsInvalidWithInvalidUserId()
-	{
-		$posting = Factory::make('Ortzinator\Classie\Models\Posting');
-
-		$mock = m::mock('Illuminate\Validation\PresenceVerifierInterface');
-		$mock->shouldReceive('getCount')->once()->with('users', 'id', $posting->user_id, 
-			null, null, array())->andReturn(false);
-		$mock->shouldReceive('getCount')->once()->with('categories', 'id', $posting->category_id, 
-			null, null, array())->andReturn(true);
-
-		$v = Validator::make($posting->getAttributes(), $posting::$rules);
-		$v->setPresenceVerifier($mock);
-
-		$this->assertFalse($v->passes());
+		$this->assertFalse($posting->closed);
 	}
 }
