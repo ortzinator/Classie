@@ -58,6 +58,6 @@ class PostingRepositoryEloquent implements PostingRepository
 		if ($category != 0) {
 			$return = $return->where('category_id', $category);
 		}
-		return $return->paginate(50, ['postings.id', 'title', 'category_id', 'area']);
+		return $return->paginate(50, ['postings.id', 'title', 'category_id', 'area', 'closed']);
 	}
 }

@@ -68,6 +68,11 @@ class Posting extends \LaravelBook\Ardent\Ardent {
 
 	public function getClosedAttribute($value)
 	{
-		return $this->hasExpired() || $value;
+		return $this->hasExpired();
+	}
+
+	public function scopeClosed($query)
+	{
+	    return $query->where('expires_at', '<=', \Carbon\Carbon::now());
 	}
 }
