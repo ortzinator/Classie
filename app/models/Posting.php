@@ -74,6 +74,11 @@ class Posting extends \LaravelBook\Ardent\Ardent {
 
 	public function scopeClosed($query)
 	{
-	    return $query->where('expires_at', '<=', \Carbon\Carbon::now());
+		return $query->where('expires_at', '<=', \Carbon\Carbon::now());
+	}
+
+	public function scopeOpen($query)
+	{
+		return $query->where('expires_at', '>', \Carbon\Carbon::now());
 	}
 }

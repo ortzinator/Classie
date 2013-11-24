@@ -10,5 +10,9 @@ interface PostingRepository
 
 	public function postsByUser($id, $limit = 50);
 
-	public function paginate($category = 0);
+	public function paginate($category = null, $include_closed = false, $include_banned = false);
+
+	public function all($category = null);
+
+	public function allWithBanned($category = null);
 }

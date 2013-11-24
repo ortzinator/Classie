@@ -39,6 +39,7 @@ class PostingRepositoryEloquent implements PostingRepository
 	{
 		return $this->postingModel->leftJoin('throttle', 'postings.user_id', '=', 'throttle.user_id')
 			->whereNull('throttle.banned')
+			->open()
 			->where('title', 'LIKE', "%$query%")
 			->orWhere('content', 'LIKE', "%$query%")
 			->orderBy('created_at', 'desc')
@@ -50,14 +51,36 @@ class PostingRepositoryEloquent implements PostingRepository
 		return $this->postingModel->where('user_id', $id)->get();
 	}
 
-	public function paginate($category = null)
+	public function paginate($category = null, $include_closed = false, $include_banned = false)
 	{
-		$return = $this->postingModel->leftJoin('throttle', 'postings.user_id', '=', 'throttle.user_id')
-			->whereNull('throttle.banned')
-			->orderBy('created_at', 'desc');
+		$return = $this->postingModel->leftJoin('throttle', 'postings.user_id', '=', 'throttle.user_id');
+
 		if (!!$category) {
 			$return = $return->where('category_id', $category);
 		}
+
+		if ($include_closed) {
+			$return = $return->closed();
+		}
+		else {
+			$return = $return->open();
+		}
+
+		if ($include_banned) {
+			$return = $return->whereNull('throttle.banned');
+		}
+
+		$return = $return->orderBy('created_at', 'desc');
 		return $return->paginate(50, ['postings.id', 'title', 'category_id', 'area', 'closed', 'expires_at']);
+	}
+
+	public function all($category = null)
+	{
+		return $this->paginate($category);
+	}
+
+	public function allWithBanned($category = null)
+	{
+		return $this->paginate($category, false, true);
 	}
 }

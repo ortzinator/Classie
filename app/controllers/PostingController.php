@@ -25,7 +25,7 @@ class PostingController extends BaseController {
 		if (Input::has('query')) {
 			return View::make('searchResults')->withResults($this->posting->search(Input::get('query')));
 		}
-		return View::make('postings')->withPostings($this->posting->paginate());
+		return View::make('postings')->withPostings($this->posting->all());
 	}
 
 	public function show($id)
