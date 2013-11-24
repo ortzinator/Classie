@@ -49,7 +49,7 @@
 
 				{{ Form::open(['route' => 'postings.index', 'method' => 'GET', 'class' => 'navbar-search']) }}
 				<input name="query" type="text" placeholder="search" class="search-query"
-					value="{{ (isset($query)) ? $query : '' }}">
+					value="{{ (Input::has('query')) ? Input::get('query') : '' }}">
 				{{ Form::close() }}
 
 				<ul class="nav pull-right">
