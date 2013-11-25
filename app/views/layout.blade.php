@@ -10,11 +10,6 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap/bootstrap.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ asset('css/markitup.css') }}" />
-<style type="text/css">
-	div#welcome {
-		background-image: url({{ asset('images/fay.jpg') }});
-	}
-</style>
 </head>
 
 <body>
