@@ -13,7 +13,7 @@
 
 App::before(function($request)
 {
-	//if(!starts_with($request->path(), 'auth')) Session::flash('redirect', $request->path());
+	//
 });
 
 
@@ -108,5 +108,5 @@ View::composer(array('layout', 'admin.layout', 'admin.index'), function($view)
 
 Event::listen('illuminate.query', function($query, $foo, $bar)
 {
-	//var_dump($bar);
+	//
 });

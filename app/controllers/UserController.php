@@ -46,16 +46,12 @@ class UserController extends BaseController {
 					'username'	=> Input::get('username')
 				], true);
 
-				//$activationCode = $user->getActivationCode();
-
-				//TODO: Email activation code
 				Sentry::login($user, false);
-				//return Redirect::to('auth/done')->with(['email' => Input::get('email')]);
+
 				return Redirect::home();
 			}
 			else
 			{
-				// dd('wut');
 				return Redirect::route('users.create')->withErrors($validator)->withInput(Input::all());
 			}
 		}

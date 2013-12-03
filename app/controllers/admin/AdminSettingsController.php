@@ -4,7 +4,7 @@ class AdminSettingsController extends BaseController {
 
 	public function getIndex()
 	{
-		//return Redirect::action('AdminSettingsController@getSite');
+		//
 	}
 
 	public function getSite()

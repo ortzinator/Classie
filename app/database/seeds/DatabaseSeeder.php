@@ -153,7 +153,7 @@ class PostingsSeeder extends Seeder {
 			'content' => 'How big is it?'
 			));
 
-		$answer = Question::create(array(
+		Question::create(array(
 			'user_id' => $posting->user_id,
 			'parent_id' => $question->id,
 			'posting_id' => $posting->id,

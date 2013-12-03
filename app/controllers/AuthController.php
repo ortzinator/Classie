@@ -22,7 +22,7 @@ class AuthController extends BaseController {
 				'password' => Input::get('password'),
 			);
 
-			$user = Sentry::authenticate($credentials, !!Input::get('remember'));
+			Sentry::authenticate($credentials, !!Input::get('remember'));
 			Session::flash('alert-success', 'You were successfully logged in.');
 			return Redirect::intended('/');
 		}
