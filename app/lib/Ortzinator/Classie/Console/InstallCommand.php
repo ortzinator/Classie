@@ -1,8 +1,6 @@
 <?php namespace Ortzinator\Classie\Console;
 
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Config\Repository as Config;
 
