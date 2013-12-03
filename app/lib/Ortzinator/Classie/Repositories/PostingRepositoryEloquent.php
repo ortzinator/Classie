@@ -1,13 +1,16 @@
 <?php namespace Ortzinator\Classie\Repositories;
 
 use Ortzinator\Classie\Models\Posting;
+use Ortzinator\Classie\Models\Category;
 
 class PostingRepositoryEloquent implements PostingRepository
 {
 	protected $postingModel;
+	protected $categoryModel;
 
-	function __construct(Posting $model) {
+	function __construct(Posting $model, Category $category) {
 		$this->postingModel = $model;
+		$this->categoryModel = $category;
 	}
 
 	public function find($id)
@@ -56,7 +59,10 @@ class PostingRepositoryEloquent implements PostingRepository
 		$return = $this->postingModel->leftJoin('throttle', 'postings.user_id', '=', 'throttle.user_id');
 
 		if (!!$category) {
-			$return = $return->where('category_id', $category);
+			$categories = $this->categoryModel->where('parent_id', $category)->lists('id');
+			$categories[] = $category;
+			$return = $return->whereIn('category_id', $categories);
+			
 		}
 
 		if ($include_closed) {

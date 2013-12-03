@@ -32,8 +32,10 @@ class CategoriesSeeder extends Seeder {
 		DB::table('categories')->delete();
 
 		Category::create(array('name' => 'Services'));
-		Category::create(array('name' => 'For Sale'));
+		$forSale = Category::create(array('name' => 'For Sale'));
 		Category::create(array('name' => 'Jobs'));
+
+		Category::create(['name' => 'Automotive', 'parent_id' => $forSale->id]);
 	}
 
 }
@@ -111,19 +113,34 @@ class PostingsSeeder extends Seeder {
 	public function run()
 	{
 		DB::table('postings')->delete();
+		
+		$faker = \Faker\Factory::create();
+
+		$firstUser = User::first();
 
 		$in_two_weeks = addDays(new DateTime('now'), 14);
 
 		$for_sale = Category::where('name', '=', 'For Sale')->first()->id;
+		$auto = Category::where('name', '=', 'Automotive')->first()->id;
 
 		$posting = new Posting;
-		$posting->user_id = User::first()->id;
+		$posting->user_id = $firstUser->id;
 		$posting->content = 'HDTV for sale 32"';
 		$posting->expires_at = $in_two_weeks;
 		$posting->closed = false;
 		$posting->title = 'HDTV 32"';
 		$posting->category_id = $for_sale;
 		$posting->area = 'Springfield';
+		$posting->save();
+
+		$posting = new Posting;
+		$posting->user_id = $firstUser->id;
+		$posting->content = 'Toyota Corolla in good condition';
+		$posting->expires_at = $in_two_weeks;
+		$posting->closed = false;
+		$posting->title = 'Corolla';
+		$posting->category_id = $auto;
+		$posting->area = $faker->city;
 		$posting->save();
 
 		DB::table('questions')->delete();
@@ -143,7 +160,6 @@ class PostingsSeeder extends Seeder {
 			'content' => 'It\'s REALLY BIG DUDE'
 			));
 
-		$faker = \Faker\Factory::create();
 
 		// Create posting by banned user
 		$troll = Sentry::getUserProvider()->findByLogin('ban@ban.com');
@@ -159,7 +175,7 @@ class PostingsSeeder extends Seeder {
 
 		for ($i=0; $i < 100; $i++) {
 			$posting = new Posting;
-			$posting->user_id = User::first()->id + 1;
+			$posting->user_id = $firstUser->id + 1;
 			$posting->content = $faker->text;
 			$posting->expires_at = $in_two_weeks;
 			$posting->closed = false;
