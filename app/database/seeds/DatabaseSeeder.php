@@ -118,7 +118,7 @@ class PostingsSeeder extends Seeder {
 
 		$firstUser = User::first();
 
-		$in_two_weeks = addDays(new DateTime('now'), 14);
+		$in_two_weeks = \Carbon\Carbon::now()->addDays(14)->timestamp;
 
 		$for_sale = Category::where('name', '=', 'For Sale')->first()->id;
 		$auto = Category::where('name', '=', 'Automotive')->first()->id;

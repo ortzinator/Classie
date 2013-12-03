@@ -3,26 +3,21 @@
 use Ortzinator\Classie\Models\Posting;
 use Mockery as m;
 use Way\Tests\Factory;
+use Carbon\Carbon;
 
 class PostingTest extends TestCase {
 	use Way\Tests\ModelHelpers;
 
-	private function prepareForTests()
-	{
-		Artisan::call('migrate', ['--package' => 'cartalyst/sentry']);
-		Artisan::call('migrate');
-	}
-
 	public function setUp()
 	{
 		parent::setUp();
-
-		$this->prepareForTests();
+		Carbon::setTestNow(Carbon::create(2001, 6, 12, 12));
 	}
 
 	public function tearDown()
 	{
 		m::close();
+		Carbon::setTestNow();
 	}
 
 	public function testExtendsArdent()
@@ -39,65 +34,37 @@ class PostingTest extends TestCase {
 		$this->assertNotValid($posting);
 	}
 
-	// public function testIsValidWithValidData()
-	// {
-	// 	$posting = Factory::make('Ortzinator\Classie\Models\Posting');
-
-	// 	$mock = m::mock('Illuminate\Validation\PresenceVerifierInterface');
-	// 	$mock->shouldReceive('getCount')->once()->with('users', 'id', $posting->user_id, 
-	// 		null, null, array())->andReturn(true);
-	// 	$mock->shouldReceive('getCount')->once()->with('categories', 'id', $posting->category_id, 
-	// 		null, null, array())->andReturn(true);
-
-	// 	$v = Validator::make($posting->getAttributes(), $posting::$rules);
-	// 	$v->setPresenceVerifier($mock);
-
-	// 	$this->assertTrue($v->passes());
-	// }
-
-	// public function testIsInvalidWithInvalidCategoryId()
-	// {
-	// 	$posting = Factory::make('Ortzinator\Classie\Models\Posting');
-
-	// 	$mock = m::mock('Illuminate\Validation\PresenceVerifierInterface');
-	// 	$mock->shouldReceive('getCount')->once()->with('users', 'id', $posting->user_id, 
-	// 		null, null, array())->andReturn(true);
-	// 	$mock->shouldReceive('getCount')->once()->with('categories', 'id', $posting->category_id, 
-	// 		null, null, array())->andReturn(false);
-
-	// 	$v = Validator::make($posting->getAttributes(), $posting::$rules);
-	// 	$v->setPresenceVerifier($mock);
-
-	// 	$this->assertFalse($v->passes());
-	// }
-
-	// public function testIsInvalidWithInvalidUserId()
-	// {
-	// 	$posting = Factory::make('Ortzinator\Classie\Models\Posting');
-
-	// 	$mock = m::mock('Illuminate\Validation\PresenceVerifierInterface');
-	// 	$mock->shouldReceive('getCount')->once()->with('users', 'id', $posting->user_id, 
-	// 		null, null, array())->andReturn(false);
-	// 	$mock->shouldReceive('getCount')->once()->with('categories', 'id', $posting->category_id, 
-	// 		null, null, array())->andReturn(true);
-
-	// 	$v = Validator::make($posting->getAttributes(), $posting::$rules);
-	// 	$v->setPresenceVerifier($mock);
-
-	// 	$this->assertFalse($v->passes());
-	// }
-
 	public function testIsClosedWhenExpiresAtIsPast()
 	{
-		$posting = Factory::make('Ortzinator\Classie\Models\Posting', ['expires_at' => \Carbon\Carbon::yesterday()]);
+		$posting = Factory::make('Ortzinator\Classie\Models\Posting', ['expires_at' => Carbon::yesterday()]);
 
 		$this->assertTrue($posting->closed);
 	}
 
 	public function testIsNoClosedWhenExpiresAtIsFuture()
 	{
-		$posting = Factory::make('Ortzinator\Classie\Models\Posting', ['expires_at' => \Carbon\Carbon::tomorrow()]);
+		$posting = Factory::make('Ortzinator\Classie\Models\Posting', ['expires_at' => Carbon::tomorrow()]);
 
 		$this->assertFalse($posting->closed);
+	}
+
+	public function testExpiresAtSetWithNoneSet()
+	{
+		$posting = new Ortzinator\Classie\Models\Posting;
+		$posting->beforeSave();
+		$posting->save();
+
+		$this->assertInstanceOf('\Carbon\Carbon', $posting->expires_at);
+		$this->assertTrue($posting->expires_at->isFuture());
+	}
+
+	public function testExpiresAtSetWithDays()
+	{
+		$posting = new Ortzinator\Classie\Models\Posting;
+		$posting->days = 4;
+
+		$this->assertInstanceOf('\Carbon\Carbon', $posting->expires_at);
+		print_r($posting->expires_at->day);
+		$this->assertTrue($posting->expires_at->day == 16);
 	}
 }

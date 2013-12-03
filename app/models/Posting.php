@@ -1,5 +1,7 @@
 <?php namespace Ortzinator\Classie\Models;
 
+use Carbon\Carbon;
+
 class Posting extends \LaravelBook\Ardent\Ardent {
 
 	public static $rules = array(
@@ -45,10 +47,9 @@ class Posting extends \LaravelBook\Ardent\Ardent {
 	public function setDaysAttribute($value)
 	{
 		if(!is_int($value)) return;
-		$expires = new \DateTime('now');
-		$expires = addDays($expires, $value);
+		$expires = Carbon::now()->addDays($value);
 
-		$this->attributes['expires_at'] = $expires->getTimestamp();
+		$this->attributes['expires_at'] = $expires->timestamp;
 		$this->attributes['days'] = $value;
 	}
 
@@ -56,14 +57,14 @@ class Posting extends \LaravelBook\Ardent\Ardent {
 	{
 		if(!isset($this->attributes['expires_at']))
 		{
-			$expires = new \DateTime('now');
-			$this->attributes['expires_at'] = $expires->add(new \DateInterval('P2W'));
+			$expires = Carbon::now();
+			$this->attributes['expires_at'] = $expires->addWeeks(2)->timestamp;
 		}
 	}
 
 	public function hasExpired()
 	{
-		$date = \Carbon\Carbon::createFromTimeStamp(strtotime($this->attributes['expires_at']));
+		$date = Carbon::createFromTimeStamp(strtotime($this->attributes['expires_at']));
 		return $date->isPast();
 	}
 
@@ -74,11 +75,11 @@ class Posting extends \LaravelBook\Ardent\Ardent {
 
 	public function scopeClosed(\LaravelBook\Ardent\Builder $query)
 	{
-		return $query->where('expires_at', '<=', \Carbon\Carbon::now());
+		return $query->where('expires_at', '<=', Carbon::now());
 	}
 
 	public function scopeOpen(\LaravelBook\Ardent\Builder $query)
 	{
-		return $query->where('expires_at', '>', \Carbon\Carbon::now());
+		return $query->where('expires_at', '>', Carbon::now());
 	}
 }
