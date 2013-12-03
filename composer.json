@@ -1,6 +1,13 @@
 {
-	"name": "laravel/laravel",
-	"description": "The Laravel Framework.",
+	"name": "ortzinator/Classie",
+	"description": "Classie Classifieds",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Ortzinator",
+			"email": "ortzinator@gmail.com"
+		}
+	],
 	"keywords": ["framework", "laravel"],
 	"require": {
 		"laravel/framework": "4.0.*",
