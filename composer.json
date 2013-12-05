@@ -38,8 +38,7 @@
 		],
 		"psr-0": {
 			"Ortzinator": "app/lib"
-		},
-		"files": ["app/classie/helpers.php"]
+		}
 	},
 	"scripts": {
 		"post-install-cmd": [
