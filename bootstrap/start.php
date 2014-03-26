@@ -28,7 +28,7 @@ $app->redirectIfTrailingSlash();
 
 $env = $app->detectEnvironment(array(
 
-	'dev' => array('localhost', 'precise32'),
+	'dev' => array('localhost', 'precise32', 'classie.local', 'vaprobash'),
 
 ));
 
