@@ -22,7 +22,7 @@
 
 				<ul class="nav">
 					@if(Sentry::check())
-						<li>{{ HTML::linkRoute('posting.create', 'post classified', NULL, ['class' => 'highlight']) }}</li>
+						<li>{{ HTML::linkRoute('postings.create', 'post classified', NULL, ['class' => 'highlight']) }}</li>
 					@endif
 					
 					@foreach($pages as $page)

@@ -121,7 +121,8 @@ return array(
 		'Philf\Setting\SettingServiceProvider',
 		'McCool\LaravelAutoPresenter\LaravelAutoPresenterServiceProvider',
 		'Former\FormerServiceProvider',
-		'Stevemo\Cpanel\CpanelServiceProvider'
+		'Stevemo\Cpanel\CpanelServiceProvider',
+		'Way\Form\FormServiceProvider'
 	),
 
 	/*

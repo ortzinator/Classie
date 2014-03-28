@@ -7,7 +7,7 @@
 </div>
 
 {{ ($errors->any()) ? '<div>error!</div>' : '' }}
-{{ Form::model(Input::old(), ['route' => 'posting.store', 'class' => '']) }}
+{{ Form::model(Input::old(), ['route' => 'postings.store', 'class' => '']) }}
 
 <div class="control-group{{ ($errors->has('title')) ? ' error' : '' }}">
 	{{ Form::label('title', 'Title:') }}
