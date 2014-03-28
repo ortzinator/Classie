@@ -77,7 +77,7 @@ class PostingRepositoryEloquent implements PostingRepository
 		}
 
 		$return = $return->orderBy('created_at', 'desc');
-		return $return->paginate(50, ['postings.id', 'title', 'category_id', 'area', 'closed', 'expires_at']);
+		return $return->with('category')->paginate(50, ['postings.id', 'title', 'category_id', 'area', 'closed', 'expires_at']);
 	}
 
 	public function all($category = null)
