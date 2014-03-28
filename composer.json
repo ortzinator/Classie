@@ -16,7 +16,10 @@
 		"laravelbook/ardent": "dev-master",
 		"philf/setting": "dev-master",
 		"mccool/laravel-auto-presenter": "*",
-		"stevemo/cpanel": "dev-develop"
+		"stevemo/cpanel": "dev-develop",
+		"way/form": "dev-master",
+		"intervention/image": "dev-master",
+		"itsgoingd/clockwork": "1.*"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "3.7.*",

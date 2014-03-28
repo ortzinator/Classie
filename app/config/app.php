@@ -122,7 +122,8 @@ return array(
 		'McCool\LaravelAutoPresenter\LaravelAutoPresenterServiceProvider',
 		'Former\FormerServiceProvider',
 		'Stevemo\Cpanel\CpanelServiceProvider',
-		'Way\Form\FormServiceProvider'
+		'Way\Form\FormServiceProvider',
+        'Clockwork\Support\Laravel\ClockworkServiceProvider'
 	),
 
 	/*
@@ -191,7 +192,8 @@ return array(
 		'Markdown'		=> 'VTalbot\Markdown\Facades\Markdown',
 		'Profiler'		=> 'Juy\Profiler\Facades\Profiler',
 		'Former'		=> 'Former\Facades\Former',
-		'Sentry'		=> 'Cartalyst\Sentry\Facades\Laravel\Sentry'
+		'Sentry'		=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
+        'Clockwork' => 'Clockwork\Support\Laravel\Facade',
 	),
 
 );
