@@ -16,7 +16,6 @@
 		"laravelbook/ardent": "2.*",
 		"philf/setting": "dev-master",
 		"mccool/laravel-auto-presenter": "*",
-		"stevemo/cpanel": "dev-develop",
 		"intervention/image": "dev-master",
 		"itsgoingd/clockwork": "1.*"
 	},

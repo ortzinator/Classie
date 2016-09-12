@@ -114,7 +114,6 @@ return array(
 		'Ortzinator\Classie\ClassieServiceProvider',
 		'Philf\Setting\SettingServiceProvider',
 		'McCool\LaravelAutoPresenter\LaravelAutoPresenterServiceProvider',
-		'Stevemo\Cpanel\CpanelServiceProvider',
         'Clockwork\Support\Laravel\ClockworkServiceProvider'
 	),
 

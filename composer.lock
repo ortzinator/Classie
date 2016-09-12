@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3bd77b0b6ac5a8e4fa447af025b5baf8",
-    "content-hash": "e4bb29097d5ba8df8b3b279af1d66b88",
+    "hash": "9ed2cd255539c803707e0b3f8cb6c727",
+    "content-hash": "de467151d6d35b042b17979bf316cc68",
     "packages": [
         {
             "name": "cartalyst/sentry",
@@ -1340,58 +1340,6 @@
                 "stack"
             ],
             "time": "2016-06-02 07:00:00"
-        },
-        {
-            "name": "stevemo/cpanel",
-            "version": "dev-develop",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/stevemo/cpanel.git",
-                "reference": "0cf408cea82f0f4906b920b7ea875132fad2fbe5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/stevemo/cpanel/zipball/0cf408cea82f0f4906b920b7ea875132fad2fbe5",
-                "reference": "0cf408cea82f0f4906b920b7ea875132fad2fbe5",
-                "shasum": ""
-            },
-            "require": {
-                "cartalyst/sentry": "2.1.*",
-                "illuminate/support": "~4",
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/migrations"
-                ],
-                "psr-0": {
-                    "Stevemo\\Cpanel": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Steve Montambeault",
-                    "email": "steve@stevemo.ca"
-                }
-            ],
-            "description": "Admin Panel for Laravel 4 with User, Groups and Permissions management using Cartalyst Sentry as auth provider",
-            "homepage": "http://github.com/stevemo/cpanel",
-            "keywords": [
-                "Users",
-                "admin",
-                "backend",
-                "cartalyst",
-                "groups",
-                "laravel",
-                "permissions",
-                "sentry"
-            ],
-            "time": "2014-11-28 06:14:48"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3455,7 +3403,6 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "philf/setting": 20,
-        "stevemo/cpanel": 20,
         "intervention/image": 20,
         "mockery/mockery": 20,
         "way/laravel-test-helpers": 20,
