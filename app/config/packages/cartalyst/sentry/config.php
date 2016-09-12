@@ -120,7 +120,7 @@ return array(
 		|
 		*/
 
-		'model' => 'User',
+		'model' => 'Cartalyst\Sentry\Users\Eloquent\User',
 
 		/*
 		|--------------------------------------------------------------------------

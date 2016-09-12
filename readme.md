@@ -15,16 +15,13 @@ Open source classified ad software written in PHP and using the [Laravel](http:/
 
 ## Installing
 
-These instructions are for a **development** install only. The project is **not** ready for a 
-production environment.
+These instructions are for a **development** install only. The is **not** a stable release.
 
     >vagrant up
     >vagrant ssh
 
-    $ composer install --dev
+    $ composer install
     $ php artisan classie:install
-
-The Vagrant setup uses [rsync for folder syncing](https://docs.vagrantup.com/v2/synced-folders/rsync.html) This allows Classie to run much faster in the VM when Windows is the host OS. If you are on Linux or Mac it will be more convenient to use [NFS](https://docs.vagrantup.com/v2/synced-folders/nfs.html)
 
 This means you must either run `vagrant rsync` or `vagrant rsync-auto` to sync files to the VM.
 
