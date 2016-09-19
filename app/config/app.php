@@ -109,7 +109,6 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
-		'Cartalyst\Sentry\SentryServiceProvider',
 		'VTalbot\Markdown\MarkdownServiceProvider',
 		'Ortzinator\Classie\ClassieServiceProvider',
 		'Philf\Setting\SettingServiceProvider',
@@ -179,12 +178,8 @@ return array(
 		'URL'			=> 'Illuminate\Support\Facades\URL',
 		'Validator'		=> 'Illuminate\Support\Facades\Validator',
 		'View'			=> 'Illuminate\Support\Facades\View',
-		'Sentry'		=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 		'Markdown'		=> 'VTalbot\Markdown\Facades\Markdown',
-		'Profiler'		=> 'Juy\Profiler\Facades\Profiler',
-		'Former'		=> 'Former\Facades\Former',
-		'Sentry'		=> 'Cartalyst\Sentry\Facades\Laravel\Sentry',
-        'Clockwork' => 'Clockwork\Support\Laravel\Facade',
+		'Clockwork'		=> 'Clockwork\Support\Laravel\Facade',
 	),
 
 );

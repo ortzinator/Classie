@@ -20,13 +20,12 @@
 		"itsgoingd/clockwork": "1.*"
 	},
 	"require-dev": {
-		"phpunit/phpunit": "3.7.*",
+		"phpunit/phpunit": "5.7.*",
 		"mockery/mockery": "dev-master@dev",
 		"way/generators": "~2.0",
-		"way/laravel-test-helpers": "dev-master",
-		"fzaninotto/faker": "1.3.*@dev",
-		"codeception/codeception": "*",
-		"barryvdh/laravel-debugbar": "~1.8"
+		"fzaninotto/faker": "~1.4",
+		"barryvdh/laravel-debugbar": "~1.8",
+		"laracasts/integrated": "^0.15.6"
 	},
 	"autoload": {
 		"classmap": [
@@ -34,8 +33,7 @@
 			"app/controllers",
 			"app/models",
 			"app/database/migrations",
-			"app/database/seeds",
-			"app/tests/TestCase.php"
+			"app/database/seeds"
 		],
 		"psr-0": {
 			"Ortzinator": "app/lib"
@@ -43,10 +41,12 @@
 	},
 	"scripts": {
 		"post-install-cmd": [
+			"php artisan clear-compiled",
 			"php artisan optimize"
 		],
-		"pre-update-cmd": [
-			"php artisan clear-compiled"
+		"post-update-cmd": [
+			"php artisan clear-compiled",
+			"php artisan optimize"
 		],
 		"post-create-project-cmd": [
 			"php artisan key:generate"
