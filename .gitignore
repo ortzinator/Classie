@@ -1,8 +1,7 @@
-/bootstrap/compiled.php
+/node_modules
+/public/storage
 /vendor
-.DS_Store
-classie.sublime-workspace
-/app/database/production.sqlite
-/.vagrant/*
-/.tags*
-.idea/
+/.idea
+Homestead.json
+Homestead.yaml
+.env
