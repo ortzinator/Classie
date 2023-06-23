@@ -9,6 +9,11 @@ class PostsTableSeeder extends Seeder
 {
     public function run()
     {
-        TestDummy::times(50)->create('Classie\Post');
+        $user = TestDummy::create('Classie\User');
+        TestDummy::times(50)->create('Classie\Post',
+            [
+                'user_id' => $user->id
+
+            ]);
     }
 }
