@@ -1,11 +1,11 @@
-@extends('layout')
+@extends('layouts.app')
 
 @section('content')
     <form action="/posts" method="POST" role="form">
         {{ csrf_field() }}
 
         <legend>Create Post</legend>
-    
+
         @if($errors->count() > 0)
             <div class="alert alert-danger">
                 <ul>
@@ -15,7 +15,7 @@
                 </ul>
             </div>
         @endif
-    
+
         <div class="form-group">
             <label for="title">Title:</label>
             <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}">

@@ -2,9 +2,9 @@
 
 namespace Classie\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Classie\Http\Requests\PostRequest;
-use Classie\Post;
+use Classie\Models\Post;
+use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
