@@ -11,53 +11,64 @@ class PostTest extends TestCase
 {
     use RefreshDatabase;
 
+    public User $user;
+    public Post $post;
+
+    public function tearDown(): void
+    {
+        unset($this->user);
+        unset($this->post);
+
+        parent::tearDown();
+    }
+
     public function testPostsLoad()
     {
-        $this->get('/posts')
+        $this->get(route('posts.index'))
             ->assertSee('Posts');
     }
 
     public function testUsesLayout()
     {
-        $this->get('/posts')
+        $this->get(route('posts.index'))
             ->assertSee('Classie');
     }
 
     public function testCreateFormLoads()
     {
-        $this->get('/posts/create')
+        $this->get(route('posts.create'))
             ->assertSee('Create Post');
     }
 
     public function testCanCreatePost()
     {
-        $user = User::factory()->create();
-        $post = Post::factory()->make(['user_id' => $user->id]);
+        $this->user = User::factory()->create();
+        $this->post = Post::factory()->make(['user_id' => $this->user->id]);
 
-        $this->actingAs($user)
-            ->post(route('posts.store', $post->getAttributes()));
+        $this->actingAs($this->user)
+            ->post(route('posts.store', $this->post->getAttributes()));
 
-        $post = Post::first();
+        $this->post = Post::first();
 
-        $this->get(route('posts.show', $post->id))
+        $this->get(route('posts.show', $this->post->id))
             ->assertSessionHasNoErrors()
-            ->assertSee($post->title);
+            ->assertSee($this->post->title);
     }
 
     public function testSeeSubmittedPostInPostsList()
     {
-        $post = Post::factory()->create();
+        $this->post = Post::factory()->create();
 
-        $this->get('/posts')
-            ->assertSee($post->title);
+        $this->get(route('posts.index'))
+            ->assertSee($this->post->title);
     }
 
     public function testCanLoadPost()
     {
-        $post = Post::factory()->create();
+        $this->post = Post::factory()->create();
 
-        $this->get('posts/' . $post->id)
-            ->assertSee($post->title)
+        $this->get(route('posts.show', $this->post->id))
+            ->assertSee($this->post->title)
             ->assertOk();
     }
 }
