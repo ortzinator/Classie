@@ -2,12 +2,17 @@
 
 namespace Classie\Http\Controllers;
 
-use Classie\Http\Requests\PostRequest;
+use Classie\Http\Requests\CreatePostRequest;
 use Classie\Models\Post;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->only(['create', 'store']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +21,7 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::all();
-        return view('posts.list', compact('posts'));
+        return response()->view('posts.list', compact('posts'));
     }
 
     /**
@@ -26,22 +31,24 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        return response()->view('posts.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Classie\Http\Requests\PostsRequest  $request
+     * @param  \Classie\Http\Requests\CreatePostRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PostRequest $request)
+    public function store(CreatePostRequest $request)
     {
         $post = new Post();
         $post->user_id = $request->user()->id;
         $post->title = $request->title;
         $post->body = $request->body;
         $post->save();
+
+        return response()->redirectToRoute('posts.show', ['post' => $post->id]);
     }
 
     /**
@@ -52,9 +59,7 @@ class PostsController extends Controller
      */
     public function show(Post $post)
     {
-        //$post = $post->toArray();
-        // dd($post);
-        return view('posts.post', compact('post'));
+        return response()->view('posts.post', compact('post'));
     }
 
     /**

@@ -3,16 +3,20 @@
 namespace Classie\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
-class PostRequest extends FormRequest
+class CreatePostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
+        if (!Auth::check()) {
+            return false;
+        }
         return true;
     }
 
@@ -21,11 +25,11 @@ class PostRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'title' => 'required',
-            'body'  => 'required'
+            'body' => 'required'
         ];
     }
 }

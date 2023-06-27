@@ -14,29 +14,28 @@ class PostTest extends TestCase
     public User $user;
     public Post $post;
 
-    public function tearDown(): void
-    {
-        unset($this->user);
-        unset($this->post);
-
-        parent::tearDown();
-    }
-
     public function testPostsLoad()
     {
         $this->get(route('posts.index'))
+            ->assertOk()
             ->assertSee('Posts');
     }
 
     public function testUsesLayout()
     {
         $this->get(route('posts.index'))
+            ->assertOk()
             ->assertSee('Classie');
     }
 
     public function testCreateFormLoads()
     {
-        $this->get(route('posts.create'))
+        $this->user = User::factory()->create();
+        $this->post = Post::factory()->make(['user_id' => $this->user->id]);
+
+        $this->actingAs($this->user)
+            ->get(route('posts.create'))
+            ->assertOk()
             ->assertSee('Create Post');
     }
 
@@ -45,14 +44,20 @@ class PostTest extends TestCase
         $this->user = User::factory()->create();
         $this->post = Post::factory()->make(['user_id' => $this->user->id]);
 
-        $this->actingAs($this->user)
-            ->post(route('posts.store', $this->post->getAttributes()));
+        $response = $this->actingAs($this->user)
+            ->post(route('posts.store', $this->post->getAttributes()))
+            ->assertRedirect(route('posts.show', 1));
 
-        $this->post = Post::first();
-
-        $this->get(route('posts.show', $this->post->id))
-            ->assertSessionHasNoErrors()
+        $this->followRedirects($response)
             ->assertSee($this->post->title);
+    }
+
+    public function testCannotCreatePostWhileGuest()
+    {
+        $this->post = Post::factory()->make();
+
+        $this->post(route('posts.store', $this->post->getAttributes()))
+            ->assertRedirect(route('login'));
     }
 
     public function testSeeSubmittedPostInPostsList()
@@ -60,6 +65,7 @@ class PostTest extends TestCase
         $this->post = Post::factory()->create();
 
         $this->get(route('posts.index'))
+            ->assertOk()
             ->assertSee($this->post->title);
     }
 
@@ -68,7 +74,7 @@ class PostTest extends TestCase
         $this->post = Post::factory()->create();
 
         $this->get(route('posts.show', $this->post->id))
-            ->assertSee($this->post->title)
-            ->assertOk();
+            ->assertOk()
+            ->assertSee($this->post->title);
     }
 }
