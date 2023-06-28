@@ -11,10 +11,11 @@ class PostsTableSeeder extends Seeder
 {
     public function run()
     {
+        /** @var User $user */
         $user = User::factory()->create([
-                'email' => 'admin@classie.com',
-                'password' => bcrypt('password')
-            ]);
+            'email' => 'admin@classie.com',
+            'password' => bcrypt('password')
+        ]);
         Post::factory()
             ->count(50)
             ->create([

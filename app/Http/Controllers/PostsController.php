@@ -5,6 +5,7 @@ namespace Classie\Http\Controllers;
 use Classie\Http\Requests\CreatePostRequest;
 use Classie\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
@@ -20,7 +21,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::orderBy('updated_at')->simplePaginate(10);
         return response()->view('posts.list', compact('posts'));
     }
 
@@ -43,9 +44,9 @@ class PostsController extends Controller
     public function store(CreatePostRequest $request)
     {
         $post = new Post();
-        $post->user_id = $request->user()->id;
-        $post->title = $request->title;
-        $post->body = $request->body;
+        $post->user_id = Auth::id();
+        $post->title = $request['title'];
+        $post->body = $request['body'];
         $post->save();
 
         return response()->redirectToRoute('posts.show', ['post' => $post->id]);

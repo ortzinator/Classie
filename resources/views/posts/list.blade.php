@@ -2,12 +2,18 @@
 
 @section('content')
     <div class="container">
-        <h1>Posts</h1>
+        <h1>Most Recent Posts</h1>
 
-        <ul class="list-group">
-            @foreach($posts as $post)
-                <li class="list-group-item">{{ $post->title }}</li>
-            @endforeach
-        </ul>
+        @if($posts->isEmpty())
+            <h3>Oops, there are no posts.</h3>
+        @else
+            <ul class="list-group">
+                @foreach($posts as $post)
+                    <li class="list-group-item">{{ $post->title }}</li>
+                @endforeach
+            </ul>
+
+            {{ $posts->links() }}
+        @endif
     </div>
 @endsection
