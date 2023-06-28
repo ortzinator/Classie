@@ -21,7 +21,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('updated_at')->simplePaginate(10);
+        $posts = Post::orderBy('updated_at')->simplePaginate(20);
         return response()->view('posts.list', compact('posts'));
     }
 
@@ -55,7 +55,7 @@ class PostsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Post  $post
      * @return \Illuminate\Http\Response
      */
     public function show(Post $post)

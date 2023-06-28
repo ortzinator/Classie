@@ -7,13 +7,34 @@
         @if($posts->isEmpty())
             <h3>Oops, there are no posts.</h3>
         @else
-            <ul class="list-group">
+            <div class="row row-cols-4 g-4">
                 @foreach($posts as $post)
-                    <li class="list-group-item">{{ $post->title }}</li>
+                    <div class="col">
+                        <a href="{{ route('posts.show', $post->id) }}">
+                            <div class="card h-100">
+                                <svg class="card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg"
+                                     role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice"
+                                     focusable="false">
+                                    <title>Placeholder</title>
+                                    <rect width="100%" height="100%" fill="#868e96"></rect>
+                                </svg>
+                                <div class="card-body">
+                                    <h5 class="card-text">{{ $post->title }}</h5>
+                                </div>
+                                <div class="card-footer">
+                                    Posted <span title="{{ $post->created_at }}">
+                                        {{ $post->created_at->diffForHumans() }}
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
                 @endforeach
-            </ul>
+            </div>
 
-            {{ $posts->links() }}
+            <div class="mt-4">
+                {{ $posts->links() }}
+            </div>
         @endif
     </div>
 @endsection
