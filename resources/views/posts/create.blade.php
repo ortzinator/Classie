@@ -23,7 +23,7 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label" for="body">Body:</label>
+                <label class="form-label" for="body">Description:</label>
                 <textarea name="body" id="body" class="form-control" rows="3">{{ old('body') }}</textarea>
             </div>
 
