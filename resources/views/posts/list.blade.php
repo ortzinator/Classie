@@ -11,7 +11,7 @@
                 @foreach($posts as $post)
                     <div class="col">
                         <a href="{{ route('posts.show', $post->id) }}">
-                            <div class="card h-100">
+                            <div class="card h-100 bg-light">
                                 <svg class="card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg"
                                      role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice"
                                      focusable="false">

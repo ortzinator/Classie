@@ -1,5 +1,5 @@
 // Body
-$body-bg: #f5f8fa;
+$body-bg: #fff;
 
 $theme-colors: (
         "primary": #69abd1,
@@ -8,7 +8,7 @@ $theme-colors: (
         "info": #8eb4cb,
         "warning": #cbb956,
         "danger": #bf5329,
-        "light": darken($body-bg, 5%),
+        "light": #fff,
         "dark": darken($body-bg, 50%)
 );
 
