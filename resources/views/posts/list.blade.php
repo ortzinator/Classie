@@ -7,17 +7,16 @@
         @if($posts->isEmpty())
             <h3>Oops, there are no posts.</h3>
         @else
-            <div class="row row-cols-4 g-4">
+            <div class="row row-cols-md-4 row-cols-1 g-4">
                 @foreach($posts as $post)
                     <div class="col">
                         <a href="{{ route('posts.show', $post->id) }}">
-                            <div class="card h-100 bg-light">
-                                <svg class="card-img-top" width="100%" height="180" xmlns="http://www.w3.org/2000/svg"
-                                     role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice"
-                                     focusable="false">
-                                    <title>Placeholder</title>
-                                    <rect width="100%" height="100%" fill="#868e96"></rect>
-                                </svg>
+                            <div class="card bg-light">
+                                <div class="ratio ratio-4x3">
+                                    <img src="https://placekitten.com/400/400"
+                                         class="card-img-top object-fit-cover"
+                                         alt="placekitten">
+                                </div>
                                 <div class="card-body">
                                     <h5 class="card-text">{{ $post->title }}</h5>
                                 </div>
