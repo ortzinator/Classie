@@ -14,10 +14,7 @@ class CreatePostRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (!Auth::check()) {
-            return false;
-        }
-        return true;
+        return Auth::check();
     }
 
     /**
@@ -29,7 +26,29 @@ class CreatePostRequest extends FormRequest
     {
         return [
             'title' => 'required|min:5',
-            'body' => 'required|min:10'
+            'body' => 'required|min:10',
+            'images.*' => 'nullable|json',
         ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'title.required' => 'Title is required',
+            'title.min' => 'Title must be at least 5 characters',
+            'body.required' => 'Body is required',
+            'body.min' => 'Body must be at least 10 characters',
+        ];
+    }
+
+    public function passedValidation()
+    {
+        if ($this->has('images')) {
+            $images = [];
+            foreach ($this->input('images') as $image) {
+                $images[] = json_decode($image);
+            }
+            $this->merge(['images' => $images]);
+        }
     }
 }

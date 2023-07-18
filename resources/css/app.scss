@@ -1,12 +1,40 @@
-// Fonts
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
-
-// Variables
 @import "variables";
-
-// Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
 .alert > :last-child {
   margin-bottom: 0;
+}
+
+.bg-blur {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(1px);
+}
+
+.btn {
+  &-secondary {
+    color: $gray-900;
+    background-color: $white;
+    border-color: #ccc;
+
+    &:hover {
+      color: $gray-900;
+      background-color: $gray-300;
+      border-color: $gray-500;
+    }
+
+    &.disabled {
+      color: tint-color($gray-900, 5%);
+      background-color: $white;
+      border-color: tint-color(#ccc, 5%);
+    }
+  }
+}
+
+.group:hover .group-hover\:visible {
+  visibility: visible !important;
+}
+
+.opacity-100-hover:hover {
+  opacity: 1;
 }

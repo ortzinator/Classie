@@ -9,21 +9,23 @@
   "type": "project",
   "require": {
     "php": "^7.4|^8.0",
-    "laravel/framework": "^8.0",
-    "laravel/tinker": "^2.5",
     "fideloper/proxy": "^4.4",
     "fruitcake/laravel-cors": "^2.0",
     "guzzlehttp/guzzle": "^7.0.1",
+    "intervention/image": "^2.7",
+    "laravel/framework": "^8.0",
+    "laravel/tinker": "^2.5",
     "laravel/ui": "^3.0"
   },
   "require-dev": {
-    "mockery/mockery": "^1.4.4",
-    "phpunit/phpunit": "^9.5.10",
-    "symfony/css-selector": "3.1.*",
-    "symfony/dom-crawler": "3.1.*",
+    "barryvdh/laravel-debugbar": "^3.7",
     "facade/ignition": "^2.5",
     "fakerphp/faker": "^1.9.1",
-    "nunomaduro/collision": "^5.10"
+    "mockery/mockery": "^1.4.4",
+    "nunomaduro/collision": "^5.10",
+    "phpunit/phpunit": "^9.5.10",
+    "symfony/css-selector": "3.1.*",
+    "symfony/dom-crawler": "3.1.*"
   },
   "autoload": {
     "psr-4": {

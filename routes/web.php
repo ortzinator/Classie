@@ -1,16 +1,6 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| This file is where you may define all of the routes that are handled
-| by your application. Just tell Laravel the URIs it should respond
-| to using a Closure or controller method. Build something great!
-|
-*/
-
+use Classie\Http\Controllers\FileUploadController;
 use Classie\Http\Controllers\HomeController;
 use Classie\Http\Controllers\PostsController;
 use Illuminate\Support\Facades\Auth;
@@ -27,3 +17,5 @@ Route::group(['namespace' => 'Classie\Http\Controllers'], function () {
 });
 
 Route::get('/home', [HomeController::class, 'index']);
+
+Route::post('/upload', [FileUploadController::class, 'store']);
