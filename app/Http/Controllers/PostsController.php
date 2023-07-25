@@ -40,15 +40,12 @@ class PostsController extends Controller
         $post->body = $request['body'];
         $post->save();
 
-        foreach ($request['images'] as $image) {
-            $path = 'tmp/' . $image->src;
-            $thumbPath = 'tmp/th_' . $image->src;
-            //            dd(Storage::disk('public')->path($path));
-            //            dd(Storage::disk('public')->exists('tmp/' . $image->src));
-            //            dd(Storage::disk('public')->exists($path));
-            Storage::disk('public')->move('tmp/' . $image->src, 'images/' . $image->src);
-            Storage::disk('public')->move('tmp/th_' . $image->src, 'images/th_' . $image->src);
-            $post->images()->create(['file' => $image->src, 'post_id' => $post->id]);
+        if ($request->has('images')) {
+            foreach ($request['images'] as $image) {
+                Storage::disk('public')->move('tmp/' . $image->src, 'images/' . $image->src);
+                Storage::disk('public')->move('tmp/th_' . $image->src, 'images/th_' . $image->src);
+                $post->images()->create(['file' => $image->src, 'post_id' => $post->id]);
+            }
         }
 
         return response()->redirectToRoute('posts.show', ['post' => $post->id]);
