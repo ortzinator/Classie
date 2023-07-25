@@ -14,24 +14,26 @@
 
             <legend>Create Post</legend>
 
-            @if($errors->count() > 0)
-                <div class="alert alert-danger">
-                    <ul class="list-unstyled">
-                        @foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
             <div class="mb-3">
                 <label class="form-label" for="title">Title:</label>
-                <input type="text" name="title" class="form-control" id="title" value="{{ old('title') }}">
+                <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" id="title"
+                       value="{{ old('title') }}" required>
+                @error('title')
+                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                @enderror
             </div>
 
             <div class="mb-3">
                 <label class="form-label" for="body">Description:</label>
-                <textarea name="body" id="body" class="form-control" rows="3">{{ old('body') }}</textarea>
+                <textarea name="body" id="body" class="form-control @error('body') is-invalid @enderror" rows="3"
+                          required>{{ old('body') }}</textarea>
+                @error('body')
+                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                @enderror
             </div>
 
             <div class="mb-2 bg-body p-3 border">
